@@ -1,0 +1,98 @@
+@charset "ISO-8859-1";
+
+.sc-main{
+	background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),url(../img/menu-image.jpg) no-repeat 50% 50% !important;
+	background-size: cover !important;
+	position: relative;
+}
+
+.sc-main-intranet{
+	background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),url(../img/intranet-header.jpg) no-repeat 50% 50% !important;
+	background-size: cover !important;
+	position: relative;
+}
+
+.sc-main-intranet-perfiles{
+	background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),url(../img/intranet-header.jpg) no-repeat 50% 50% !important;
+	background-size: cover !important;
+	position: relative;
+}
+
+.sc-main-intranet-perfiles2{
+	background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),url(../img/intranet-header.jpg) no-repeat 50% 50% !important;
+	background-size: cover !important;
+	position: relative;
+}
+
+
+.sc-main.segment{
+	min-height: 100vh;
+}
+
+.sc-main-intranet.segment{
+	min-height: 100vh;
+}
+
+.sc-main-intranet-perfiles.segment{
+	min-height: 50vh;
+}
+
+.sc-main-intranet-perfiles2.segment{
+	min-height: 30vh;
+}
+
+.sc-header-content{
+	position:absolute;
+	top: 50%;
+	left:50%;
+	transform: translate(-50%, -50%);
+	min-width: 80%;
+}
+
+#divblack{
+	position:fixed;
+	top: 0;
+	left:0;
+	width:100%;
+	height:67px;
+	padding:10px 100px;
+	box-sizing:border-box;
+	transition: .8s;
+}
+
+.following.bar {
+    position: fixed;
+    top: 0px;
+    z-index: 900;
+    left: 0%;
+    padding: 2em 0em;
+    width: 100%;
+    box-shadow: 0px 0px 0px 0px transparent;
+    border-bottom: 1px solid transparent;
+    transition: padding 0.5s ease, background 0.5s ease, box-shadow 0.5s ease, border 0.5s ease;
+}
+
+.greysi.following.bar {
+    padding: 0em 0em;
+    background-color: rgba(0,0,0,0.8);
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.04);
+}
+
+.hidden-btn{
+	padding: 0em 0em;
+	margin: 0em 0em;
+	background-color: transparent;
+	box-shadow: 0px 0px 0px 0px transparent;
+	border: 1px solid transparent;
+	color: rgba(255, 255, 255, 0.7);
+}
+
+.hidden.btn:hover{
+	color: rgba(255, 255, 255, 1);
+}
+
+.bor{
+	border: 1px solid transparent; 
+	box-shadow: none;
+}
+
