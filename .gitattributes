@@ -2,3 +2,5 @@
 *.html linguist-detectable=false
 *.xml linguist-detectable=false
 *.rb linguist-language=Java
+special-vendored-path/* linguist-vendored
+jquery.js linguist-vendored=false
