@@ -1,3 +1,2 @@
 *.js linguist-vendored
-special-vendored-path/* linguist-vendored
-*css linguist-vendored=false
+src/main/resources/* linguist-vendored
