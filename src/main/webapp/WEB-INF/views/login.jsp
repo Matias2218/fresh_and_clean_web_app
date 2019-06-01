@@ -10,7 +10,7 @@
 	crossorigin="anonymous"></script>
 <script src="\semantic\out\semantic.min.js"></script>
 <meta charset="UTF-8" />
-<title>Login</title>
+<title>Intranet</title>
 <script type="text/javascript">
 	$(window).on('scroll', function() {
 		if ($(window).scrollTop()) {
@@ -90,6 +90,23 @@
 										<i class="lock icon"></i>
 									</div>
 								</div>
+
+								<div class="field">
+									<!-- Mensajes de Alerta -->
+									<c:if test = "${error!=null}">
+										<div class="ui red message" style="font-size: xx-small"><c:out value = "${error}"/></div>
+									</c:if>
+
+									<c:if test = "${logout!=null}">
+										<div class="ui yellow message" style="font-size: xx-small"><c:out value = "${logout}"/></div>
+									</c:if>
+
+									<c:if test = "${errorServidor!=null}">
+										<div class="ui red message" style="font-size: xx-small"><c:out value = "${errorServidor}"/></div>
+									</c:if>
+									<!-- Mensajes de Alerta -->
+								</div>
+
 								<input type="submit" value="Iniciar Sesion"
 									class="ui inverted olive submit button" />
 							</div>
@@ -100,18 +117,7 @@
 		</div>
 	</div>
 
-	<!-- Mensajes -->
-	<c:if test = "${error!=null}">
-		<c:out value = "${error}"/>
-	</c:if>
-	<c:if test = "${logout!=null}">
-		<c:out value = "${logout}"/>
-	</c:if>
-	<c:if test = "${errorServidor!=null}">
-		<c:out value = "${errorServidor}"/>
-	</c:if>
 	<div style="height: 50px;"></div>
-
 	<!-- FOOTER -->
 	<div class="ui inverted vertical footer segment">
 		<div class="ui center aligned container">

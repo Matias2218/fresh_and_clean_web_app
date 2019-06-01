@@ -96,3 +96,12 @@
 	box-shadow: none;
 }
 
+.titulos-centrados{
+	text-align: center;
+	align-content: center;
+}
+
+.margenes{
+	margin-top: 10%;
+
+}

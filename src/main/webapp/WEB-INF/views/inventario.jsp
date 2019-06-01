@@ -11,7 +11,7 @@
 <script src="\semantic\out\semantic.min.js"></script>
 <meta charset="UTF-8" />
 <link rel="stylesheet" href="\stylesheets\styles.css">
-<title>Login</title>
+<title>Bienvenido Gerente</title>
 <script type="text/javascript">
 	$(window).on('scroll', function() {
 		if ($(window).scrollTop()) {
@@ -20,10 +20,6 @@
 			$('#divblack').removeClass('greysi fixed');
 		}
 	})
-
-	$('.special.cards .image').dimmer({
-		on : 'hover'
-	});
 </script>
 </head>
 <body>
@@ -51,7 +47,6 @@
 				<h1 class="ui inverted header" style="font-size: 50px;">INVENTARIO</h1>
 				<p class="ui inverted header" style="padding-bottom: 10px;">Bienvenido
 					al perfil de Inventario</p>
-				</a>
 			</div>
 		</div>
 	</div>
@@ -60,54 +55,75 @@
 	<div style="height: 50px;"></div>
 
 	<div class="ui container">
-		<div class="ui segments">
-			<div class="ui segment">
-				<button type="button"
-					onclick="location.href='/intranet/inventario/crearProducto'"
-					class="ui button">Crear Producto</button>
-			</div>
-		</div>
 		
 		<div class="ui segments">
 			<div class="ui segment">
+
+				<div class="ui horizontal section divider">Productos en Inventario</div>
 				<div class="ui three column grid container">
 				<c:forEach begin="0" var="i" end="${fn:length(productos)-1}">
 						<div class="column">
-							<div class="ui segment"><a href="/intranet/inventario/editarProducto/${productos[i].id}"><img
-									style="width: 64px;"
-									src="http://localhost:8081/api/uploads/img/${productos[i].imagen}"></a></div>
+							<script>
+								$('.special.cards .image').dimmer({
+									on : 'hover'
+								});
+							</script>
+							<div class="ui special cards">
+								<div class="card" STYLE="height: 410px;">
+									<div class="blurring dimmable image">
+										<div class="ui dimmer">
+											<div class="content">
+												<div class="center">
+													<div class="ui inverted button" onclick="location.href='/intranet/inventario/editarProducto/${productos[i].id}'">Editar</div>
+												</div>
+											</div>
+										</div>
+										<img src="http://localhost:8081/api/uploads/img/${productos[i].imagen}">
+									</div>
+									<div class="content">
+										<a class="header">${productos[i].nombre}</a>
+										<div class="meta">
+											<span class="date">${productos[i].marca.nombre}</span>
+										</div>
+									</div>
+									<div class="extra content">
+										<a href="/intranet/inventario/editarProducto/${productos[i].id}">
+											<i class="clipboard list icon"></i> Stock: ${productos[i].stock}
+										</a>
+									</div>
+								</div>
+							</div>
 						</div>
 				</c:forEach>
 				</div>
 
-				<table border="1" cellpadding="5" cellspacing="5">
-					<tr>
+					<div class="ui horizontal section divider">
+				<div class="ui pagination menu margenes">
 						<c:if test="${page.pageNumber != 0}">
-							<td><a href="/intranet/inventario/1}">Primera</a></td>
+							<a href="/intranet/inventario/1}" class="item">Primera</a>
 						</c:if>
 						<c:if test="${page.pageNumber != 0}">
-							<td><a href="/intranet/inventario/${(page.pageNumber+1) - 1}">&laquo;</a></td>
+							<a href="/intranet/inventario/${(page.pageNumber+1) - 1}" class="item">&laquo;</a>
 						</c:if>
 						<c:forEach begin="1" end="${totalPaginas}" var="i">
 							<c:choose>
 								<c:when test="${page.pageNumber+1 eq i}">
-									<td>${i}</td>
+									<a class="item">${i}</a>
 								</c:when>
 								<c:otherwise>
-									<td><a href="/intranet/inventario/${i}">${i}</a></td>
+									<a href="/intranet/inventario/${i}" class="item">${i}</a>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
 						<c:if test="${page.pageNumber+1 < totalPaginas}">
-							<td><a href="/intranet/inventario/${(page.pageNumber+1) + 1}">&raquo;</a></td>
+							<a href="/intranet/inventario/${(page.pageNumber+1) + 1}" class="item">&raquo;</a>
 						</c:if>
 						<c:if test="${page.pageNumber+1 < totalPaginas}">
-							<td><a href="/intranet/inventario/${totalPaginas}">Ultima</a></td>
+							<a href="/intranet/inventario/${totalPaginas}" class="item">Ultima</a>
 						</c:if>
 					</tr>
-				</table>
-
-
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

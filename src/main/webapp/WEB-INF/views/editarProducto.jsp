@@ -23,10 +23,6 @@
 			$('#divblack').removeClass('greysi fixed');
 		}
 	})
-
-	$('.special.cards .image').dimmer({
-		on : 'hover'
-	});
 </script>
 </head>
 <body>
@@ -35,7 +31,7 @@
 	<!-- HEADER -->
 	<div classs="pusher">
 		<div
-			class="ui vertical sc-main-intranet-perfiles2 center aligned segment">
+			class="ui vertical sc-main-intranet-perfiles center aligned segment">
 			<div class="ui container">
 				<div id="divblack" class="following bar ">
 					<div class="ui large secondary inverted pointed fixed menu">
@@ -43,7 +39,7 @@
 							class="reply icon"></i></a>
 
 						<div class="right item">
-							<a class="item" href="/intranet/inventario/">Perfil</a> <a type="button"
+							<a class="item" href="/intranet/inventario/">Perfil Inventario</a> <a type="button"
 								onclick="location.href='/intranet/inventario/crearProducto'"
 								class="item">Crear Producto</a> <a class="item" href="#">Servicios</a>
 							<a class="item" href="#">Nosotros</a>
@@ -63,18 +59,15 @@
 		</div>
 	</div>
 	<!-- END HEADER -->
-	<div style="height: 50px;"></div>
 
-
-	<div class="ui form one column stackable grid container">
-		<div class="column">
-			<h2 class="ui dividing header">Editar</h2>
-		</div>
-	</div>
 
 	<form:form method="post" action="/intranet/inventario/editarProducto"
 		enctype="multipart/form-data" modelAttribute="producto"
-		class="ui bor form two column stackable grid container">
+		>
+		<div class="column">
+			<div class="ui horizontal section divider">Editar</div>
+		</div>
+	<div class="ui bor form two column stackable grid container">
 		<div class="column">
 			<div class="ui segment"
 				style="border: 1px solid transparent; box-shadow: none;">
@@ -124,7 +117,7 @@
 				<div class="field">
 					<label>Foto</label> <img id="imagenSalida" name="imagenSalida"
 						src="http://localhost:8081/api/uploads/img/${producto.imagen}"
-						class="ui medium centered bordered rounded image">
+						class="ui medium  bordered rounded image">
 
 					<!--<input type="file" name="file" id="foto" onchange="readURL(this)"
 							accept=".png, .jpg, .jpeg" />-->
@@ -138,8 +131,14 @@
 
 
 					<div id="preview"></div>
-					<input type="submit" class="ui olive button centered" value="Editar" style="margin-top:10px;"/>
+
 				</div>
+			</div>
+		</div>
+	</div>
+		<div class="column">
+			<div class="ui horizontal section divider">
+				<input type="submit" class="ui olive button centered" value="Editar" style="margin-top:10px;"/>
 			</div>
 		</div>
 	</form:form>
