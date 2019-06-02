@@ -67,8 +67,6 @@ public class FinanzaVistaPDF extends AbstractPdfView {
             table.addCell(cell);
             montoTotal+= boleta.montoTotal;
         });
-
-
         PdfPTable table2 = new PdfPTable(4);
         cell = new PdfPCell(new Phrase(String.format("Total mes de %s %s",mes,año),font));
         cell.setColspan(3);
@@ -77,9 +75,6 @@ public class FinanzaVistaPDF extends AbstractPdfView {
         cell = new PdfPCell(new Phrase("$".concat(montoTotal.toString()),font));
         cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
         table2.addCell(cell);
-
-
-
         document.add(image);
         document.add(paragraph);
         document.add(table);

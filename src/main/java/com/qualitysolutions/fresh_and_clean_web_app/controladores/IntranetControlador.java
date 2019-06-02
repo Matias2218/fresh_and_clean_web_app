@@ -203,6 +203,13 @@ public class IntranetControlador {
         model.addAttribute("mesesBoletas",mesesBoletas);
         return "informes";
     }
+
+    @Secured("ROLE_GERENTE")
+    @GetMapping(value = "gerente/informes/finanzas")
+    public String recargarInformeFinanzas()
+    {
+        return "redirect:/intranet/gerente/informes";
+    }
     @Secured("ROLE_GERENTE")
     @PostMapping(value = "gerente/informes/finanzas")
     public String informeFinanzas(Model model,
@@ -235,6 +242,16 @@ public class IntranetControlador {
         model.addAttribute("boletas",boletas);
         return "FinanzaVistaPDF";
     }
+
+    @Secured("ROLE_GERENTE")
+    @GetMapping(value = "gerente/informes/atencionBarberos")
+    public String informeFinanzas(Model model) {
+        List<String[]> barberos = usuarioServicio.barberoConMasAtenciones();
+        model.addAttribute("barberos",barberos);
+        return "BarberoAtencionPDF";
+    }
+
+
     @Secured("ROLE_INVENTARIO")
     @GetMapping("inventario/crearProducto")
     public String vistaCrearProducto(Model model)

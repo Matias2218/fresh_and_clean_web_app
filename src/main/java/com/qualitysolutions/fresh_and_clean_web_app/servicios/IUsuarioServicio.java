@@ -11,5 +11,6 @@ public interface IUsuarioServicio {
     List<Boleta> findAllBoletas();
     List<Integer> findAllDistinctBoletas();
     Map<String,String> findAllMesesBoletas();
+    List<String[]> barberoConMasAtenciones();
     List<Boleta> findAllByAnoAndByMes(Integer año,Integer mes);
  }

@@ -12,17 +12,7 @@
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="\stylesheets\styles.css">
     <title>Informes</title>
-    <script type="text/javascript">
-        $(window).on('scroll', function() {
-            if ($(window).scrollTop()) {
-                $('#divblack').addClass('greysi fixed');
-            } else {
-                $('#divblack').removeClass('greysi fixed');
-            }
-        })
-        $('select.dropdown')
-            .dropdown()
-        ;
+    <script  src="/js/funcionesInformes.js">
     </script>
 </head>
 <body>
@@ -88,6 +78,22 @@ ${empleado.persona.nombre}
     </div>
     </div>
 </form>
+
+<div class="ui horizontal section divider">Atención de barberos</div>
+
+    <div class="ui container">
+        <div class="ui form">
+            <div class="ui two column grid container">
+
+            </div>
+        </div>
+        <div class="column">
+            <div class="ui horizontal section divider">
+                <button type="button" id="btnPdf" class="ui olive button centered" style="margin-top:10px;">Generar PDF</button>
+            </div>
+        </div>
+    </div>
+
 
     <div style="height: 50px;"></div>
     <!-- FOOTER -->

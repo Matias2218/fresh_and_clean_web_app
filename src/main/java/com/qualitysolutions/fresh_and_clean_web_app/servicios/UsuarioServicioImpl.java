@@ -2,6 +2,7 @@ package com.qualitysolutions.fresh_and_clean_web_app.servicios;
 
 import com.qualitysolutions.fresh_and_clean_web_app.dao.IBoletaDao;
 import com.qualitysolutions.fresh_and_clean_web_app.dao.IEmpleadoDao;
+import com.qualitysolutions.fresh_and_clean_web_app.dao.IPersonaDao;
 import com.qualitysolutions.fresh_and_clean_web_app.modelos.Boleta;
 import com.qualitysolutions.fresh_and_clean_web_app.modelos.Empleado;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
     IEmpleadoDao empleadoDao;
     @Autowired
     IBoletaDao boletaDao;
+
+    @Autowired
+    IPersonaDao personaDao;
 
     @Override
     @Transactional(readOnly = true)
@@ -44,6 +48,11 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
             mesesReturn.put(o[0].toString(),o[1].toString());
         });
         return mesesReturn;
+    }
+
+    @Override
+    public List<String[]> barberoConMasAtenciones() {
+        return personaDao.barberoConMasAntenciones();
     }
 
     @Override
