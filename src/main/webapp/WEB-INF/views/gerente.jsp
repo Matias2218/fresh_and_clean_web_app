@@ -9,7 +9,7 @@
     <script src="\semantic\out\semantic.min.js"></script>
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="\stylesheets\styles.css">
-    <title>Bienvenido Gerente</title>
+    <title>Bienvenido ${persona.nombre}</title>
     <script type="text/javascript">
         $(window).on('scroll', function() {
             if ($(window).scrollTop()) {
@@ -45,7 +45,7 @@
             </div>
         </div>
         <div class="ui text sc-header-content container">
-            <h1 class="ui inverted header" style="font-size: 50px;">GERENTE</h1>
+            <h1 class="ui inverted header" style="font-size: 50px;">${persona.nombre}</h1>
             <p class="ui inverted header" style="padding-bottom: 10px;">Bienvenido
                 al perfil de Gerente</p>
         </div>

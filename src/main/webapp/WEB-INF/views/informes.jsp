@@ -48,12 +48,10 @@
 
 <div class="ui horizontal section divider">Informes según mes</div>
 
-${empleado.persona.nombre}
-<form method="post" action="/intranet/gerente/informes/finanzas?format=pdf" >
+<form method="post" target="_blank" action="/intranet/gerente/informes/finanzas?format=pdf" >
     <div class="ui container">
     <div class="ui form">
         <div class="ui two column grid container">
-
             <div class="column">
             <select name="cmbAñoBoleta" class="field">
                 <c:forEach var="añoBoleta" items="${añosBoletas}">

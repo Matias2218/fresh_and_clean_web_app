@@ -44,7 +44,7 @@
 				</div>
 			</div>
 			<div class="ui text sc-header-content container">
-				<h1 class="ui inverted header" style="font-size: 50px;">INVENTARIO</h1>
+				<h1 class="ui inverted header" style="font-size: 50px;">${persona.nombre}</h1>
 				<p class="ui inverted header" style="padding-bottom: 10px;">Bienvenido
 					al perfil de Inventario</p>
 			</div>

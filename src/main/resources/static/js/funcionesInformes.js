@@ -10,6 +10,6 @@ $('select.dropdown')
 ;
 $(document).ready(function() {
     $("#btnPdf").click(function(){
-        window.location.href = "/intranet/gerente/informes/atencionBarberos?format=pdf";
+        window.open("/intranet/gerente/informes/atencionBarberos?format=pdf");
     });
 });

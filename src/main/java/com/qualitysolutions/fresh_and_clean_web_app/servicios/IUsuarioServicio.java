@@ -7,6 +7,7 @@ import java.util.Map;
 
 public interface IUsuarioServicio {
 
+    List<Empleado> findAllEmpleados();
     Empleado findById(Integer id);
     List<Boleta> findAllBoletas();
     List<Integer> findAllDistinctBoletas();

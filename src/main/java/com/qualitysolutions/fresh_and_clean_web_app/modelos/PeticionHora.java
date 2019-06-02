@@ -17,16 +17,16 @@ public class PeticionHora implements Serializable
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_peticion")
-    public Integer idPeticion;
+    private Integer idPeticion;
     @NotEmpty
     @Column(name = "hora_atencion",nullable = false)
-    public LocalDateTime horaAtencion;
+    private LocalDateTime horaAtencion;
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cliente_id")
-    public Cliente cliente;
+    private Cliente cliente;
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "empleado_id")
-    public Empleado empleado;
+    private Empleado empleado;
 }

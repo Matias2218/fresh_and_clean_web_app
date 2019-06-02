@@ -5,14 +5,13 @@ import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 import com.qualitysolutions.fresh_and_clean_web_app.modelos.Boleta;
-import org.apache.taglibs.standard.tag.el.fmt.FormatNumberTag;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.view.document.AbstractPdfView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +26,7 @@ public class FinanzaVistaPDF extends AbstractPdfView {
                                     HttpServletResponse httpServletResponse) throws Exception
     {
         List<Boleta> boletas = (List<Boleta>)map.get("boletas");
+        DecimalFormat format = new DecimalFormat("###,###.##");
         String mes = (String)map.get("mes");
         String año = String.valueOf(map.get("año"));
         BaseFont bf = BaseFont.createFont(
@@ -59,20 +59,20 @@ public class FinanzaVistaPDF extends AbstractPdfView {
         cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
         table.addCell(cell);
         boletas.stream().forEach(boleta -> {
-            table.addCell(boleta.idBoleta.toString());
-            table.addCell(boleta.descripcionBoleta);
-            table.addCell(boleta.fechaBoleta.toLocalDate().toString().concat(" ").concat(boleta.fechaBoleta.toLocalTime().toString()));
-            cell = new PdfPCell(new Phrase("$"+boleta.montoTotal.toString(),font));
+            table.addCell(boleta.getIdBoleta().toString());
+            table.addCell(boleta.getDescripcionBoleta());
+            table.addCell(boleta.getFechaBoleta().toLocalDate().toString().concat(" ").concat(boleta.getFechaBoleta().toLocalTime().toString()));
+            cell = new PdfPCell(new Phrase("$"+format.format(boleta.getMontoTotal()),font));
             cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
             table.addCell(cell);
-            montoTotal+= boleta.montoTotal;
+            montoTotal+= boleta.getMontoTotal();
         });
         PdfPTable table2 = new PdfPTable(4);
         cell = new PdfPCell(new Phrase(String.format("Total mes de %s %s",mes,año),font));
         cell.setColspan(3);
         cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
         table2.addCell(cell);
-        cell = new PdfPCell(new Phrase("$".concat(montoTotal.toString()),font));
+        cell = new PdfPCell(new Phrase("$".concat(format.format(montoTotal)),font));
         cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
         table2.addCell(cell);
         document.add(image);
@@ -82,6 +82,5 @@ public class FinanzaVistaPDF extends AbstractPdfView {
         montoTotal= 0;
         httpServletResponse.setContentType(MediaType.APPLICATION_PDF_VALUE);
         httpServletResponse.addHeader(HttpHeaders.CONTENT_DISPOSITION,"inline; filename=FINANZAS_".concat(año).concat("_").concat(mes).concat(".pdf"));
-
     }
 }

@@ -17,18 +17,59 @@ public class Boleta implements Serializable
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_boleta")
-    public Integer idBoleta;
+    private Integer idBoleta;
     @NotEmpty
     @Column(name = "monto_total",nullable = false)
-    public Integer montoTotal;
+    private Integer montoTotal;
     @NotEmpty
     @Column(name = "descripcion_boleta",nullable = false,length = 140)
-    public String descripcionBoleta;
+    private String descripcionBoleta;
     @NotEmpty
     @Column(name = "fecha_boleta",nullable = false)
-    public LocalDateTime fechaBoleta;
+    private LocalDateTime fechaBoleta;
     @NotNull
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_peticion")
-    public PeticionHora idPeticion;
+    private PeticionHora idPeticion;
+
+
+    public Integer getIdBoleta() {
+        return idBoleta;
+    }
+
+    public void setIdBoleta(Integer idBoleta) {
+        this.idBoleta = idBoleta;
+    }
+
+    public Integer getMontoTotal() {
+        return montoTotal;
+    }
+
+    public void setMontoTotal(Integer montoTotal) {
+        this.montoTotal = montoTotal;
+    }
+
+    public String getDescripcionBoleta() {
+        return descripcionBoleta;
+    }
+
+    public void setDescripcionBoleta(String descripcionBoleta) {
+        this.descripcionBoleta = descripcionBoleta;
+    }
+
+    public LocalDateTime getFechaBoleta() {
+        return fechaBoleta;
+    }
+
+    public void setFechaBoleta(LocalDateTime fechaBoleta) {
+        this.fechaBoleta = fechaBoleta;
+    }
+
+    public PeticionHora getIdPeticion() {
+        return idPeticion;
+    }
+
+    public void setIdPeticion(PeticionHora idPeticion) {
+        this.idPeticion = idPeticion;
+    }
 }

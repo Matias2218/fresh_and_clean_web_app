@@ -26,21 +26,30 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
 
     @Override
     @Transactional(readOnly = true)
+    public List<Empleado> findAllEmpleados() {
+        return (List<Empleado>)empleadoDao.findAll();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public Empleado findById(Integer id) {
         return empleadoDao.findById(id).orElse(null);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Boleta> findAllBoletas() {
         return (List<Boleta>) boletaDao.findAll();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Integer> findAllDistinctBoletas() {
         return boletaDao.findAllDistinctBoletas();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Map<String,String> findAllMesesBoletas() {
         Map<String,String> mesesReturn = new HashMap<>();
         List<Object[]> meses = boletaDao.findAllMesesBoletas();
@@ -51,11 +60,13 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<String[]> barberoConMasAtenciones() {
         return personaDao.barberoConMasAntenciones();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Boleta> findAllByAnoAndByMes(Integer año,Integer mes) {
         return boletaDao.findAllByAnoAndByMes(año,mes);
     }

@@ -35,6 +35,7 @@ import javax.validation.*;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.Principal;
+import java.text.DecimalFormat;
 import java.time.Month;
 import java.time.format.TextStyle;
 import java.util.*;
@@ -80,12 +81,16 @@ public class IntranetControlador {
             Empleado empleado = usuarioServicio.findById(Integer.parseInt(principal.getName()));
             switch (rol) {
                 case "ROLE_BARBERO":
+                    session.setAttribute("empleado",empleado);
                     return "redirect:barbero";
                 case "ROLE_GERENTE":
+                    session.setAttribute("empleado",empleado);
                     return "redirect:gerente";
                 case "ROLE_INVENTARIO":
+                    session.setAttribute("empleado",empleado);
                     return "redirect:inventario/1";
                 case "ROLE_ADMINISTRADOR":
+                    session.setAttribute("empleado",empleado);
                     return "redirect:administrador";
             }
         }
@@ -121,13 +126,43 @@ public class IntranetControlador {
 
     @Secured("ROLE_ADMINISTRADOR")
     @GetMapping("administrador")
-    public String vistaAdministrador(Principal principal,Model model)
+    public String vistaAdministrador(Model model,HttpSession session)
     {
-        Empleado empleado;
-        empleado = usuarioServicio.findById(Integer.parseInt(principal.getName()));
-        model.addAttribute("empleado",empleado);
+        ArrayList<String> sueldosEmpleados = new ArrayList<>();
+        DecimalFormat format = new DecimalFormat("###,###.##");
+        List<Empleado> empleados = usuarioServicio.findAllEmpleados();
+        empleados.stream().forEach(empleado -> sueldosEmpleados.add(format.format(empleado.getSueldoEmpleado())));
+        model.addAttribute("sueldos",sueldosEmpleados);
+        model.addAttribute("empleados",empleados);
+        model.addAttribute("persona",((Empleado)session.getAttribute("empleado")).getPersona());
         return "administrador";
     }
+
+    @Secured("ROLE_ADMINISTRADOR")
+    @GetMapping("administrador/editarEmpleado/{id}")
+    public String vistaEditarEmpleado(@PathVariable(value = "id",required = false)String id,
+                                      Model model,
+                                      HttpSession session)
+    {
+        Integer idInt;
+        Empleado empleado;
+        try {
+            idInt = Integer.parseInt(id);
+        }
+        catch (Exception e)
+        {
+            return "redirect:/intranet/administrador";
+        }
+        if(idInt<0 || idInt.equals(null))
+        {
+            return "redirect:/intranet/administrador";
+        }
+        empleado = usuarioServicio.findById(idInt);
+        session.setAttribute("idEmpleado",empleado.getIdEmpleado());
+        model.addAttribute("empleado",empleado);
+        return "editarEmpleado";
+    }
+
 
     @Secured("ROLE_INVENTARIO")
     @GetMapping({"inventario/{page}","inventario","inventario/"})
@@ -175,15 +210,15 @@ public class IntranetControlador {
         model.addAttribute("page",productosJSON.getBody().getPageable());
         model.addAttribute("totalPaginas",productosJSON.getBody().getTotalPages());
         session.setAttribute("totalProductos",totalProductos);
+        model.addAttribute("persona",((Empleado)session.getAttribute("empleado")).getPersona());
         return "inventario";
     }
 
     @Secured("ROLE_GERENTE")
     @GetMapping("gerente")
-    public String vistaGerente(Principal principal,Model model)
+    public String vistaGerente(Model model,HttpSession session)
     {
-        Empleado empleado;
-        empleado = usuarioServicio.findById(Integer.parseInt(principal.getName()));
+        model.addAttribute("persona",((Empleado)session.getAttribute("empleado")).getPersona());
         return "gerente";
     }
 
@@ -345,6 +380,7 @@ public class IntranetControlador {
         {
             Boolean estaCreado = apiServicio.crearImagen(producto,foto);
         }
+        session.removeAttribute("idProducto");
         return "redirect:/intranet/inventario";
     }
 
