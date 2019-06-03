@@ -3,8 +3,10 @@ package com.qualitysolutions.fresh_and_clean_web_app.servicios;
 import com.qualitysolutions.fresh_and_clean_web_app.dao.IBoletaDao;
 import com.qualitysolutions.fresh_and_clean_web_app.dao.IEmpleadoDao;
 import com.qualitysolutions.fresh_and_clean_web_app.dao.IPersonaDao;
+import com.qualitysolutions.fresh_and_clean_web_app.dao.ITipoEmpleadoDao;
 import com.qualitysolutions.fresh_and_clean_web_app.modelos.Boleta;
 import com.qualitysolutions.fresh_and_clean_web_app.modelos.Empleado;
+import com.qualitysolutions.fresh_and_clean_web_app.modelos.TipoEmpleado;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +22,8 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
     IEmpleadoDao empleadoDao;
     @Autowired
     IBoletaDao boletaDao;
-
+    @Autowired
+    ITipoEmpleadoDao tipoEmpleadoDao;
     @Autowired
     IPersonaDao personaDao;
 
@@ -28,6 +31,21 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
     @Transactional(readOnly = true)
     public List<Empleado> findAllEmpleados() {
         return (List<Empleado>)empleadoDao.findAll();
+    }
+
+    @Override
+    public List<TipoEmpleado> findAllTipoEmpleados() {
+        return (List<TipoEmpleado>) tipoEmpleadoDao.findAll();
+    }
+
+    @Override
+    public Empleado saveEmpleado(Empleado empleado) {
+        return empleadoDao.save(empleado);
+    }
+
+    @Override
+    public void deleteEmpleadoById(Integer id) {
+        empleadoDao.deleteById(id);
     }
 
     @Override

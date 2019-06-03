@@ -11,11 +11,11 @@
     <script type="text/javascript" src="/js/funcionesEditarEmpleado.js">
     </script>
     <meta charset="UTF-8"/>
-    <title>Editar Empleado</title>
+    <title>Crear Empleado</title>
 </head>
 <body>
-Editar Empleado
-<form:form method="post" action="/intranet/administrador/editarEmpleado" modelAttribute="empleado">
+Crear Empleado
+<form:form method="post" action="/intranet/administrador/crearEmpleado" modelAttribute="empleado">
 <table>
     <tr>
         <td><form:label path="persona.nombre">Nombre</form:label></td>
@@ -71,7 +71,7 @@ Editar Empleado
     </tr>
     <tr>
         <td></td>
-        <td><input type="submit" value="Editar"/></td>
+        <td><input type="submit" value="Crear"/></td>
     </tr>
 
 

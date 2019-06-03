@@ -2,8 +2,8 @@ package com.qualitysolutions.fresh_and_clean_web_app.modelos;
 
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 
 @Entity
@@ -18,29 +18,41 @@ public class Empleado implements Serializable {
     @Column(name = "id_empleado")
     private Integer idEmpleado;
     @Column(name = "username_empleado",length = 60,nullable = false,unique = true)
-    @NotEmpty
+    @NotBlank(message = "El username no puede estar vacio")
+    @Size(min = 1,max = 60,message = "El nombre de usuario no puedo contener mas de 60 caracteres")
     private String usernameEmpleado;
+    @Size(max = 100,message = "La contraseña de usuario no puedo contener mas de 100 caracteres")
     @Column(name = "password_empleado",length = 100,nullable = false)
-    @NotEmpty
     private String passwordEmpleado;
+    @Transient
+    @Size(max = 100,message = "La contraseña de usuario no puedo contener mas de 100 caracteres")
+    @Column(name = "password_empleado",length = 100,nullable = false)
+    private String passwordConfirmEmpleado;
     @Column(name = "email_empleado",length = 60,nullable = false,unique = true)
-    @NotEmpty
+    @Email
+    @NotBlank(message = "El email no púede estar vacio")
+    @Size(min = 1,max = 60,message = "El email no puedo contener mas de 60 caracteres")
     private String emailEmpleado;
     @Column(name = "telefono_empleado",length = 14,nullable = false)
-    @NotEmpty
+    @NotBlank(message = "El telefono no puede estar vacio")
+    @Size(min = 1,max = 14,message = "El telefono no puede contener mas de 14 caracteres")
     private String telefonoEmpleado;
     @Column(name = "sueldo_empleado", nullable = false)
+    @Min(value = 1,message = "El sueldo no puede ser menor que 1")
     private Integer sueldoEmpleado;
     @Column(name = "bono_empleado")
     private Integer bonoEmpleado;
+    @Valid
     @NotNull
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name="persona_id")
     private Persona persona;
+    @Valid
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="tipo_empleado_id")
     private TipoEmpleado tipoEmpleado;
+
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -64,6 +76,14 @@ public class Empleado implements Serializable {
 
     public String getPasswordEmpleado() {
         return passwordEmpleado;
+    }
+
+    public String getPasswordConfirmEmpleado() {
+        return passwordConfirmEmpleado;
+    }
+
+    public void setPasswordConfirmEmpleado(String passwordConfirmEmpleado) {
+        this.passwordConfirmEmpleado = passwordConfirmEmpleado;
     }
 
     public void setPasswordEmpleado(String passwordEmpleado) {

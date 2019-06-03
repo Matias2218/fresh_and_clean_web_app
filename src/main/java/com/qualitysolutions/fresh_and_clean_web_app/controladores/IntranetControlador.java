@@ -3,6 +3,7 @@ package com.qualitysolutions.fresh_and_clean_web_app.controladores;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qualitysolutions.fresh_and_clean_web_app.modelos.Boleta;
 import com.qualitysolutions.fresh_and_clean_web_app.modelos.Empleado;
+import com.qualitysolutions.fresh_and_clean_web_app.modelos.TipoEmpleado;
 import com.qualitysolutions.fresh_and_clean_web_app.modelos.webservice.Categoria;
 import com.qualitysolutions.fresh_and_clean_web_app.modelos.webservice.Marca;
 import com.qualitysolutions.fresh_and_clean_web_app.modelos.webservice.Producto;
@@ -13,6 +14,8 @@ import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -22,6 +25,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,6 +40,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.Principal;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.TextStyle;
 import java.util.*;
@@ -139,10 +145,49 @@ public class IntranetControlador {
     }
 
     @Secured("ROLE_ADMINISTRADOR")
+    @GetMapping("administrador/crearEmpleado")
+    public String vistacrearEmpleado(Model model,HttpSession session)
+    {
+        Empleado empleado = new Empleado();
+        session.setAttribute("tipoEmpleados",usuarioServicio.findAllTipoEmpleados());
+        model.addAttribute("empleado",empleado);
+        return "crearEmpleado";
+    }
+    @Secured("ROLE_ADMINISTRADOR")
+    @PostMapping("administrador/crearEmpleado")
+    public String crearEmpleado(@Valid @ModelAttribute("empleado")Empleado empleado,
+                                BindingResult  bindingResult)
+    {
+        ArrayList<String> errores = new ArrayList<>();
+        if(bindingResult.hasErrors())
+        {
+            bindingResult.getFieldErrors().stream().forEach(fieldError -> errores.add(fieldError.getDefaultMessage()));
+            return "crearEmpleado";
+        }
+        empleado.setPasswordEmpleado(empleado.getPasswordEmpleado().trim());
+        empleado.setPasswordConfirmEmpleado(empleado.getPasswordConfirmEmpleado().trim());
+        if(!empleado.getPasswordEmpleado().equals(empleado.getPasswordConfirmEmpleado()) || empleado.getPasswordEmpleado().equals("") && empleado.getPasswordConfirmEmpleado().equals(""))
+        {
+            return "crearEmpleado";
+        }
+        empleado = usuarioServicio.saveEmpleado(empleado);
+        return "redirect:/intranet/administrador";
+    }
+    @Secured("ROLE_ADMINISTRADOR")
+    @PostMapping("administrador/eliminarEmpleado")
+    public ResponseEntity<?> crearEmpleado(@RequestBody Integer id) {
+        usuarioServicio.deleteEmpleadoById(id);
+        return ResponseEntity.ok("Empleado eliminado Con exito");
+    }
+
+
+
+    @Secured("ROLE_ADMINISTRADOR")
     @GetMapping("administrador/editarEmpleado/{id}")
     public String vistaEditarEmpleado(@PathVariable(value = "id",required = false)String id,
                                       Model model,
-                                      HttpSession session)
+                                      HttpSession session,
+                                      HttpServletRequest httpRequest)
     {
         Integer idInt;
         Empleado empleado;
@@ -159,9 +204,40 @@ public class IntranetControlador {
         }
         empleado = usuarioServicio.findById(idInt);
         session.setAttribute("idEmpleado",empleado.getIdEmpleado());
+        session.setAttribute("idPersona",empleado.getPersona().getIdPersona());
+        session.setAttribute("passwordEmpleado",empleado.getPasswordEmpleado());
+        session.setAttribute("tipoEmpleados",usuarioServicio.findAllTipoEmpleados());
         model.addAttribute("empleado",empleado);
         return "editarEmpleado";
     }
+    @Secured("ROLE_ADMINISTRADOR")
+    @PostMapping("administrador/editarEmpleado")
+    public String editarEmpleado(@Valid @ModelAttribute("empleado") Empleado empleado,
+                                 BindingResult bindingResult,
+                                 HttpSession session)
+    {
+        ArrayList<String> errores = new ArrayList<>();
+        if(bindingResult.hasErrors())
+        {
+            bindingResult.getFieldErrors().stream().forEach(fieldError -> errores.add(fieldError.getDefaultMessage()));
+            return "editarEmpleado";
+        }
+        empleado.getPersona().setIdPersona((Integer) session.getAttribute("idPersona"));
+        empleado.setIdEmpleado((Integer) session.getAttribute("idEmpleado"));
+        empleado.setPasswordEmpleado((empleado.getPasswordEmpleado().trim()=="")?(String) session.getAttribute("passwordEmpleado"):empleado.getPasswordEmpleado().trim());
+        empleado.setPasswordConfirmEmpleado((empleado.getPasswordConfirmEmpleado().trim()=="")?(String) session.getAttribute("passwordEmpleado"):empleado.getPasswordConfirmEmpleado().trim());
+        if(!empleado.getPasswordEmpleado().equals(empleado.getPasswordConfirmEmpleado()) || empleado.getPasswordEmpleado().equals("") && empleado.getPasswordConfirmEmpleado().equals(""))
+        {
+            return "editarEmpleado";
+        }
+        empleado=usuarioServicio.saveEmpleado(empleado);
+        session.removeAttribute("idPersona");
+        session.removeAttribute("idEmpleado");
+        session.removeAttribute("passwordEmpleado");
+        session.removeAttribute("tipoEmpleados");
+        return "redirect:/intranet/administrador";
+    }
+
 
 
     @Secured("ROLE_INVENTARIO")

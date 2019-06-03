@@ -1,7 +1,10 @@
 package com.qualitysolutions.fresh_and_clean_web_app.modelos;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -23,10 +26,11 @@ public class Persona implements Serializable {
     @NotEmpty
     private String apellido;
     @Column(nullable = false,name = "fecha_nacimiento")
-    @NotEmpty
+    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaNacimiento;
     @Column(nullable = false)
-    @NotEmpty
+    @NotNull
     private Character genero;
 
     public Integer getIdPersona() {
