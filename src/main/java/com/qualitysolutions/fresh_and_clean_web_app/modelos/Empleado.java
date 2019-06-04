@@ -52,6 +52,8 @@ public class Empleado implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="tipo_empleado_id")
     private TipoEmpleado tipoEmpleado;
+    @Column(name = "esta_activo", nullable = false,columnDefinition = "TINYINT(1)")
+    private Boolean estaActivo;
 
 
     public static long getSerialVersionUID() {
@@ -137,4 +139,6 @@ public class Empleado implements Serializable {
     public void setTipoEmpleado(TipoEmpleado tipoEmpleado) {
         this.tipoEmpleado = tipoEmpleado;
     }
+    public Boolean getEstaActivo() { return  estaActivo;}
+    public void setEstaActivo(Boolean estaActivo) {this.estaActivo= estaActivo;}
 }

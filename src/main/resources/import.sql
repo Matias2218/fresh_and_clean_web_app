@@ -13,12 +13,12 @@ insert into tipo_empleados(id_tipo,descripcion) values (4,'Administrador')
 insert into clientes(id_cliente,email_cliente,telefono_cliente,persona_id) values (1,'maldo1514@gmail.com','+56976720550',5)
 insert into clientes(id_cliente,email_cliente,telefono_cliente,persona_id) values (2,'yeremy@gmail.com','+56984713214',6)
 
-insert into empleados(id_empleado,username_empleado,password_empleado,email_empleado,telefono_empleado,sueldo_empleado,bono_empleado,persona_id,tipo_empleado_id) values (1,'barbero','admin','v.rodriguez@hotmail.com','+56999412421',500000,null,1,1)
-insert into empleados(id_empleado,username_empleado,password_empleado,email_empleado,telefono_empleado,sueldo_empleado,bono_empleado,persona_id,tipo_empleado_id) values (2,'gerente','admin','m.maldonadoo@hotmail.com','+569131020302',300000,null,2,2)
-insert into empleados(id_empleado,username_empleado,password_empleado,email_empleado,telefono_empleado,sueldo_empleado,bono_empleado,persona_id,tipo_empleado_id) values (3,'inventario','admin','s.zeballos@hotmail.com','+56912412421',400000,null,3,3)
-insert into empleados(id_empleado,username_empleado,password_empleado,email_empleado,telefono_empleado,sueldo_empleado,bono_empleado,persona_id,tipo_empleado_id) values (4,'administrador','admin','f.figueroa@hotmail.com','+56941401214',700000,null,4,4)
-insert into empleados(id_empleado,username_empleado,password_empleado,email_empleado,telefono_empleado,sueldo_empleado,bono_empleado,persona_id,tipo_empleado_id) values (5,'barbero1','admin','l.barrueto@hotmail.com','+56912412551',500000,null,5,1)
-insert into empleados(id_empleado,username_empleado,password_empleado,email_empleado,telefono_empleado,sueldo_empleado,bono_empleado,persona_id,tipo_empleado_id) values (6,'barbero2','admin','y.rodriguez@hotmail.com','+56912412421',500000,null,6,1)
+insert into empleados(id_empleado,username_empleado,password_empleado,email_empleado,telefono_empleado,sueldo_empleado,bono_empleado,persona_id,tipo_empleado_id,esta_activo) values (1,'barbero','admin','v.rodriguez@hotmail.com','+56999412421',500000,null,1,1,1)
+insert into empleados(id_empleado,username_empleado,password_empleado,email_empleado,telefono_empleado,sueldo_empleado,bono_empleado,persona_id,tipo_empleado_id,esta_activo) values (2,'gerente','admin','m.maldonadoo@hotmail.com','+569131020302',300000,null,2,2,1)
+insert into empleados(id_empleado,username_empleado,password_empleado,email_empleado,telefono_empleado,sueldo_empleado,bono_empleado,persona_id,tipo_empleado_id,esta_activo) values (3,'inventario','admin','s.zeballos@hotmail.com','+56912412421',400000,null,3,3,1)
+insert into empleados(id_empleado,username_empleado,password_empleado,email_empleado,telefono_empleado,sueldo_empleado,bono_empleado,persona_id,tipo_empleado_id,esta_activo) values (4,'administrador','admin','f.figueroa@hotmail.com','+56941401214',700000,null,4,4,1)
+insert into empleados(id_empleado,username_empleado,password_empleado,email_empleado,telefono_empleado,sueldo_empleado,bono_empleado,persona_id,tipo_empleado_id,esta_activo) values (5,'barbero1','admin','l.barrueto@hotmail.com','+56912412551',500000,null,5,1,1)
+insert into empleados(id_empleado,username_empleado,password_empleado,email_empleado,telefono_empleado,sueldo_empleado,bono_empleado,persona_id,tipo_empleado_id,esta_activo) values (6,'barbero2','admin','y.rodriguez@hotmail.com','+56912412421',500000,null,6,1,1)
 
 
 insert into empresas(id_empresa,rut_empresa,razon_social,telefono_empresa,email_empresa,rubro_empresa) values (1,'70.524.523-4','Barberia y salon de belleza','+56912424214','freshandclean@gmail.com','Otras actividades')

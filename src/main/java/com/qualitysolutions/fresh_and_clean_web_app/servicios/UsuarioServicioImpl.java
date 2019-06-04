@@ -27,10 +27,10 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
     @Autowired
     IPersonaDao personaDao;
 
+
     @Override
-    @Transactional(readOnly = true)
-    public List<Empleado> findAllEmpleados() {
-        return (List<Empleado>)empleadoDao.findAll();
+    public List<Empleado> findAllEmpleadoOrderByEstaActivo() {
+        return empleadoDao.findAllByOrderByEstaActivoDesc();
     }
 
     @Override
@@ -41,6 +41,20 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
     @Override
     public Empleado saveEmpleado(Empleado empleado) {
         return empleadoDao.save(empleado);
+    }
+
+    @Override
+    @Transactional
+    public Boolean activeEmpleado(Integer id) {
+        empleadoDao.activeEmpleado(id);
+        return true;
+    }
+
+    @Override
+    @Transactional
+    public Boolean desactiveEmpleado(Integer id) {
+        empleadoDao.desactiveEmpleado(id);
+        return true;
     }
 
     @Override

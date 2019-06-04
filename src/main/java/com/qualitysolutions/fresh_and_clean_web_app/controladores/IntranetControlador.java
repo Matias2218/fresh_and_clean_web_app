@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.HttpRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -136,7 +137,7 @@ public class IntranetControlador {
     {
         ArrayList<String> sueldosEmpleados = new ArrayList<>();
         DecimalFormat format = new DecimalFormat("###,###.##");
-        List<Empleado> empleados = usuarioServicio.findAllEmpleados();
+        List<Empleado> empleados = usuarioServicio.findAllEmpleadoOrderByEstaActivo();
         empleados.stream().forEach(empleado -> sueldosEmpleados.add(format.format(empleado.getSueldoEmpleado())));
         model.addAttribute("sueldos",sueldosEmpleados);
         model.addAttribute("empleados",empleados);
@@ -170,14 +171,25 @@ public class IntranetControlador {
         {
             return "crearEmpleado";
         }
+        empleado.setEstaActivo(true);
         empleado = usuarioServicio.saveEmpleado(empleado);
         return "redirect:/intranet/administrador";
     }
     @Secured("ROLE_ADMINISTRADOR")
-    @PostMapping("administrador/eliminarEmpleado")
-    public ResponseEntity<?> crearEmpleado(@RequestBody Integer id) {
-        usuarioServicio.deleteEmpleadoById(id);
-        return ResponseEntity.ok("Empleado eliminado Con exito");
+    @PostMapping(value = "administrador/activarEmpleado",produces = "application/json")
+    public ResponseEntity<?> activarEmpleado(@RequestBody Integer id) {
+        Map<String,Object> result = new HashMap<>();
+        usuarioServicio.activeEmpleado(id);
+        result.put("mensaje","Empleado activado con exito");
+        return new ResponseEntity<>(result,HttpStatus.OK);
+    }
+    @Secured("ROLE_ADMINISTRADOR")
+    @PostMapping(value = "administrador/desactivarEmpleado",produces = "application/json")
+    public ResponseEntity<?> desactivarEmpleado(@RequestBody Integer id) {
+        Map<String,Object> result = new HashMap<>();
+        usuarioServicio.desactiveEmpleado(id);
+        result.put("mensaje","Empleado desactivado con exito");
+        return new ResponseEntity<>(result,HttpStatus.OK);
     }
 
 
@@ -203,6 +215,10 @@ public class IntranetControlador {
             return "redirect:/intranet/administrador";
         }
         empleado = usuarioServicio.findById(idInt);
+        if(empleado.getEstaActivo().equals(false))
+        {
+            return "redirect:/intranet/administrador";
+        }
         session.setAttribute("idEmpleado",empleado.getIdEmpleado());
         session.setAttribute("idPersona",empleado.getPersona().getIdPersona());
         session.setAttribute("passwordEmpleado",empleado.getPasswordEmpleado());
@@ -224,12 +240,13 @@ public class IntranetControlador {
         }
         empleado.getPersona().setIdPersona((Integer) session.getAttribute("idPersona"));
         empleado.setIdEmpleado((Integer) session.getAttribute("idEmpleado"));
-        empleado.setPasswordEmpleado((empleado.getPasswordEmpleado().trim()=="")?(String) session.getAttribute("passwordEmpleado"):empleado.getPasswordEmpleado().trim());
-        empleado.setPasswordConfirmEmpleado((empleado.getPasswordConfirmEmpleado().trim()=="")?(String) session.getAttribute("passwordEmpleado"):empleado.getPasswordConfirmEmpleado().trim());
+        empleado.setPasswordEmpleado((empleado.getPasswordEmpleado().trim().equals(""))?(String) session.getAttribute("passwordEmpleado"):empleado.getPasswordEmpleado().trim());
+        empleado.setPasswordConfirmEmpleado((empleado.getPasswordConfirmEmpleado().equals(""))?(String) session.getAttribute("passwordEmpleado"):empleado.getPasswordConfirmEmpleado().trim());
         if(!empleado.getPasswordEmpleado().equals(empleado.getPasswordConfirmEmpleado()) || empleado.getPasswordEmpleado().equals("") && empleado.getPasswordConfirmEmpleado().equals(""))
         {
             return "editarEmpleado";
         }
+        empleado.setEstaActivo(true);
         empleado=usuarioServicio.saveEmpleado(empleado);
         session.removeAttribute("idPersona");
         session.removeAttribute("idEmpleado");

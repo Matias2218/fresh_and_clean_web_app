@@ -9,9 +9,11 @@ import java.util.Map;
 
 public interface IUsuarioServicio {
 
-    List<Empleado> findAllEmpleados();
+    List<Empleado> findAllEmpleadoOrderByEstaActivo();
     List<TipoEmpleado> findAllTipoEmpleados();
     Empleado saveEmpleado(Empleado empleado);
+    Boolean activeEmpleado(Integer id);
+    Boolean desactiveEmpleado(Integer id);
     void deleteEmpleadoById(Integer id);
     Empleado findById(Integer id);
     List<Boleta> findAllBoletas();
