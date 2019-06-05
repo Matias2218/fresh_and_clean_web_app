@@ -16,5 +16,6 @@ hola barbero
 <button type="button"
         onclick="location.href='/logout'">Cerrar Sesion</button>
 ${empleado.persona.nombre}
+<a href="/intranet/barbero/productos/1">Ver productos</a>
 </body>
 </html>

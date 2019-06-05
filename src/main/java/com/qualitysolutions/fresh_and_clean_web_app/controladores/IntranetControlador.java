@@ -131,6 +131,51 @@ public class IntranetControlador {
         return "barbero";
     }
 
+    @Secured("ROLE_BARBERO")
+    @GetMapping({"barbero/productos/{page}","barbero/productos","barbero/productos/"})
+    public String vistaProductos(Principal principal,
+                                 Model model,
+                                 @PathVariable(name = "page",required = false)String page,
+                                 HttpSession session)
+    {
+        Integer pageInt;
+        Long totalProductos;
+        Empleado empleado;
+        ResponseEntity<RestResponsePagina<Producto>> productosJSON;
+        try {
+            pageInt = Integer.parseInt(page);
+        }
+        catch (Exception e)
+        {
+            return "redirect:/intranet/barbero";
+        }
+        pageInt=(pageInt==null)?1:pageInt;
+        if(pageInt<0)
+        {
+            return "redirect:/intranet/barbero";
+        }
+        try {
+            productosJSON = apiServicio.traerProductos(pageInt);
+        }
+        catch (Exception e)
+        {
+            return "redirect:/intranet/barbero";
+        }
+        if(pageInt>productosJSON.getBody().getTotalPages())
+        {
+            return "redirect:/intranet/barbero";
+        }
+        List<Producto> productos = productosJSON.getBody().getContent();
+        totalProductos = productosJSON.getBody().getTotalElements();
+        empleado = usuarioServicio.findById(Integer.parseInt(principal.getName()));
+        model.addAttribute("productos",productos);
+        model.addAttribute("empleado",empleado);
+        model.addAttribute("page",productosJSON.getBody().getPageable());
+        model.addAttribute("totalPaginas",productosJSON.getBody().getTotalPages());
+        session.setAttribute("totalProductos",totalProductos);
+        model.addAttribute("persona",((Empleado)session.getAttribute("empleado")).getPersona());
+        return "verProductos";
+    }
     @Secured("ROLE_ADMINISTRADOR")
     @GetMapping("administrador")
     public String vistaAdministrador(Model model,HttpSession session)
@@ -157,7 +202,7 @@ public class IntranetControlador {
     @Secured("ROLE_ADMINISTRADOR")
     @PostMapping("administrador/crearEmpleado")
     public String crearEmpleado(@Valid @ModelAttribute("empleado")Empleado empleado,
-                                BindingResult  bindingResult)
+                                BindingResult  bindingResult,HttpSession session)
     {
         ArrayList<String> errores = new ArrayList<>();
         if(bindingResult.hasErrors())
@@ -168,6 +213,10 @@ public class IntranetControlador {
         empleado.setPasswordEmpleado(empleado.getPasswordEmpleado().trim());
         empleado.setPasswordConfirmEmpleado(empleado.getPasswordConfirmEmpleado().trim());
         if(!empleado.getPasswordEmpleado().equals(empleado.getPasswordConfirmEmpleado()) || empleado.getPasswordEmpleado().equals("") && empleado.getPasswordConfirmEmpleado().equals(""))
+        {
+            return "crearEmpleado";
+        }
+        if(empleado.getTipoEmpleado().getIdTipo()>((List<TipoEmpleado>)session.getAttribute("tipoEmpleados")).size())
         {
             return "crearEmpleado";
         }
@@ -242,7 +291,10 @@ public class IntranetControlador {
         empleado.setIdEmpleado((Integer) session.getAttribute("idEmpleado"));
         empleado.setPasswordEmpleado((empleado.getPasswordEmpleado().trim().equals(""))?(String) session.getAttribute("passwordEmpleado"):empleado.getPasswordEmpleado().trim());
         empleado.setPasswordConfirmEmpleado((empleado.getPasswordConfirmEmpleado().equals(""))?(String) session.getAttribute("passwordEmpleado"):empleado.getPasswordConfirmEmpleado().trim());
-        if(!empleado.getPasswordEmpleado().equals(empleado.getPasswordConfirmEmpleado()) || empleado.getPasswordEmpleado().equals("") && empleado.getPasswordConfirmEmpleado().equals(""))
+        if(!empleado.getPasswordEmpleado().equals(empleado.getPasswordConfirmEmpleado()) || empleado.getPasswordEmpleado().equals("") && empleado.getPasswordConfirmEmpleado().equals("")) {
+            return "editarEmpleado";
+        }
+        if(empleado.getTipoEmpleado().getIdTipo()>((List<TipoEmpleado>)session.getAttribute("tipoEmpleados")).size())
         {
             return "editarEmpleado";
         }
