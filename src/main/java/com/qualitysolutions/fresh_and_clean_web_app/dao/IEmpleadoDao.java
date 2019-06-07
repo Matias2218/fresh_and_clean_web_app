@@ -9,7 +9,8 @@ import java.util.List;
 
 public interface IEmpleadoDao extends CrudRepository<Empleado,Integer>
 {
-     Empleado findByUsernameEmpleado(String usernameEmpleado);
+     @Query(value="select * from Empleados where username_empleado=?1 and esta_activo=1",nativeQuery = true)
+     Empleado findUsuarioByUsernameAndEstaActivo(String usernameEmpleado);
      List<Empleado> findAllByOrderByEstaActivoDesc();
      @Modifying
      @Query(value = "update empleados set esta_activo = 1 where id_empleado=?1",nativeQuery = true)

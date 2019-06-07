@@ -50,9 +50,8 @@
 										</div>
 									</div>
 									<div class="extra content">
-										<a href="/intranet/inventario/editarProducto/${productos[i].id}">
+
 											<i class="clipboard list icon"></i> Stock: ${productos[i].stock}
-										</a>
 									</div>
 								</div>
 							</div>

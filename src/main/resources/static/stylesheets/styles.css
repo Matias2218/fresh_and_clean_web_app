@@ -1,6 +1,12 @@
 @charset "ISO-8859-1";
 
 .sc-main{
+	 background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),url(../img/menu-image.jpg) no-repeat 50% 50% !important;
+	 background-size: cover !important;
+	 position: relative;
+ }
+
+.sc-main-paginas{
 	background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),url(../img/menu-image.jpg) no-repeat 50% 50% !important;
 	background-size: cover !important;
 	position: relative;
@@ -34,7 +40,11 @@
 }
 
 .sc-main-intranet-perfiles.segment{
-	min-height: 50vh;
+	 min-height: 50vh;
+ }
+
+.sc-main-paginas.segment{
+	min-height: 35vh;
 }
 
 .sc-main-intranet-perfiles2.segment{

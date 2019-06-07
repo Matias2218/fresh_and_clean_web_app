@@ -22,7 +22,7 @@ public class JpaUsuarioServicio implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String nombreUsuario) throws UsernameNotFoundException {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        Empleado empleado = empleadoDao.findByUsernameEmpleado(nombreUsuario);
+        Empleado empleado = empleadoDao.findUsuarioByUsernameAndEstaActivo(nombreUsuario);
         switch (empleado.getTipoEmpleado().getIdTipo()) {
             case 1:
                 authorities.add(new SimpleGrantedAuthority("ROLE_BARBERO"));
