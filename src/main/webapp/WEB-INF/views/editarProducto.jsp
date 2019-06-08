@@ -23,6 +23,7 @@
 			$('#divblack').removeClass('greysi fixed');
 		}
 	})
+
 </script>
 </head>
 <body>
@@ -123,10 +124,10 @@
 							accept=".png, .jpg, .jpeg" />-->
 
 					<div>
-						<label for="file" class="ui icon button" style="margin-top:10px;"> <i
+						<label for="foto" class="ui icon button" style="margin-top:10px;"> <i
 							class="file icon"></i> Seleccionar Archivo
-						</label> <input type="file"  id="file" style="display: none" id="foto"
-							onchange="readURL(this)" accept=".png, .jpg, .jpeg">
+						</label> <input type="file"  name="file" style="display: none" id="foto"
+							onchange="readURL(this)"  accept=".png, .jpg, .jpeg">
 					</div>
 
 
