@@ -16,7 +16,7 @@
 </head>
 <body>
 
-crear Producto
+crear Productos
 <form:form method="post" action="/intranet/inventario/crearProducto" enctype="multipart/form-data" modelAttribute="producto">
 <table>
     <tr>

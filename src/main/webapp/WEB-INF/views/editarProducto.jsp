@@ -23,7 +23,6 @@
 			$('#divblack').removeClass('greysi fixed');
 		}
 	})
-
 </script>
 </head>
 <body>
