@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +45,12 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
     @Transactional(readOnly = true)
     public List<Cliente> findAllCliente() {
         return (List<Cliente>) clienteDao.findAll();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<String> findAllHorasOcupadas(LocalDate fecha, Integer idEmpleado) {
+        return peticionHoraDao.barberosHoras(fecha,idEmpleado);
     }
 
     @Override

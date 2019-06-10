@@ -2,6 +2,7 @@ package com.qualitysolutions.fresh_and_clean_web_app.servicios;
 
 import com.qualitysolutions.fresh_and_clean_web_app.modelos.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ public interface IUsuarioServicio {
     PeticionHora savePeticion(PeticionHora peticionHora);
     List<Servicio> findAllServicio();
     List<Cliente> findAllCliente();
+    List<String> findAllHorasOcupadas(LocalDate fecha, Integer idEmpleado);
     List<Empleado> findAllEmpleadoOrderByEstaActivo();
     List<TipoEmpleado> findAllTipoEmpleados();
     Empleado saveEmpleado(Empleado empleado);

@@ -75,18 +75,28 @@
                 $('#divDatosBarbero :input').attr('disabled', false);
                 $('#divDatosHora :input').attr('disabled',true);
             });
-            $("#cmbEmpleado").change(function(){
+            $("#dateHoraAtencion").change(function(){
+                var empleadoId = $('#cmbEmpleado').val();
+                var fecha = $('#dateHoraAtencion').val();
+                $('#divCheckBox :input').attr('disabled',false);
                 $.ajax({
                     type : 'POST',
                     contentType : 'application/json; charset=utf-8',
                     dataType : 'json',
-                    url : "/intranet/administrador/desactivarEmpleado",
-                    data : "{'data1':'" + value1+ "', 'data2':'" + value2+ "', 'data3':'" + value3+ "'}",
+                    url : "/horasDisponibles",
+                    data : JSON.stringify({
+                        idEmpleado:empleadoId,
+                        fecha:fecha
+                    }),
                     success : function (response) {
-                        location.reload();
+                        var i;
+                        var array = response.datos
+                        for (i=0; i < array.length; i++) {
+                                var chk = $('#divCheckBox :input').filter(function(){return this.value==array[i]});
+                                chk.attr('disabled',true);
+                        }
                     },
                     error : function (e) {
-                        console.log("Error",e);
                     }
                 });
             });
@@ -121,7 +131,7 @@
 <!-- END HEADER -->
 
 <h3 class="ui center aligned header">Agende su hora</h3>
-<form:form class="ui three column doubling grid container" modelAttribute="cliente">
+<form:form class="ui three column doubling grid container" method="Post" action="/generarHora" modelAttribute="cliente">
     <!-- DATOS PERSONALES -->
     <div class="column" id="divDatosCliente">
         <div class="ui segment">
@@ -208,16 +218,16 @@
                 <h4 class="ui dividing header">Seleccionar Hora</h4>
                 <div class="ui center aligned basic segment">
                     <div class="ui input">
-                        <input type="date"  id="dateHoraAtencion" />
+                        <input type="date" name="dateHoraAtencion" id="dateHoraAtencion" />
                     </div>
                 </div>
-                <div class="column">
+                <div class="column" id="divCheckBox">
                     <div class="ui segment">
                         <div class="field">
                             <div class="two fields">
                                 <div class="field">
                                     <div class="ui radio checkbox">
-                                        <input type="radio" name="rdbHora" checked="checked" value="10:00">
+                                        <input type="radio" name="rdbHora"  value="10:00">
                                         <label>10:00am</label>
                                     </div>
                                 </div>
