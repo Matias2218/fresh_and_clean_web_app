@@ -24,6 +24,8 @@
         });
         $(document).ready(function()
         {
+            $('#divDatosBarbero :input').attr('disabled', true);
+            $('#divDatosHora :input').attr('disabled', true);
             function today() {
                 var today = new Date();
                 var dd = today.getDate();
@@ -47,12 +49,46 @@
                 return today;
             }
 
-            $('#dateHoraAtencion').val(today());
+
             $('#dateHoraAtencion').attr('min',today());
             $('#dateHoraAtencion').attr('max',DiasMaximo());
+
             $('#btnDatosCliente').click(function () {
 
                 $('#divDatosCliente :input').attr('disabled', true);
+                $('#divDatosBarbero :input').attr('disabled', false);
+            });
+            $('#btnIrIzquierda').click(function () {
+
+                $('#divDatosCliente :input').attr('disabled', false);
+                $('#divDatosBarbero :input').attr('disabled', true);
+            });
+            $('#btnIrDerecha').click(function () {
+
+                $('#divDatosCliente :input').attr('disabled', true);
+                $('#divDatosBarbero :input').attr('disabled', true);
+                $('#divDatosHora :input').attr('disabled',false);
+            });
+            $('#btnVolver').click(function () {
+
+                $('#divDatosCliente :input').attr('disabled', true);
+                $('#divDatosBarbero :input').attr('disabled', false);
+                $('#divDatosHora :input').attr('disabled',true);
+            });
+            $("#cmbEmpleado").change(function(){
+                $.ajax({
+                    type : 'POST',
+                    contentType : 'application/json; charset=utf-8',
+                    dataType : 'json',
+                    url : "/intranet/administrador/desactivarEmpleado",
+                    data : "{'data1':'" + value1+ "', 'data2':'" + value2+ "', 'data3':'" + value3+ "'}",
+                    success : function (response) {
+                        location.reload();
+                    },
+                    error : function (e) {
+                        console.log("Error",e);
+                    }
+                });
             });
         });
     </script>
@@ -92,7 +128,7 @@
             <div class="ui form">
                 <h4 class="ui dividing header">Información Personal</h4>
                 <div class="field">
-                    <form:label path="persona.nombre"></form:label>
+                    <form:label path="persona.nombre">Nombre</form:label>
                     <div class="two fields">
                         <div class="field">
                             <form:input path="persona.nombre" placeholder="Nombre"></form:input>
@@ -110,19 +146,19 @@
                 </div>
                 <div class="two fields">
                     <div class="field">
-                        <form:label path="persona.fechaNacimiento"></form:label>
+                        <form:label path="persona.fechaNacimiento">Fecha de Nacimiento</form:label>
                         <form:input type="date" path="persona.fechaNacimiento"></form:input>
                     </div>
                     <div class="field">
-                        <form:label path="persona.genero"></form:label>
+                        <form:label path="persona.genero">Seleccione género</form:label>
                         <form:select path="persona.genero">
-                            <form:option value="NONE">Seleccione su sexo</form:option>
+                            <form:option value="N">Seleccione su sexo</form:option>
                             <form:options items="${generos}"></form:options>
                         </form:select>
                     </div>
                 </div>
                 <div class="field">
-                    <form:label path="telefonoCliente"></form:label>
+                    <form:label path="telefonoCliente">Número de contacto</form:label>
                     <div class="field">
                         <form:input path="telefonoCliente" placeholder="Teléfono de casa o celular"></form:input>
                     </div>
@@ -134,14 +170,45 @@
         </div>
     </div>
 
+    <!-- SERVICIO Y BARBERO -->
+    <div class="column" id="divDatosBarbero" >
+        <div class="ui segment">
+            <div class="ui form">
+                <h4 class="ui dividing header">Barbero y Servicio</h4>
+                <div class="ui center aligned basic segment">
+                    <div class="ui input">
+                        <select name="cmbEmpleado" id="cmbEmpleado">
+                            <option value="NONE">Seleccione Barbero</option>
+                            <c:forEach items="${barberos}" var="barbero">
+                                <option value="${barbero.key}">${barbero.value}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="ui segment">
+                        <c:forEach items="${servicios}" var="servicio">
+                            <input type="checkbox" name="servicios[]" value="${servicio.key}">${servicio.value[0]} ${servicio.value[1]}
+                            <br/>
+                        </c:forEach>
+                    </div>
+                </div>
+                <div class="ui center aligned basic segment">
+                    <button type="button" id="btnIrIzquierda" class="ui icon left attached button"><i class="caret left icon"></i></button>
+                    <button type="button" id="btnIrDerecha" class="icon right attached ui button"><i class="caret right icon"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- SELECCIONAR HORA -->
-    <div class="column">
+    <div class="column" id="divDatosHora">
         <div class="ui segment">
             <div class="ui form">
                 <h4 class="ui dividing header">Seleccionar Hora</h4>
                 <div class="ui center aligned basic segment">
                     <div class="ui input">
-                        <input type="date" id="dateHoraAtencion" />
+                        <input type="date"  id="dateHoraAtencion" />
                     </div>
                 </div>
                 <div class="column">
@@ -262,37 +329,14 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="ui center aligned basic segment">
-                    <button class="ui icon left attached button"><i class="caret left icon"></i></button>
-                    <button class="icon right attached ui button"><i class="caret right icon"></i></button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- SERVICIO Y BARBERO -->
-    <div class="column">
-        <div class="ui segment">
-            <div class="ui form">
-                <h4 class="ui dividing header">Barbero y Servicio</h4>
-                <div class="ui center aligned basic segment">
-                    <div class="ui input">
-                        <select></select>
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="ui segment">
-
-                    </div>
-                </div>
-                <div class="ui center aligned basic segment">
-                    <button class="ui icon left attached button"><i class="caret left icon"></i></button>
+                    <button  type="button" id="btnVolver" class="ui icon left attached button"><i class="caret left icon"></i></button>
                     <button class="right attached ui olive button">Ver detalle</button>
                 </div>
             </div>
         </div>
     </div>
+
 </form:form>
 
 <div style="height: 50px;"></div>

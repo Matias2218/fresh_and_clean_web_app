@@ -123,11 +123,9 @@ public class IntranetControlador {
 
     @Secured("ROLE_BARBERO")
     @GetMapping("barbero")
-    public String vistaBarbero(Principal principal,Model model)
+    public String vistaBarbero(Principal principal,Model model,HttpSession session)
     {
-        Empleado empleado;
-        empleado = usuarioServicio.findById(Integer.parseInt(principal.getName()));
-        model.addAttribute("empleado",empleado);
+        model.addAttribute("persona",((Empleado)session.getAttribute("empleado")).getPersona());
         return "barbero";
     }
 
@@ -194,8 +192,12 @@ public class IntranetControlador {
     @GetMapping("administrador/crearEmpleado")
     public String vistacrearEmpleado(Model model,HttpSession session)
     {
+        Map<String,String> generos = new HashMap<>();
+        generos.put("M","Masculino");
+        generos.put("F","Femenino");
         Empleado empleado = new Empleado();
         session.setAttribute("tipoEmpleados",usuarioServicio.findAllTipoEmpleados());
+        model.addAttribute("generos",generos);
         model.addAttribute("empleado",empleado);
         return "crearEmpleado";
     }
@@ -204,6 +206,7 @@ public class IntranetControlador {
     public String crearEmpleado(@Valid @ModelAttribute("empleado")Empleado empleado,
                                 BindingResult  bindingResult,HttpSession session)
     {
+
         ArrayList<String> errores = new ArrayList<>();
         if(bindingResult.hasErrors())
         {
@@ -250,6 +253,7 @@ public class IntranetControlador {
                                       HttpSession session,
                                       HttpServletRequest httpRequest)
     {
+        Map<String,String> generos = new HashMap<>();
         Integer idInt;
         Empleado empleado;
         try {
@@ -268,11 +272,14 @@ public class IntranetControlador {
         {
             return "redirect:/intranet/administrador";
         }
+        generos.put("M","Masculino");
+        generos.put("F","Femenino");
         session.setAttribute("idEmpleado",empleado.getIdEmpleado());
         session.setAttribute("idPersona",empleado.getPersona().getIdPersona());
         session.setAttribute("passwordEmpleado",empleado.getPasswordEmpleado());
         session.setAttribute("tipoEmpleados",usuarioServicio.findAllTipoEmpleados());
         model.addAttribute("empleado",empleado);
+        model.addAttribute("generos",generos);
         return "editarEmpleado";
     }
     @Secured("ROLE_ADMINISTRADOR")

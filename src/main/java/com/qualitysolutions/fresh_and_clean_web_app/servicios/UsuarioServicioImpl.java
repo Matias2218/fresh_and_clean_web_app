@@ -1,12 +1,7 @@
 package com.qualitysolutions.fresh_and_clean_web_app.servicios;
 
-import com.qualitysolutions.fresh_and_clean_web_app.dao.IBoletaDao;
-import com.qualitysolutions.fresh_and_clean_web_app.dao.IEmpleadoDao;
-import com.qualitysolutions.fresh_and_clean_web_app.dao.IPersonaDao;
-import com.qualitysolutions.fresh_and_clean_web_app.dao.ITipoEmpleadoDao;
-import com.qualitysolutions.fresh_and_clean_web_app.modelos.Boleta;
-import com.qualitysolutions.fresh_and_clean_web_app.modelos.Empleado;
-import com.qualitysolutions.fresh_and_clean_web_app.modelos.TipoEmpleado;
+import com.qualitysolutions.fresh_and_clean_web_app.dao.*;
+import com.qualitysolutions.fresh_and_clean_web_app.modelos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,19 +21,45 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
     ITipoEmpleadoDao tipoEmpleadoDao;
     @Autowired
     IPersonaDao personaDao;
-
+    @Autowired
+    IPeticionHoraDao peticionHoraDao;
+    @Autowired
+    IServicioDao servicioDao;
+    @Autowired
+    IClienteDao clienteDao;
 
     @Override
+    @Transactional
+    public PeticionHora savePeticion(PeticionHora peticionHora) {
+         return peticionHoraDao.save(peticionHora);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Servicio> findAllServicio() {
+        return (List<Servicio>) servicioDao.findAll();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Cliente> findAllCliente() {
+        return (List<Cliente>) clienteDao.findAll();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List<Empleado> findAllEmpleadoOrderByEstaActivo() {
         return empleadoDao.findAllByOrderByEstaActivoDesc();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<TipoEmpleado> findAllTipoEmpleados() {
         return (List<TipoEmpleado>) tipoEmpleadoDao.findAll();
     }
 
     @Override
+    @Transactional
     public Empleado saveEmpleado(Empleado empleado) {
         return empleadoDao.save(empleado);
     }
@@ -60,6 +81,13 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
     @Override
     public void deleteEmpleadoById(Integer id) {
         empleadoDao.deleteById(id);
+    }
+
+    @Override
+    public List<Empleado> findAllByTipoEmpleado() {
+        TipoEmpleado tipoEmpleado = new TipoEmpleado();
+        tipoEmpleado.setIdTipo(1);
+        return empleadoDao.findAllByTipoEmpleado(tipoEmpleado);
     }
 
     @Override

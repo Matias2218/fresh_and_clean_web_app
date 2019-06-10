@@ -11,7 +11,7 @@
 <script src="\semantic\out\semantic.min.js"></script>
 <meta charset="UTF-8" />
 <link rel="stylesheet" href="\stylesheets\styles.css">
-<title>Bienvenido Gerente</title>
+<title>Bienvenido Inventario</title>
 <script type="text/javascript">
 	$(window).on('scroll', function() {
 		if ($(window).scrollTop()) {
@@ -33,8 +33,9 @@
 						<a class="toc item"><i class="sidebar icon"></i></a>
 
 						<div class="right item">
-							<a class="item" href="#">Fresh & Clean</a> <a type="button"
-								onclick="location.href='/intranet/inventario/crearProducto'"
+							<a class="item" href="#">Fresh & Clean</a>
+							<a type="button"
+							   onclick="location.href='/intranet/inventario/crearProducto'"
 								class="item">Crear Producto</a> <a class="item" href="#">Servicios</a>
 							<a class="item" href="#">Nosotros</a>
 							<button type="button" onclick="location.href='/logout'"
@@ -51,11 +52,9 @@
 		</div>
 	</div>
 	<!-- END HEADER -->
-
 	<div style="height: 50px;"></div>
 
 	<div class="ui container">
-		
 		<div class="ui segments">
 			<div class="ui segment">
 
@@ -63,13 +62,9 @@
 				<div class="ui three column grid container">
 				<c:forEach begin="0" var="i" end="${fn:length(productos)-1}">
 						<div class="column">
-							<script>
-								$('.special.cards .image').dimmer({
-									on : 'hover'
-								});
-							</script>
+
 							<div class="ui special cards">
-								<div class="card" STYLE="height: 410px;">
+								<div class="card" style="height: 430px;">
 									<div class="blurring dimmable image">
 										<div class="ui dimmer">
 											<div class="content">
@@ -80,6 +75,11 @@
 										</div>
 										<img src="http://localhost:8081/api/uploads/img/${productos[i].imagen}">
 									</div>
+									<script>
+										$('.special.cards .image').dimmer({
+											on : 'hover'
+										});
+									</script>
 									<div class="content">
 										<a class="header">${productos[i].nombre}</a>
 										<div class="meta">
@@ -128,9 +128,6 @@
 		</div>
 	</div>
 
-
-
-
 	<div style="height: 50px;"></div>
 	<!-- FOOTER -->
 	<div class="ui inverted vertical footer segment">
@@ -168,7 +165,5 @@
 		</div>
 	</div>
 	<!-- END FOOTER -->
-
-
 </body>
 </html>

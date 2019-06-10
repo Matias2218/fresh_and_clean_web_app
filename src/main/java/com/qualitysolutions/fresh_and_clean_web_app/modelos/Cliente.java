@@ -30,6 +30,7 @@ public class Cliente implements Serializable
     public Cliente() {
     }
 
+
     public Integer getIdCliente() {
         return idCliente;
     }

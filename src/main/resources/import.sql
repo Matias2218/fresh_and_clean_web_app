@@ -25,8 +25,14 @@ insert into empresas(id_empresa,rut_empresa,razon_social,telefono_empresa,email_
 
 insert into sucursales(id_sucursal,nombre_sucursal,email_sucursal,telefono_sucursal,direccion_sucursal,empresa_id) values(1,'Fresh & Clean Talagante','freshandcleantalagante@gmail.com','+56954213487','Balmaceda 4211 Talagante',1)
 
-insert into peticion_horas(id_peticion,hora_atencion,cliente_id,empleado_id) values (1,'2019/05/30 13:00',1,1)
-insert into peticion_horas(id_peticion,hora_atencion,cliente_id,empleado_id) values (2,'2019/06/27 15:00',1,1)
+insert into servicios(id_servicio,nombre_servicio,descripcion_servicio,precio_servicio,id_sucursal) values(1,"Perfilado de barba","Asesoría, ritual con toalla caliente, limpieza facial y aplicación de producto.",4550,1);
+insert into servicios(id_servicio,nombre_servicio,descripcion_servicio,precio_servicio,id_sucursal) values(2,"Corte de cabello","Asesoría personalizada, corte de cabello, lavado y aplicación de producto.",5990,1);
+insert into servicios(id_servicio,nombre_servicio,descripcion_servicio,precio_servicio,id_sucursal) values(3,"Peinado","Lavado de cabello, aplicación de producto y peinado para fiestas y eventos.",2990,1);
+insert into servicios(id_servicio,nombre_servicio,descripcion_servicio,precio_servicio,id_sucursal) values(4,"Rasurado(Cabeza)","Ritual de afeitado al ras con toalla caliente. Aplicación de after shave.",5990,1);
+insert into servicios(id_servicio,nombre_servicio,descripcion_servicio,precio_servicio,id_sucursal) values(5,"Rasurado(Barba)","Ritual de afeitado al ras con toalla caliente. Aplicación de after shave.",2990,1);
 
-insert into boletas(id_boleta,descripcion_boleta,fecha_boleta,monto_total,id_peticion) values(1,'Boleta numero 1','2019/05/31 15:21',25000,1)
-insert into boletas(id_boleta,descripcion_boleta,fecha_boleta,monto_total,id_peticion) values(2,'Boleta numero 2','2019/06/29 17:21',10000,2)
+--insert into peticion_horas(id_peticion,hora_atencion,cliente_id,empleado_id) values (1,'2019/05/30 13:00',1,1)
+--insert into peticion_horas(id_peticion,hora_atencion,cliente_id,empleado_id) values (2,'2019/06/27 15:00',1,1)
+
+--insert into boletas(id_boleta,descripcion_boleta,fecha_boleta,monto_total,id_peticion) values(1,'Boleta numero 1','2019/05/31 15:21',25000,1)
+--insert into boletas(id_boleta,descripcion_boleta,fecha_boleta,monto_total,id_peticion) values(2,'Boleta numero 2','2019/06/29 17:21',10000,2)

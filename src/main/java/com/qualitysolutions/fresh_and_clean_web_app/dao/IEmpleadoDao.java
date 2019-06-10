@@ -1,6 +1,7 @@
 package com.qualitysolutions.fresh_and_clean_web_app.dao;
 
 import com.qualitysolutions.fresh_and_clean_web_app.modelos.Empleado;
+import com.qualitysolutions.fresh_and_clean_web_app.modelos.TipoEmpleado;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -18,4 +19,5 @@ public interface IEmpleadoDao extends CrudRepository<Empleado,Integer>
      @Modifying
      @Query(value = "update empleados set esta_activo = 0 where id_empleado=?1",nativeQuery = true)
      void desactiveEmpleado(Integer id);
+     List<Empleado> findAllByTipoEmpleado(TipoEmpleado tipoEmpleado);
 }

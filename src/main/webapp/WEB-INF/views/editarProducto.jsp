@@ -78,7 +78,7 @@
 
 				<div class="field">
 					<form:label path="descripcion">Descripcion</form:label>
-					<form:textarea path="descripcion"></form:textarea>
+					<form:textarea path="descripcion" rows="2"></form:textarea>
 				</div>
 
 				<div class="two fields">
@@ -115,7 +115,8 @@
 			<div class="ui segment"
 				style="border: 1px solid transparent; box-shadow: none;">
 				<div class="field">
-					<label>Foto</label> <img id="imagenSalida" name="imagenSalida"
+					<label>Foto</label>
+					<img id="imagenSalida" name="imagenSalida"
 						src="http://localhost:8081/api/uploads/img/${producto.imagen}"
 						class="ui medium  bordered rounded image">
 
