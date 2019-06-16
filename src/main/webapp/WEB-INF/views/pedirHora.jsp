@@ -49,6 +49,11 @@
                 return today;
             }
 
+            $('#btnGenerarHora').click(function () {
+                $('#divDatosBarbero :input').attr('disabled', false);
+                $('#divDatosHora :input').attr('disabled', false);
+                $('#divDatosCliente :input').attr('disabled', false);
+            });
 
             $('#dateHoraAtencion').attr('min',today());
             $('#dateHoraAtencion').attr('max',DiasMaximo());
@@ -227,13 +232,13 @@
                             <div class="two fields">
                                 <div class="field">
                                     <div class="ui radio checkbox">
-                                        <input type="radio" name="rdbHora"  value="10:00">
+                                        <input type="radio" name="rdbHora[]"  value="10:00">
                                         <label>10:00am</label>
                                     </div>
                                 </div>
                                 <div class="field">
                                     <div class="ui radio checkbox">
-                                        <input type="radio" name="rdbHora" value="15:30">
+                                        <input type="radio" name="rdbHora[]" value="15:30">
                                         <label>15:00pm</label>
                                     </div>
                                 </div>
@@ -241,13 +246,13 @@
                             <div class="two fields">
                                 <div class="field">
                                     <div class="ui radio checkbox">
-                                        <input type="radio" name="rdbHora" value="10:30">
+                                        <input type="radio" name="rdbHora[]" value="10:30">
                                         <label>10:30am</label>
                                     </div>
                                 </div>
                                 <div class="field">
                                     <div class="ui radio checkbox">
-                                        <input type="radio" name="rdbHora" value="15:30">
+                                        <input type="radio" name="rdbHora[]" value="15:30">
                                         <label>15:30pm</label>
                                     </div>
                                 </div>
@@ -255,13 +260,13 @@
                             <div class="two fields">
                                 <div class="field">
                                     <div class="ui radio checkbox">
-                                        <input type="radio" name="rdbHora" value="11:00">
+                                        <input type="radio" name="rdbHora[]" value="11:00">
                                         <label>11:00am</label>
                                     </div>
                                 </div>
                                 <div class="field">
                                     <div class="ui radio checkbox">
-                                        <input type="radio" name="rdbHora" value="16:00">
+                                        <input type="radio" name="rdbHora[]" value="16:00">
                                         <label>16:00pm</label>
                                     </div>
                                 </div>
@@ -269,13 +274,13 @@
                             <div class="two fields">
                                 <div class="field">
                                     <div class="ui radio checkbox">
-                                        <input type="radio" name="rdbHora" value="11:30">
+                                        <input type="radio" name="rdbHora[]" value="11:30">
                                         <label>11:30am</label>
                                     </div>
                                 </div>
                                 <div class="field">
                                     <div class="ui radio checkbox">
-                                        <input type="radio" name="rdbHora" value="16:30">
+                                        <input type="radio" name="rdbHora[]" value="16:30">
                                         <label>16:30pm</label>
                                     </div>
                                 </div>
@@ -283,13 +288,13 @@
                             <div class="two fields">
                                 <div class="field">
                                     <div class="ui radio checkbox">
-                                        <input type="radio" name="rdbHora" value="12:00">
+                                        <input type="radio" name="rdbHora[]" value="12:00">
                                         <label>12:00pm</label>
                                     </div>
                                 </div>
                                 <div class="field">
                                     <div class="ui radio checkbox">
-                                        <input type="radio" name="rdbHora" value="17:00">
+                                        <input type="radio" name="rdbHora[]" value="17:00">
                                         <label>17:00pm</label>
                                     </div>
                                 </div>
@@ -297,13 +302,13 @@
                             <div class="two fields">
                                 <div class="field">
                                     <div class="ui radio checkbox">
-                                        <input type="radio" name="rdbHora" value="12:30">
+                                        <input type="radio" name="rdbHora[]" value="12:30">
                                         <label>12:30pm</label>
                                     </div>
                                 </div>
                                 <div class="field">
                                     <div class="ui radio checkbox">
-                                        <input type="radio" name="rdbHora" value="17:30">
+                                        <input type="radio" name="rdbHora[]" value="17:30">
                                         <label>17:30pm</label>
                                     </div>
                                 </div>
@@ -311,13 +316,13 @@
                             <div class="two fields">
                                 <div class="field">
                                     <div class="ui radio checkbox">
-                                        <input type="radio" name="rdbHora" value="14:00">
+                                        <input type="radio" name="rdbHora[]" value="14:00">
                                         <label>14:00pm</label>
                                     </div>
                                 </div>
                                 <div class="field">
                                     <div class="ui radio checkbox">
-                                        <input type="radio" name="rdbHora" value="18:00">
+                                        <input type="radio" name="rdbHora[]" value="18:00">
                                         <label>18:00pm</label>
                                     </div>
                                 </div>
@@ -325,13 +330,13 @@
                             <div class="two fields">
                                 <div class="field">
                                     <div class="ui radio checkbox">
-                                        <input type="radio" name="rdbHora" value="14:30">
+                                        <input type="radio" name="rdbHora[]" value="14:30">
                                         <label>14:30pm</label>
                                     </div>
                                 </div>
                                 <div class="field">
                                     <div class="ui radio checkbox">
-                                        <input type="radio" name="rdbHora" value="18:30">
+                                        <input type="radio" name="rdbHora[]" value="18:30">
                                         <label>18:30pm</label>
                                     </div>
                                 </div>
@@ -341,7 +346,7 @@
                 </div>
                 <div class="ui center aligned basic segment">
                     <button  type="button" id="btnVolver" class="ui icon left attached button"><i class="caret left icon"></i></button>
-                    <button class="right attached ui olive button">Ver detalle</button>
+                    <button id="btnGenerarHora" class="right attached ui olive button">Ver detalle</button>
                 </div>
             </div>
         </div>

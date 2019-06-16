@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,12 +17,72 @@
             } else {
                 $('#divblack').removeClass('greysi fixed');
             }
-        })
+        });
+
+        $(document).ready(function() {
+            $('button[name=btnAdministrar]').click(function () {
+                var datos = $(this).attr('value').split(".");
+                console.log(datos[4]);
+                $('#body').append("<div class=\"ui modal\">\n" +
+                    "  <i class=\"close icon\"></i>\n" +
+                    "  <div class=\"header\">\n" +
+                    "     Administrar hora\n" +
+                    "  </div>\n" +
+                    "    <div class=\"content\">\n" +
+                    "      <p>Seleccione la accion que quiere realizar correspondiente a la hora: <br>" +
+                    "     Fecha: "+datos[1]+"<br>" +
+                    "     Nombre: "+datos[2]+" "+datos[3]+"</p>\n" +
+                    "    </div>\n" +
+                    "  <div class=\"actions\">\n" +
+                    "    <div class=\"ui button\" id='btnRechazar' >Rechazada</div>\n" +
+                    "    <div class=\"ui button\" id='btnRealizada' >Realizada</div>\n" +
+                    "</div>");
+                    $('.ui.modal')
+                    .modal('show')
+                     ;
+
+                    $('#btnRechazar').click(function () {
+                        $.ajax({
+                            type : 'POST',
+                            contentType : 'application/json; charset=utf-8',
+                            dataType : 'json',
+                            url : "/intranet/barbero/rechazarHora",
+                            data : JSON.stringify(datos[0]),
+                            success : function (response) {
+
+                                location.reload();
+                            },
+                            error : function (e) {
+                                console.log("Error",e);
+                            }
+                        })
+                    });
+
+                $('#btnRealizada').click(function () {
+                    $.ajax({
+                        type : 'POST',
+                        contentType : 'application/json; charset=utf-8',
+                        dataType : 'json',
+                        url : "/intranet/barbero/horaRealizada",
+                        data : JSON.stringify({
+                             idHora:datos[0],
+                             totalServicio:datos[4]
+                        }),
+                        success : function (response) {
+                            location.reload();
+                        },
+                        error : function (e) {
+                            console.log("Error",e);
+                        }
+                    })
+                });
+            });
+        });
     </script>
     <meta charset="UTF-8"/>
     <title>Perfil barbero</title>
 </head>
-<body>
+<body id="body">
 <!-- HEADER -->
 <div classs="pusher">
     <div class="ui vertical sc-main-intranet-perfiles center aligned segment">
@@ -45,9 +107,53 @@
         </div>
     </div>
 </div>
+
 <!-- END HEADER -->
 
 <h3 class="ui center aligned header">Horas agendadas</h3>
+
+<table class="ui celled structured olive table">
+    <thead>
+    <tr>
+        <th rowspan="2" class="center aligned">Nombre</th>
+        <th rowspan="2" class="center aligned">Email</th>
+        <th rowspan="2" class="center aligned">Telefono</th>
+        <th rowspan="2" class="center aligned">Genero</th>
+        <th rowspan="2" class="center aligned">Servicios</th>
+        <th rowspan="2" class="center aligned">Acciones</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <c:forEach begin="0" var="i" end="${fn:length(peticionHoras)-1}">
+        <tr>
+            <td>${peticionHoras[i].cliente.persona.nombre} ${peticionHoras[i].cliente.persona.apellido}</td>
+            <td>${peticionHoras[i].cliente.emailCliente}</td>
+            <td>${peticionHoras[i].cliente.telefonoCliente}</td>
+            <c:choose>
+                <c:when test="${peticionHoras[i].cliente.persona.genero eq 'F'.charAt(0)}">
+                    <td>Femenino</td>
+                </c:when>
+                <c:otherwise>
+                    <td>Masculino</td>
+                </c:otherwise>
+            </c:choose>
+            <td>
+                <c:set var="servicios" value="0"/>
+            <c:forEach begin="0" var="j" end="${fn:length(peticionHoras[i].servicios)-1}">
+            ${peticionHoras[i].servicios[j].nombreServicio} $${peticionHoras[i].servicios[j].precioServicio}<br>
+                <c:set var="servicios" value="${servicios + peticionHoras[i].servicios[j].precioServicio}"/>
+            </c:forEach>
+            </td>
+            <td>
+                <button type="button" value="${peticionHoras[i].idPeticion}.${localDateTimeFormat.format(peticionHoras[i].horaAtencion)}.${peticionHoras[i].cliente.persona.nombre}.${peticionHoras[i].cliente.persona.apellido}.${servicios}" name="btnAdministrar">Administrar</button>
+            </td>
+        </tr>
+    </c:forEach>
+    </tbody>
+</table>
+
+
 
 <div style="height: 50px;"></div>
 <!-- FOOTER -->

@@ -120,7 +120,7 @@
                         <a class="item" href="#">Servicios</a>
                         <a class="item" href="#">Nosotros</a>
                         <button type="button" onclick="location.href='/logout'" class="ui inverted olive button">Cerrar Sesion</button>
-                    </div>
+                </div>
                 </div>
             </div>
         </div>

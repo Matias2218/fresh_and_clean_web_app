@@ -18,13 +18,11 @@ public class Boleta implements Serializable
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_boleta")
     private Integer idBoleta;
-    @NotEmpty
     @Column(name = "monto_total",nullable = false)
     private Integer montoTotal;
     @NotEmpty
     @Column(name = "descripcion_boleta",nullable = false,length = 140)
     private String descripcionBoleta;
-    @NotEmpty
     @Column(name = "fecha_boleta",nullable = false)
     private LocalDateTime fechaBoleta;
     @NotNull
@@ -32,6 +30,16 @@ public class Boleta implements Serializable
     @JoinColumn(name = "id_peticion")
     private PeticionHora idPeticion;
 
+    public Boleta()
+    {
+
+    }
+    public Boleta(@NotEmpty Integer montoTotal, @NotEmpty String descripcionBoleta, @NotEmpty LocalDateTime fechaBoleta, @NotNull PeticionHora idPeticion) {
+        this.montoTotal = montoTotal;
+        this.descripcionBoleta = descripcionBoleta;
+        this.fechaBoleta = fechaBoleta;
+        this.idPeticion = idPeticion;
+    }
 
     public Integer getIdBoleta() {
         return idBoleta;

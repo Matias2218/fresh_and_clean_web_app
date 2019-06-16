@@ -3,6 +3,7 @@ package com.qualitysolutions.fresh_and_clean_web_app.controladores;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qualitysolutions.fresh_and_clean_web_app.modelos.Boleta;
 import com.qualitysolutions.fresh_and_clean_web_app.modelos.Empleado;
+import com.qualitysolutions.fresh_and_clean_web_app.modelos.PeticionHora;
 import com.qualitysolutions.fresh_and_clean_web_app.modelos.TipoEmpleado;
 import com.qualitysolutions.fresh_and_clean_web_app.modelos.webservice.Categoria;
 import com.qualitysolutions.fresh_and_clean_web_app.modelos.webservice.Marca;
@@ -15,6 +16,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -43,7 +47,9 @@ import java.security.Principal;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -89,7 +95,7 @@ public class IntranetControlador {
             switch (rol) {
                 case "ROLE_BARBERO":
                     session.setAttribute("empleado",empleado);
-                    return "redirect:barbero";
+                    return "redirect:barbero/horas";
                 case "ROLE_GERENTE":
                     session.setAttribute("empleado",empleado);
                     return "redirect:gerente";
@@ -122,9 +128,30 @@ public class IntranetControlador {
 
 
     @Secured("ROLE_BARBERO")
-    @GetMapping("barbero")
-    public String vistaBarbero(Principal principal,Model model,HttpSession session)
+    @GetMapping({"barbero/horas","barbero/horas/{page}"})
+    public String vistaBarbero(@PathVariable(name= "page",required = false)String page,
+                               Principal principal,
+                               Model model,
+                               HttpSession session)
     {
+        Integer pageInt=0;
+        try {
+            pageInt= Integer.parseInt(page);
+        }
+        catch (Exception e)
+        {
+
+        }
+        pageInt=(pageInt==null)?1:pageInt;
+        if(pageInt<0)
+        {
+            return "redirect:/intranet/barbero/horas";
+        }
+        Pageable pageable = PageRequest.of(pageInt,19);
+        Page<PeticionHora> peticionHoras =  usuarioServicio.findAllPeticionHoras(pageable,Integer.parseInt(principal.getName()));
+        List<PeticionHora> peticionHoraList = peticionHoras.get().collect(Collectors.toList());
+        model.addAttribute("localDateTimeFormat", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        model.addAttribute("peticionHoras",peticionHoraList);
         model.addAttribute("persona",((Empleado)session.getAttribute("empleado")).getPersona());
         return "barbero";
     }
@@ -145,23 +172,23 @@ public class IntranetControlador {
         }
         catch (Exception e)
         {
-            return "redirect:/intranet/barbero";
+            return "redirect:/intranet/barbero/horas";
         }
         pageInt=(pageInt==null)?1:pageInt;
         if(pageInt<0)
         {
-            return "redirect:/intranet/barbero";
+            return "redirect:/intranet/barbero/horas";
         }
         try {
             productosJSON = apiServicio.traerProductos(pageInt);
         }
         catch (Exception e)
         {
-            return "redirect:/intranet/barbero";
+            return "redirect:/intranet/barbero/horas";
         }
         if(pageInt>productosJSON.getBody().getTotalPages())
         {
-            return "redirect:/intranet/barbero";
+            return "redirect:/intranet/barbero/horas";
         }
         List<Producto> productos = productosJSON.getBody().getContent();
         totalProductos = productosJSON.getBody().getTotalElements();
@@ -174,6 +201,31 @@ public class IntranetControlador {
         model.addAttribute("persona",((Empleado)session.getAttribute("empleado")).getPersona());
         return "verProductos";
     }
+    @Secured("ROLE_BARBERO")
+    @PostMapping("barbero/rechazarHora")
+    public ResponseEntity<?> rechazarHora(@RequestBody Integer id) {
+        Map<String,Object> result = new HashMap<>();
+        usuarioServicio.rechazarHora(id);
+        result.put("mensaje","Hora rechazada con exito");
+        return new ResponseEntity<>(result,HttpStatus.OK);
+    }
+
+    @Secured("ROLE_BARBERO")
+    @PostMapping("barbero/horaRealizada")
+    public ResponseEntity<?> horaRealizada(@RequestBody HashMap<String, String> datos)
+    {
+        Map<String,Object> result = new HashMap<>();
+        Integer idHora = Integer.parseInt(datos.get("idHora"));
+        Integer totalServicio = Integer.parseInt(datos.get("totalServicio"));
+        usuarioServicio.horaRelizada(idHora);
+        PeticionHora peticionHora = usuarioServicio.findByIdPeticion(idHora);
+        LocalDateTime localDateTime = LocalDateTime.now();
+        Boleta boleta = new Boleta(totalServicio,"--",localDateTime,peticionHora);
+        usuarioServicio.saveBoleta(boleta);
+        return new ResponseEntity<>(result,HttpStatus.OK);
+    }
+
+
     @Secured("ROLE_ADMINISTRADOR")
     @GetMapping("administrador")
     public String vistaAdministrador(Model model,HttpSession session)

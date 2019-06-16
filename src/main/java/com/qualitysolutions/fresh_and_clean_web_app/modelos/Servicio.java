@@ -23,7 +23,7 @@ public class Servicio implements Serializable
     private String descripcionServicio;
     @Column(name = "precio_servicio",nullable = false)
     private Integer precioServicio;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "id_sucursal")
     private Sucursal sucursal;
 

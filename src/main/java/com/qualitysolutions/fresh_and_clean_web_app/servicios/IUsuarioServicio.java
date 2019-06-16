@@ -1,15 +1,24 @@
 package com.qualitysolutions.fresh_and_clean_web_app.servicios;
 
 import com.qualitysolutions.fresh_and_clean_web_app.modelos.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public interface IUsuarioServicio {
 
+
     PeticionHora savePeticion(PeticionHora peticionHora);
+    PeticionHora findByIdPeticion(Integer id);
+    Page<PeticionHora> findAllPeticionHoras(Pageable pageable,Integer idEmpleado);
+    Boolean rechazarHora(Integer id);
+    Boolean horaRelizada(Integer id);
     List<Servicio> findAllServicio();
+    List<Servicio> findAllServicioById(ArrayList<Integer> ids);
     List<Cliente> findAllCliente();
     List<String> findAllHorasOcupadas(LocalDate fecha, Integer idEmpleado);
     List<Empleado> findAllEmpleadoOrderByEstaActivo();
@@ -25,4 +34,5 @@ public interface IUsuarioServicio {
     Map<String,String> findAllMesesBoletas();
     List<String[]> barberoConMasAtenciones();
     List<Boleta> findAllByAnoAndByMes(Integer año,Integer mes);
+    Boleta saveBoleta(Boleta boleta);
  }

@@ -23,7 +23,8 @@ public class Cliente implements Serializable
     @NotEmpty
     private String telefonoCliente;
     @NotNull
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER,
+    cascade = CascadeType.ALL)
     @JoinColumn(name = "persona_id")
     private Persona persona;
 

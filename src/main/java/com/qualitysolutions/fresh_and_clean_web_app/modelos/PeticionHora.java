@@ -22,22 +22,34 @@ public class PeticionHora implements Serializable
     @Column(name = "hora_atencion",nullable = false)
     private LocalDateTime horaAtencion;
     @NotNull
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER,
+    cascade = CascadeType.ALL)
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "empleado_id")
     private Empleado empleado;
-    @ManyToMany(fetch = FetchType.LAZY,
+    @ManyToMany(fetch = FetchType.EAGER,
             cascade = {
-                    CascadeType.PERSIST,
                     CascadeType.MERGE
             })
     @JoinTable(name = "servicios_peticion_horas",
             joinColumns = { @JoinColumn(name = "id_peticion") },
             inverseJoinColumns = { @JoinColumn(name = "id_servicio") })
     private List<Servicio> servicios;
+    @Column(nullable = false)
+    private String estado;
+    public PeticionHora() {
+    }
+
+    public PeticionHora(LocalDateTime horaAtencion, @NotNull Cliente cliente, @NotNull Empleado empleado, List<Servicio> servicios, String estado) {
+        this.horaAtencion = horaAtencion;
+        this.cliente = cliente;
+        this.empleado = empleado;
+        this.servicios = servicios;
+        this.estado = estado;
+    }
 
     public Integer getIdPeticion() {
         return idPeticion;
@@ -77,5 +89,13 @@ public class PeticionHora implements Serializable
 
     public void setServicios(List<Servicio> servicios) {
         this.servicios = servicios;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 }
