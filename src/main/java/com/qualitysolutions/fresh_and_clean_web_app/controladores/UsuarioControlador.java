@@ -72,7 +72,8 @@ public class UsuarioControlador {
 							  @RequestParam(name="cmbEmpleado",required = false)String idEmpleado,
 							  @RequestParam(name = "servicios[]",required = false)ArrayList<String> servicios,
 							  @RequestParam(name="dateHoraAtencion",required = false) String fechaAtencion,
-							  @RequestParam(name = "rdbHora[]",required = false) String[] horas)
+							  @RequestParam(name = "rdbHora[]",required = false) String[] horas,
+							  Model model)
 	{
 		Integer idEmpleadoInt=0;
 		String estado;
@@ -97,8 +98,11 @@ public class UsuarioControlador {
 		List<Servicio> servicioList = usuarioServicio.findAllServicioById(serviciosInteger);
 		estado="espera";
 		PeticionHora peticionHora = new PeticionHora(fechaAtencionConHoraDate,cliente,empleado,servicioList,estado);
-		usuarioServicio.savePeticion(peticionHora);
-		return "pedirHora";
+		peticionHora=usuarioServicio.savePeticion(peticionHora);
+		model.addAttribute("fecha",peticionHora.getHoraAtencion().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+		model.addAttribute("hora",peticionHora.getHoraAtencion().format(DateTimeFormatter.ofPattern("HH:mm")));
+		model.addAttribute("peticionHora",peticionHora);
+		return "detalleHora";
 	}
 	@Secured("ROLE_GERENTE")
 	@GetMapping("gerente")

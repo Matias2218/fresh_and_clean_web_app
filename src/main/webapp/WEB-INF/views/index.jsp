@@ -19,10 +19,10 @@
             }
         })
 
-        $('.special.cards .image').dimmer({
-            on: 'hover'
-        });
+        
+      ;
     </script>
+    
 </head>
 
 <body>
@@ -32,7 +32,7 @@
         <div class="ui container">
             <div id="divblack" class="following bar ">
                 <div class="ui large secondary inverted pointed fixed menu">
-                    <a class="toc item"><i class="sidebar icon"></i></a>
+                    
 
                     <div class="right item">
                         <a class="item" href="#">Fresh & Clean</a> <a class="item"
@@ -58,9 +58,9 @@
 </div>
 <!-- END HEADER -->
 
-<div style="height: 500px;"></div>
+<div style="height: 50px;"></div>
 
-
+<div style="height: 50px;"></div>
 <!-- FOOTER -->
 <div class="ui inverted vertical footer segment">
     <div class="ui center aligned container">
@@ -90,8 +90,7 @@
             </div>
         </div>
         <div class="ui inverted section divider"></div>
-        <img src="../img/logo-blanco.png" class="ui centered image"
-             style="height: 50px;">
+        <img src="../img/logo-blanco.png" class="ui small centered image">
         <div class="ui horizontal inverted small divided link list">
             <a class="item" href="#">Fresh&Clean</a> <a class="item" href="#">Contactanos</a>
             <a class="item" href="#">Nosotros</a> <a class="item" href="#">Privacy
