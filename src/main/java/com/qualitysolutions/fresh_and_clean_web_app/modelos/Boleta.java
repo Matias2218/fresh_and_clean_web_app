@@ -6,6 +6,8 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+
+
 @Entity
 @Table(name = "Boletas")
 public class Boleta implements Serializable

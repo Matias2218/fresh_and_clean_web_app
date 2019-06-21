@@ -35,10 +35,18 @@
                     "      <p>Seleccione la accion que quiere realizar correspondiente a la hora: <br>" +
                     "     Fecha: "+datos[1]+"<br>" +
                     "     Nombre: "+datos[2]+" "+datos[3]+"</p>\n" +
+                    "<div class=\"ui form\">\n" +
+                    "<div class=\"field\">\n" +
+                    "<label>Si el motivo es rechazo, por favor escriba al motivo aqui</label>"+
+                    "<textarea id='areaRechazo'>\n" +
+                    "\n" +
+                    "</textarea>\n" +
+                    "</div>\n" +
+                    "</div>"+
                     "    </div>\n" +
                     "  <div class=\"actions\">\n" +
-                    "    <div class=\"ui button\" id='btnRechazar' >Rechazada</div>\n" +
-                    "    <div class=\"ui button\" id='btnRealizada' >Realizada</div>\n" +
+                    "    <div class=\"ui button\" id='btnAceptarHora' >Aceptar Hora</div>\n" +
+                    "    <div class=\"ui button\" id='btnRechazar' >Rechazar</div>\n" +
                     "</div>");
                     $('#modalAccion')
                     .modal('show')
@@ -58,9 +66,11 @@
                             contentType : 'application/json; charset=utf-8',
                             dataType : 'json',
                             url : "/intranet/barbero/rechazarHora",
-                            data : JSON.stringify(datos[0]),
+                            data : JSON.stringify({
+                                    idHora:datos[0],
+                                    motivoRechazo:$('#areaRechazo').val().trim()
+                                }),
                             success : function (response) {
-
                                 location.reload();
                             },
                             error : function (e) {
@@ -69,7 +79,7 @@
                         })
                     });
 
-                $('#btnRealizada').click(function () {
+                $('#btnAceptarHora').click(function () {
                     $('#modalAccion')
                         .modal('hide')
                     ;
@@ -80,11 +90,8 @@
                         type : 'POST',
                         contentType : 'application/json; charset=utf-8',
                         dataType : 'json',
-                        url : "/intranet/barbero/horaRealizada",
-                        data : JSON.stringify({
-                             idHora:datos[0],
-                             totalServicio:datos[4]
-                        }),
+                        url : "/intranet/barbero/horaAceptada",
+                        data : JSON.stringify(datos[0]),
                         success : function (response) {
                             location.reload();
                         },

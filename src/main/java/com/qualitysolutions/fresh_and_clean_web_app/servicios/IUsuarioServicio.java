@@ -18,6 +18,7 @@ public interface IUsuarioServicio {
     Page<PeticionHora> findAllPeticionHorasEspera(Pageable pageable,Integer idEmpleado);
     Boolean rechazarHora(Integer id);
     Boolean horaRelizada(Integer id);
+    Boolean horaAceptada(Integer id);
     List<Servicio> findAllServicio();
     List<Servicio> findAllServicioById(ArrayList<Integer> ids);
     List<Cliente> findAllCliente();

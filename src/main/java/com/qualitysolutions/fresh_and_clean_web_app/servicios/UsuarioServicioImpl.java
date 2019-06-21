@@ -70,6 +70,13 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
     }
 
     @Override
+    @Transactional
+    public Boolean horaAceptada(Integer id) {
+        peticionHoraDao.horaAceptada(id);
+        return true;
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public List<Servicio> findAllServicio() {
         return (List<Servicio>) servicioDao.findAll();

@@ -29,4 +29,8 @@ public interface IPeticionHoraDao extends JpaRepository<PeticionHora,Integer> {
     @Modifying
     @Query(value = "update peticion_horas set estado= \"realizada\" where id_peticion=?1",nativeQuery = true)
     void horaRealizada(Integer id);
+
+    @Modifying
+    @Query(value = "update peticion_horas set estado= \"aceptada\" where id_peticion=?1",nativeQuery = true)
+    void horaAceptada(Integer id);
 }

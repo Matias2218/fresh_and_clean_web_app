@@ -342,6 +342,7 @@ public class IntranetControlador {
         return new ResponseEntity<>(result,HttpStatus.OK);
     }
 
+
     @Secured("ROLE_BARBERO")
     @PostMapping("barbero/horaRealizada")
     public ResponseEntity<?> horaRealizada(@RequestBody HashMap<String, String> datos)
@@ -355,9 +356,18 @@ public class IntranetControlador {
         LocalDateTime horaBoleta = localDateTime.toLocalDateTime();
         Boleta boleta = new Boleta(totalServicio,"--",horaBoleta,peticionHora);
         usuarioServicio.saveBoleta(boleta);
+        result.put("mensaje","Hora realizada con exito");
         return new ResponseEntity<>(result,HttpStatus.OK);
     }
-
+    @Secured("ROLE_BARBERO")
+    @PostMapping("barbero/horaAceptada")
+    public ResponseEntity<?> horaAceptada(@RequestBody Integer id)
+    {
+        Map<String,Object> result = new HashMap<>();
+        usuarioServicio.horaAceptada(id);
+        result.put("mensaje","Hora aceptada con exito");
+        return new ResponseEntity<>(result,HttpStatus.OK);
+    }
 
     @Secured("ROLE_ADMINISTRADOR")
     @GetMapping("administrador")
