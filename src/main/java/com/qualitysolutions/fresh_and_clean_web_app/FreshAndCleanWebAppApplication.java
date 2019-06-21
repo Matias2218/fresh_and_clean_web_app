@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
+import java.time.*;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -23,7 +24,6 @@ public class FreshAndCleanWebAppApplication {
     }
     @PostConstruct
     public void init(){
-        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));   // It will set UTC timezone
-        System.out.println("Spring boot application running in UTC timezone :"+new Date());   // It will print UTC timezone
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
     }
 }

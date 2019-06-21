@@ -11,6 +11,7 @@ import com.qualitysolutions.fresh_and_clean_web_app.modelos.webservice.Producto;
 import com.qualitysolutions.fresh_and_clean_web_app.modelos.webservice.RestResponsePagina;
 import com.qualitysolutions.fresh_and_clean_web_app.servicios.IApiServicio;
 import com.qualitysolutions.fresh_and_clean_web_app.servicios.IUsuarioServicio;
+import com.qualitysolutions.fresh_and_clean_web_app.servicios.SmtpMailSender;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +37,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.WebUtils;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,9 +48,7 @@ import java.net.URLEncoder;
 import java.security.Principal;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Month;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.*;
@@ -67,6 +67,9 @@ public class IntranetControlador {
 
     @Autowired
     RestTemplate restTemplate;
+
+    @Autowired
+    private SmtpMailSender smtpMailSender;
 
     @Autowired
     private IApiServicio apiServicio;
@@ -157,6 +160,34 @@ public class IntranetControlador {
     }
 
     @Secured("ROLE_BARBERO")
+    @GetMapping({"barbero/horasEspera","barbero/horasEspera/{page}"})
+    public String vistaBarberoHoraEspea(@PathVariable(name= "page",required = false)String page,
+                               Principal principal,
+                               Model model,
+                               HttpSession session)
+    {
+        Integer pageInt=0;
+        try {
+            pageInt= Integer.parseInt(page);
+        }
+        catch (Exception e)
+        {
+        }
+        pageInt=(pageInt==null)?1:pageInt;
+        if(pageInt<0)
+        {
+            return "redirect:/intranet/barbero/horaEspera";
+        }
+        Pageable pageable = PageRequest.of(pageInt,19);
+        Page<PeticionHora> peticionHoras =  usuarioServicio.findAllPeticionHorasEspera(pageable,Integer.parseInt(principal.getName()));
+        List<PeticionHora> peticionHoraList = peticionHoras.get().collect(Collectors.toList());
+        model.addAttribute("localDateTimeFormat", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        model.addAttribute("peticionHoras",peticionHoraList);
+        model.addAttribute("persona",((Empleado)session.getAttribute("empleado")).getPersona());
+        return "horaEspera";
+    }
+
+    @Secured("ROLE_BARBERO")
     @GetMapping({"barbero/productos/{page}","barbero/productos","barbero/productos/"})
     public String vistaProductos(Principal principal,
                                  Model model,
@@ -201,11 +232,112 @@ public class IntranetControlador {
         model.addAttribute("persona",((Empleado)session.getAttribute("empleado")).getPersona());
         return "verProductos";
     }
+
     @Secured("ROLE_BARBERO")
     @PostMapping("barbero/rechazarHora")
-    public ResponseEntity<?> rechazarHora(@RequestBody Integer id) {
+    public ResponseEntity<?> rechazarHora(@RequestBody HashMap<String, String> datos) {
+        int id = Integer.parseInt(datos.get("idHora"));
+        String fechaHora;
+        String horaAtencion;
+        String motivo = datos.get("motivoRechazo");
         Map<String,Object> result = new HashMap<>();
         usuarioServicio.rechazarHora(id);
+        PeticionHora peticionHora = usuarioServicio.findByIdPeticion(id);
+        fechaHora = peticionHora.getHoraAtencion().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        horaAtencion = peticionHora.getHoraAtencion().format(DateTimeFormatter.ofPattern("HH:mm"));
+        try {
+            smtpMailSender.send(peticionHora.getCliente().getEmailCliente(), "Solicitud de hora",
+                    "<div>\n" +
+                            "<div style=\"float: right;\">\n" +
+                            "<img src=\"https://i.ibb.co/1Jk53Hs/logo-negro.png\" style=\"width:30%; float: right;\">\n" +
+                            "</div>\n" +
+                            "\n" +
+                            "<div style=\"float:left;\">\n" +
+                            "<h3 style=\"font-family: Arial, Helvetica, sans-serif; margin-top: 0; margin-bottom: 0.5rem;\">Solicitud de\n" +
+                            "hora</h3>\n" +
+                            "<div style=\"font-family: Arial, Helvetica, sans-serif;\">\n" +
+                            "<p>Su solicitud de hora dentro de la barberia Fresh & Clean ha sido rechazada</p>\n" +
+                            "<p>El motivo de rechazo de esta solicitud es: "+motivo+"</p>\n" +
+                            "<p>Si necesita informacion, no dude en contactarnos al número:\n" +
+                            "+569 9123 4567</p>\n" +
+                            "</div>\n" +
+                            "\n" +
+                            "\n" +
+                            "\n" +
+                            "<h3 style=\"margin-top: 0; margin-bottom: 0.5rem;font-family: Arial, Helvetica, sans-serif;\">Informacion\n" +
+                            "sobre la hora</h3>\n" +
+                            "</div>\n" +
+                            "<table\n" +
+                            "style=\"font-family: Arial, Helvetica, sans-serif; border-collapse: collapse; width: 100%; max-width: 100%; margin-bottom: 1rem; background-color: transparent; padding: 0.75rem; vertical-align: top; background-color: #fff; border: 1px solid #dee2e6 !important; border-bottom-width: 2px;\">\n" +
+                            "<tr>\n" +
+                            "<td\n" +
+                            "style=\"border: 1px solid #dee2e6; padding: 0.75rem; vertical-align: top;\">Nombre</td>\n" +
+                            "<td\n" +
+                            "style=\"border: 1px solid #dee2e6; padding: 0.75rem; vertical-align: top;\">"+peticionHora.getCliente().getPersona().getNombre()+"\n" +
+                            ""+peticionHora.getCliente().getPersona().getApellido()+"</td>\n" +
+                            "</tr>\n" +
+                            "<tr>\n" +
+                            "<td\n" +
+                            "style=\"border: 1px solid #dee2e6; padding: 0.75rem; vertical-align: top;\">Email</td>\n" +
+                            "<td\n" +
+                            "style=\"border: 1px solid #dee2e6; padding: 0.75rem; vertical-align: top;\">"+peticionHora.getCliente().getEmailCliente()+"</td>\n" +
+                            "</tr>\n" +
+                            "<tr>\n" +
+                            "<td\n" +
+                            "style=\"border: 1px solid #dee2e6; padding: 0.75rem; vertical-align: top;\">Telefono</td>\n" +
+                            "<td\n" +
+                            "style=\"border: 1px solid #dee2e6; padding: 0.75rem; vertical-align: top;\">"+peticionHora.getCliente().getTelefonoCliente()+"</td>\n" +
+                            "</tr>\n" +
+                            "<tr>\n" +
+                            "<td\n" +
+                            "style=\"border: 1px solid #dee2e6; padding: 0.75rem; vertical-align: top;\">Barbero</td>\n" +
+                            "<td\n" +
+                            "style=\"border: 1px solid #dee2e6; padding: 0.75rem; vertical-align: top;\">"+peticionHora.getEmpleado().getPersona().getNombre()+" "+peticionHora.getEmpleado().getPersona().getApellido()+"</td>\n" +
+                            "</tr>\n" +
+                            "<tr>\n" +
+                            "<td\n" +
+                            "style=\"border: 1px solid #dee2e6; border-bottom: 1px solid #ffd24d; padding: 0.75rem; vertical-align: top;\">Servicios</td>\n" +
+                            peticionHora.obtenerServiciosCorreo(peticionHora)+
+                            "</tr>\n" +
+                            "\n" +
+                            "<tr>\n" +
+                            "<td\n" +
+                            "style=\"border: 1px solid #ffd24d; padding: 0.75rem; vertical-align: top; background-color: #ffeeba;\">Fecha\n" +
+                            "atencion</td>\n" +
+                            "<td\n" +
+                            "style=\"border: 1px solid #ffd24d; padding: 0.75rem; vertical-align: top; background-color: #ffeeba;\">"+fechaHora+"</td>\n" +
+                            "</tr>\n" +
+                            "<tr>\n" +
+                            "<td\n" +
+                            "style=\"border: 1px solid #ffd24d; border-top: 1px solid #ffd24d; padding: 0.75rem; vertical-align: top; background-color: #ffeeba;\">Hora\n" +
+                            "de atencion</td>\n" +
+                            "<td\n" +
+                            "style=\"border: 1px solid #ffd24d; border-top: 1px solid #ffd24d; padding: 0.75rem; vertical-align: top; background-color: #ffeeba;\">"+horaAtencion+"\n" +
+                            "am</td>\n" +
+                            "</tr>\n" +
+                            "<tr>\n" +
+                            "<td\n" +
+                            "style=\"border: 1px solid #ff1a1a; border-top: 1px solid #ff1a1a; padding: 0.75rem; vertical-align: top; background-color: #ff8080;\">Estado\n" +
+                            "de Hora</td>\n" +
+                            "<td\n" +
+                            "style=\"border: 1px solid #ff1a1a; border-top: 1px solid #ff1a1a; padding: 0.75rem; vertical-align: top; background-color: #ff8080;\">"+peticionHora.getEstado()+"</td>\n" +
+                            "</tr>\n" +
+                            "<tfoot>\n" +
+                            "<tr>\n" +
+                            "<th colspan=\"2\" style=\"padding: 0.9rem;\">\n" +
+                            "<button\n" +
+                            "style=\"display: inline-block; font-weight: 400; cursor: pointer; text-align: center; white-space: nowrap; vertical-align: middle; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; border: 1px solid transparent; padding: 0.375rem 0.75rem; font-size: 1rem; line-height: 1.5; border-radius: 0.25rem; transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; color: #fff; background-color: #6c757d; border-color: #6c757d; float: right;\">Para\n" +
+                            "mas informacion, visite nuestro sitio web</button>\n" +
+                            "</th>\n" +
+                            "</tr>\n" +
+                            "</tfoot>\n" +
+                            "</table>\n" +
+                            "\n" +
+                            "</div>");
+        } catch (MessagingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         result.put("mensaje","Hora rechazada con exito");
         return new ResponseEntity<>(result,HttpStatus.OK);
     }
@@ -219,8 +351,9 @@ public class IntranetControlador {
         Integer totalServicio = Integer.parseInt(datos.get("totalServicio"));
         usuarioServicio.horaRelizada(idHora);
         PeticionHora peticionHora = usuarioServicio.findByIdPeticion(idHora);
-        LocalDateTime localDateTime = LocalDateTime.now();
-        Boleta boleta = new Boleta(totalServicio,"--",localDateTime,peticionHora);
+        ZonedDateTime localDateTime = ZonedDateTime.now(ZoneId.of("America/Santiago"));
+        LocalDateTime horaBoleta = localDateTime.toLocalDateTime();
+        Boleta boleta = new Boleta(totalServicio,"--",horaBoleta,peticionHora);
         usuarioServicio.saveBoleta(boleta);
         return new ResponseEntity<>(result,HttpStatus.OK);
     }

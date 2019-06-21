@@ -33,6 +33,7 @@
 
 				<div class="ui horizontal section divider">Productos en Inventario</div>
 				<div class="ui three column grid container">
+					
 				<c:forEach begin="0" var="i" end="${fn:length(productos)-1}">
 						<div class="column">
 							<script>

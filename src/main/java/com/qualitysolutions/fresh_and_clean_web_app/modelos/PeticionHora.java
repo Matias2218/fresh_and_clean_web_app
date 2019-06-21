@@ -98,4 +98,15 @@ public class PeticionHora implements Serializable
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    @Transient
+    private String serviciosHTML = "<td\n" +
+            "style=\"border: 1px solid #dee2e6; border-bottom: 1px solid #ffd24d; padding: 0.75rem; vertical-align: top;\">";
+
+    public String obtenerServiciosCorreo(PeticionHora peticionHora)
+    {
+        peticionHora.getServicios().forEach(servicio -> serviciosHTML+=String.format("$%s : %s <br/>",servicio.getPrecioServicio().toString(),servicio.getNombreServicio()));
+        serviciosHTML+="</td>";
+        return serviciosHTML;
+    }
 }

@@ -35,14 +35,6 @@
                     "      <p>Seleccione la accion que quiere realizar correspondiente a la hora: <br>" +
                     "     Fecha: "+datos[1]+"<br>" +
                     "     Nombre: "+datos[2]+" "+datos[3]+"</p>\n" +
-                    "<div class=\"ui form\">\n" +
-                    "<div class=\"field\">\n" +
-                    "<label>Si el motivo es rechazo, por favor escriba al motivo aqui</label>"+
-                    "<textarea id='areaRechazo'>\n" +
-                    "\n" +
-                    "</textarea>\n" +
-                    "</div>\n" +
-                    "</div>"+
                     "    </div>\n" +
                     "  <div class=\"actions\">\n" +
                     "    <div class=\"ui button\" id='btnRechazar' >Rechazada</div>\n" +
@@ -66,10 +58,7 @@
                             contentType : 'application/json; charset=utf-8',
                             dataType : 'json',
                             url : "/intranet/barbero/rechazarHora",
-                            data : JSON.stringify({
-                                idHora:datos[0],
-                                motivoRechazo:$('#areaRechazo').val().trim()
-                            }),
+                            data : JSON.stringify(datos[0]),
                             success : function (response) {
 
                                 location.reload();
@@ -143,7 +132,7 @@
 
 <!-- END HEADER -->
 
-<h3 class="ui center aligned header">Horas agendadas</h3>
+<h3 class="ui center aligned header">Horas en espera</h3>
 
 <c:choose>
     <c:when test="${fn:length(peticionHoras)>0}">
