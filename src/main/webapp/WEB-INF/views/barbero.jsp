@@ -147,12 +147,19 @@
 
 <c:choose>
     <c:when test="${fn:length(peticionHoras)>0}">
+
+
+        <form method="get" action="/intranet/barbero/horas">
+        <h1>Buscar por Fecha</h1>  <input type="date" name="fechaBuscar">
+        <input type="submit" value="Buscar">
+        </form>
         <table class="ui celled structured olive table">
             <thead>
             <tr>
                 <th rowspan="2" class="center aligned">Nombre</th>
                 <th rowspan="2" class="center aligned">Email</th>
                 <th rowspan="2" class="center aligned">Telefono</th>
+                <th rowspan="2" class="center aligned">Fecha Hora</th>
                 <th rowspan="2" class="center aligned">Genero</th>
                 <th rowspan="2" class="center aligned">Servicios</th>
                 <th rowspan="2" class="center aligned">Acciones</th>
@@ -164,6 +171,7 @@
                     <td>${peticionHoras[i].cliente.persona.nombre} ${peticionHoras[i].cliente.persona.apellido}</td>
                     <td>${peticionHoras[i].cliente.emailCliente}</td>
                     <td>${peticionHoras[i].cliente.telefonoCliente}</td>
+                    <td>${fechasFormateadas[i]}</td>
                     <c:choose>
                         <c:when test="${peticionHoras[i].cliente.persona.genero eq 'F'.charAt(0)}">
                             <td>Femenino</td>

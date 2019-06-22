@@ -25,6 +25,9 @@ public interface IPeticionHoraDao extends JpaRepository<PeticionHora,Integer> {
     @Query(value = "select * from peticion_horas where date(hora_atencion)>=curdate() and empleado_id= :idEmpleado and estado='espera' and date(hora_atencion) = :horaAtencion",nativeQuery = true)
     Page<PeticionHora> findByFechaIgualMayorEspera(Pageable pageable,@Param("idEmpleado") Integer idEmpleado, @Param("horaAtencion")String horaAtencion);
 
+    @Query(value = "select * from peticion_horas where date(hora_atencion)>=curdate() and empleado_id= :idEmpleado and estado='aceptada' and date(hora_atencion) = :horaAtencion",nativeQuery = true)
+    Page<PeticionHora> findByFechaIgualMayorAceptada(Pageable pageable,@Param("idEmpleado")Integer idEmpleado, @Param("horaAtencion")String horaAtencion);
+
     @Modifying
     @Query(value = "update peticion_horas set estado= \"rechazada\" where id_peticion=?1",nativeQuery = true)
     void rechazarHora(Integer id);

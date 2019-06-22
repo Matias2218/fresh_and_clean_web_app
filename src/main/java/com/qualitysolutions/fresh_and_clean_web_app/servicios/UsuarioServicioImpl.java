@@ -63,6 +63,12 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public Page<PeticionHora> findByFechaIgualMayorAceptada(Pageable pageable, Integer idEmpleado, String horaAtencion) {
+        return peticionHoraDao.findByFechaIgualMayorAceptada(pageable,idEmpleado,horaAtencion);
+    }
+
+    @Override
     @Transactional
     public Boolean rechazarHora(Integer id) {
         peticionHoraDao.rechazarHora(id);

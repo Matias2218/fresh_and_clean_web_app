@@ -133,11 +133,14 @@ public class IntranetControlador {
     @Secured("ROLE_BARBERO")
     @GetMapping({"barbero/horas","barbero/horas/{page}"})
     public String vistaBarbero(@PathVariable(name= "page",required = false)String page,
+                               @RequestParam(name = "fechaBuscar",required = false)String fechaBuscar,
                                Principal principal,
                                Model model,
                                HttpSession session)
     {
         Integer pageInt=0;
+        List<PeticionHora> peticionHoraList = new ArrayList<>();
+        ArrayList<String> fechasFormateadas = new ArrayList<>();
         try {
             pageInt= Integer.parseInt(page);
         }
@@ -151,9 +154,27 @@ public class IntranetControlador {
             return "redirect:/intranet/barbero/horas";
         }
         Pageable pageable = PageRequest.of(pageInt,19);
-        Page<PeticionHora> peticionHoras =  usuarioServicio.findAllPeticionHoras(pageable,Integer.parseInt(principal.getName()));
-        List<PeticionHora> peticionHoraList = peticionHoras.get().collect(Collectors.toList());
-        model.addAttribute("localDateTimeFormat", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        if(fechaBuscar==null || fechaBuscar=="") {
+            Page<PeticionHora> peticionHoras = usuarioServicio.findAllPeticionHoras(pageable, Integer.parseInt(principal.getName()));
+            peticionHoraList = peticionHoras.get().collect(Collectors.toList());
+        }
+        else
+        {
+            try {
+                Page<PeticionHora> peticionHoras = usuarioServicio.findByFechaIgualMayorAceptada(pageable, Integer.parseInt(principal.getName()),fechaBuscar);
+                peticionHoraList = peticionHoras.get().collect(Collectors.toList());
+                if(peticionHoraList.isEmpty())
+                {
+                    return "redirect:/intranet/barbero/horas";
+                }
+            }
+            catch (Exception e)
+            {
+                return "redirect:/intranet/barbero/horas";
+            }
+        }
+        peticionHoraList.forEach(peticionHora -> fechasFormateadas.add(peticionHora.getHoraAtencion().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))));
+        model.addAttribute("fechasFormateadas",fechasFormateadas);
         model.addAttribute("peticionHoras",peticionHoraList);
         model.addAttribute("persona",((Empleado)session.getAttribute("empleado")).getPersona());
         return "barbero";
@@ -162,11 +183,14 @@ public class IntranetControlador {
     @Secured("ROLE_BARBERO")
     @GetMapping({"barbero/horasEspera","barbero/horasEspera/{page}"})
     public String vistaBarberoHoraEspea(@PathVariable(name= "page",required = false)String page,
+                                        @RequestParam(name = "fechaBuscar",required = false)String fechaBuscar,
                                Principal principal,
                                Model model,
                                HttpSession session)
     {
         Integer pageInt=0;
+        List<PeticionHora> peticionHoraList = new ArrayList<>();
+        ArrayList<String> fechasFormateadas = new ArrayList<>();
         try {
             pageInt= Integer.parseInt(page);
         }
@@ -179,9 +203,27 @@ public class IntranetControlador {
             return "redirect:/intranet/barbero/horaEspera";
         }
         Pageable pageable = PageRequest.of(pageInt,19);
-        Page<PeticionHora> peticionHoras =  usuarioServicio.findAllPeticionHorasEspera(pageable,Integer.parseInt(principal.getName()));
-        List<PeticionHora> peticionHoraList = peticionHoras.get().collect(Collectors.toList());
-        model.addAttribute("localDateTimeFormat", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        if(fechaBuscar==null || fechaBuscar=="") {
+            Page<PeticionHora> peticionHoras = usuarioServicio.findAllPeticionHorasEspera(pageable, Integer.parseInt(principal.getName()));
+            peticionHoraList = peticionHoras.get().collect(Collectors.toList());
+        }
+        else
+        {
+            try {
+                Page<PeticionHora> peticionHoras = usuarioServicio.findByPeticionHorasEspera(pageable, Integer.parseInt(principal.getName()),fechaBuscar);
+                peticionHoraList = peticionHoras.get().collect(Collectors.toList());
+                if(peticionHoraList.isEmpty())
+                {
+                    return "redirect:/intranet/barbero/horasEspera";
+                }
+            }
+            catch (Exception e)
+            {
+                return "redirect:/intranet/barbero/horasEspera";
+            }
+        }
+        peticionHoraList.forEach(peticionHora -> fechasFormateadas.add(peticionHora.getHoraAtencion().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))));
+        model.addAttribute("fechasFormateadas",fechasFormateadas);
         model.addAttribute("peticionHoras",peticionHoraList);
         model.addAttribute("persona",((Empleado)session.getAttribute("empleado")).getPersona());
         return "horaEspera";
