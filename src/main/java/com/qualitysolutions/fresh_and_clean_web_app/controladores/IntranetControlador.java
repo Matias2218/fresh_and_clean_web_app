@@ -247,93 +247,7 @@ public class IntranetControlador {
         horaAtencion = peticionHora.getHoraAtencion().format(DateTimeFormatter.ofPattern("HH:mm"));
         try {
             smtpMailSender.send(peticionHora.getCliente().getEmailCliente(), "Solicitud de hora",
-                    "<div>\n" +
-                            "<div style=\"float: right;\">\n" +
-                            "<img src=\"https://i.ibb.co/1Jk53Hs/logo-negro.png\" style=\"width:30%; float: right;\">\n" +
-                            "</div>\n" +
-                            "\n" +
-                            "<div style=\"float:left;\">\n" +
-                            "<h3 style=\"font-family: Arial, Helvetica, sans-serif; margin-top: 0; margin-bottom: 0.5rem;\">Solicitud de\n" +
-                            "hora</h3>\n" +
-                            "<div style=\"font-family: Arial, Helvetica, sans-serif;\">\n" +
-                            "<p>Su solicitud de hora dentro de la barberia Fresh & Clean ha sido rechazada</p>\n" +
-                            "<p>El motivo de rechazo de esta solicitud es: "+motivo+"</p>\n" +
-                            "<p>Si necesita informacion, no dude en contactarnos al número:\n" +
-                            "+569 9123 4567</p>\n" +
-                            "</div>\n" +
-                            "\n" +
-                            "\n" +
-                            "\n" +
-                            "<h3 style=\"margin-top: 0; margin-bottom: 0.5rem;font-family: Arial, Helvetica, sans-serif;\">Informacion\n" +
-                            "sobre la hora</h3>\n" +
-                            "</div>\n" +
-                            "<table\n" +
-                            "style=\"font-family: Arial, Helvetica, sans-serif; border-collapse: collapse; width: 100%; max-width: 100%; margin-bottom: 1rem; background-color: transparent; padding: 0.75rem; vertical-align: top; background-color: #fff; border: 1px solid #dee2e6 !important; border-bottom-width: 2px;\">\n" +
-                            "<tr>\n" +
-                            "<td\n" +
-                            "style=\"border: 1px solid #dee2e6; padding: 0.75rem; vertical-align: top;\">Nombre</td>\n" +
-                            "<td\n" +
-                            "style=\"border: 1px solid #dee2e6; padding: 0.75rem; vertical-align: top;\">"+peticionHora.getCliente().getPersona().getNombre()+"\n" +
-                            ""+peticionHora.getCliente().getPersona().getApellido()+"</td>\n" +
-                            "</tr>\n" +
-                            "<tr>\n" +
-                            "<td\n" +
-                            "style=\"border: 1px solid #dee2e6; padding: 0.75rem; vertical-align: top;\">Email</td>\n" +
-                            "<td\n" +
-                            "style=\"border: 1px solid #dee2e6; padding: 0.75rem; vertical-align: top;\">"+peticionHora.getCliente().getEmailCliente()+"</td>\n" +
-                            "</tr>\n" +
-                            "<tr>\n" +
-                            "<td\n" +
-                            "style=\"border: 1px solid #dee2e6; padding: 0.75rem; vertical-align: top;\">Telefono</td>\n" +
-                            "<td\n" +
-                            "style=\"border: 1px solid #dee2e6; padding: 0.75rem; vertical-align: top;\">"+peticionHora.getCliente().getTelefonoCliente()+"</td>\n" +
-                            "</tr>\n" +
-                            "<tr>\n" +
-                            "<td\n" +
-                            "style=\"border: 1px solid #dee2e6; padding: 0.75rem; vertical-align: top;\">Barbero</td>\n" +
-                            "<td\n" +
-                            "style=\"border: 1px solid #dee2e6; padding: 0.75rem; vertical-align: top;\">"+peticionHora.getEmpleado().getPersona().getNombre()+" "+peticionHora.getEmpleado().getPersona().getApellido()+"</td>\n" +
-                            "</tr>\n" +
-                            "<tr>\n" +
-                            "<td\n" +
-                            "style=\"border: 1px solid #dee2e6; border-bottom: 1px solid #ffd24d; padding: 0.75rem; vertical-align: top;\">Servicios</td>\n" +
-                            peticionHora.obtenerServiciosCorreo(peticionHora)+
-                            "</tr>\n" +
-                            "\n" +
-                            "<tr>\n" +
-                            "<td\n" +
-                            "style=\"border: 1px solid #ffd24d; padding: 0.75rem; vertical-align: top; background-color: #ffeeba;\">Fecha\n" +
-                            "atencion</td>\n" +
-                            "<td\n" +
-                            "style=\"border: 1px solid #ffd24d; padding: 0.75rem; vertical-align: top; background-color: #ffeeba;\">"+fechaHora+"</td>\n" +
-                            "</tr>\n" +
-                            "<tr>\n" +
-                            "<td\n" +
-                            "style=\"border: 1px solid #ffd24d; border-top: 1px solid #ffd24d; padding: 0.75rem; vertical-align: top; background-color: #ffeeba;\">Hora\n" +
-                            "de atencion</td>\n" +
-                            "<td\n" +
-                            "style=\"border: 1px solid #ffd24d; border-top: 1px solid #ffd24d; padding: 0.75rem; vertical-align: top; background-color: #ffeeba;\">"+horaAtencion+"\n" +
-                            "am</td>\n" +
-                            "</tr>\n" +
-                            "<tr>\n" +
-                            "<td\n" +
-                            "style=\"border: 1px solid #ff1a1a; border-top: 1px solid #ff1a1a; padding: 0.75rem; vertical-align: top; background-color: #ff8080;\">Estado\n" +
-                            "de Hora</td>\n" +
-                            "<td\n" +
-                            "style=\"border: 1px solid #ff1a1a; border-top: 1px solid #ff1a1a; padding: 0.75rem; vertical-align: top; background-color: #ff8080;\">"+peticionHora.getEstado()+"</td>\n" +
-                            "</tr>\n" +
-                            "<tfoot>\n" +
-                            "<tr>\n" +
-                            "<th colspan=\"2\" style=\"padding: 0.9rem;\">\n" +
-                            "<button\n" +
-                            "style=\"display: inline-block; font-weight: 400; cursor: pointer; text-align: center; white-space: nowrap; vertical-align: middle; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; border: 1px solid transparent; padding: 0.375rem 0.75rem; font-size: 1rem; line-height: 1.5; border-radius: 0.25rem; transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; color: #fff; background-color: #6c757d; border-color: #6c757d; float: right;\">Para\n" +
-                            "mas informacion, visite nuestro sitio web</button>\n" +
-                            "</th>\n" +
-                            "</tr>\n" +
-                            "</tfoot>\n" +
-                            "</table>\n" +
-                            "\n" +
-                            "</div>");
+                    smtpMailSender.bodyRechazado(peticionHora,motivo,fechaHora,horaAtencion));
         } catch (MessagingException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -361,375 +275,360 @@ public class IntranetControlador {
     }
     @Secured("ROLE_BARBERO")
     @PostMapping("barbero/horaAceptada")
-    public ResponseEntity<?> horaAceptada(@RequestBody Integer id)
-    {
-        Map<String,Object> result = new HashMap<>();
+    public ResponseEntity<?> horaAceptada(@RequestBody Integer id) {
+        String fechaHora;
+        String horaAtencion;
+        Map<String, Object> result = new HashMap<>();
         usuarioServicio.horaAceptada(id);
-        result.put("mensaje","Hora aceptada con exito");
-        return new ResponseEntity<>(result,HttpStatus.OK);
-    }
+        PeticionHora peticionHora = usuarioServicio.findByIdPeticion(id);
+        fechaHora = peticionHora.getHoraAtencion().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        horaAtencion = peticionHora.getHoraAtencion().format(DateTimeFormatter.ofPattern("HH:mm"));
+        try {
+            smtpMailSender.send(peticionHora.getCliente().getEmailCliente(), "Solicitud de hora",
+                    smtpMailSender.bodyAceptado(peticionHora, fechaHora, horaAtencion));
+        } catch (MessagingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        result.put("mensaje", "Hora aceptada con exito");
+        return new ResponseEntity<>(result, HttpStatus.OK);
+        }
 
-    @Secured("ROLE_ADMINISTRADOR")
-    @GetMapping("administrador")
-    public String vistaAdministrador(Model model,HttpSession session)
-    {
-        ArrayList<String> sueldosEmpleados = new ArrayList<>();
-        DecimalFormat format = new DecimalFormat("###,###.##");
-        List<Empleado> empleados = usuarioServicio.findAllEmpleadoOrderByEstaActivo();
-        empleados.stream().forEach(empleado -> sueldosEmpleados.add(format.format(empleado.getSueldoEmpleado())));
-        model.addAttribute("sueldos",sueldosEmpleados);
-        model.addAttribute("empleados",empleados);
-        model.addAttribute("persona",((Empleado)session.getAttribute("empleado")).getPersona());
-        return "administrador";
-    }
 
-    @Secured("ROLE_ADMINISTRADOR")
-    @GetMapping("administrador/crearEmpleado")
-    public String vistacrearEmpleado(Model model,HttpSession session)
-    {
-        Map<String,String> generos = new HashMap<>();
-        generos.put("M","Masculino");
-        generos.put("F","Femenino");
-        Empleado empleado = new Empleado();
-        session.setAttribute("tipoEmpleados",usuarioServicio.findAllTipoEmpleados());
-        model.addAttribute("generos",generos);
-        model.addAttribute("empleado",empleado);
-        return "crearEmpleado";
-    }
-    @Secured("ROLE_ADMINISTRADOR")
-    @PostMapping("administrador/crearEmpleado")
-    public String crearEmpleado(@Valid @ModelAttribute("empleado")Empleado empleado,
-                                BindingResult  bindingResult,HttpSession session)
-    {
-
-        ArrayList<String> errores = new ArrayList<>();
-        if(bindingResult.hasErrors())
+        @Secured("ROLE_ADMINISTRADOR")
+        @GetMapping("administrador")
+        public String vistaAdministrador (Model model, HttpSession session)
         {
-            bindingResult.getFieldErrors().stream().forEach(fieldError -> errores.add(fieldError.getDefaultMessage()));
+            ArrayList<String> sueldosEmpleados = new ArrayList<>();
+            DecimalFormat format = new DecimalFormat("###,###.##");
+            List<Empleado> empleados = usuarioServicio.findAllEmpleadoOrderByEstaActivo();
+            empleados.stream().forEach(empleado -> sueldosEmpleados.add(format.format(empleado.getSueldoEmpleado())));
+            model.addAttribute("sueldos", sueldosEmpleados);
+            model.addAttribute("empleados", empleados);
+            model.addAttribute("persona", ((Empleado) session.getAttribute("empleado")).getPersona());
+            return "administrador";
+        }
+
+        @Secured("ROLE_ADMINISTRADOR")
+        @GetMapping("administrador/crearEmpleado")
+        public String vistacrearEmpleado (Model model, HttpSession session)
+        {
+            Map<String, String> generos = new HashMap<>();
+            generos.put("M", "Masculino");
+            generos.put("F", "Femenino");
+            Empleado empleado = new Empleado();
+            session.setAttribute("tipoEmpleados", usuarioServicio.findAllTipoEmpleados());
+            model.addAttribute("generos", generos);
+            model.addAttribute("empleado", empleado);
             return "crearEmpleado";
         }
-        empleado.setPasswordEmpleado(empleado.getPasswordEmpleado().trim());
-        empleado.setPasswordConfirmEmpleado(empleado.getPasswordConfirmEmpleado().trim());
-        if(!empleado.getPasswordEmpleado().equals(empleado.getPasswordConfirmEmpleado()) || empleado.getPasswordEmpleado().equals("") && empleado.getPasswordConfirmEmpleado().equals(""))
+        @Secured("ROLE_ADMINISTRADOR")
+        @PostMapping("administrador/crearEmpleado")
+        public String crearEmpleado (@Valid @ModelAttribute("empleado") Empleado empleado,
+                BindingResult bindingResult, HttpSession session)
         {
-            return "crearEmpleado";
-        }
-        if(empleado.getTipoEmpleado().getIdTipo()>((List<TipoEmpleado>)session.getAttribute("tipoEmpleados")).size())
-        {
-            return "crearEmpleado";
-        }
-        empleado.setEstaActivo(true);
-        empleado = usuarioServicio.saveEmpleado(empleado);
-        return "redirect:/intranet/administrador";
-    }
-    @Secured("ROLE_ADMINISTRADOR")
-    @PostMapping(value = "administrador/activarEmpleado",produces = "application/json")
-    public ResponseEntity<?> activarEmpleado(@RequestBody Integer id) {
-        Map<String,Object> result = new HashMap<>();
-        usuarioServicio.activeEmpleado(id);
-        result.put("mensaje","Empleado activado con exito");
-        return new ResponseEntity<>(result,HttpStatus.OK);
-    }
-    @Secured("ROLE_ADMINISTRADOR")
-    @PostMapping(value = "administrador/desactivarEmpleado",produces = "application/json")
-    public ResponseEntity<?> desactivarEmpleado(@RequestBody Integer id) {
-        Map<String,Object> result = new HashMap<>();
-        usuarioServicio.desactiveEmpleado(id);
-        result.put("mensaje","Empleado desactivado con exito");
-        return new ResponseEntity<>(result,HttpStatus.OK);
-    }
 
-
-
-    @Secured("ROLE_ADMINISTRADOR")
-    @GetMapping("administrador/editarEmpleado/{id}")
-    public String vistaEditarEmpleado(@PathVariable(value = "id",required = false)String id,
-                                      Model model,
-                                      HttpSession session,
-                                      HttpServletRequest httpRequest)
-    {
-        Map<String,String> generos = new HashMap<>();
-        Integer idInt;
-        Empleado empleado;
-        try {
-            idInt = Integer.parseInt(id);
-        }
-        catch (Exception e)
-        {
+            ArrayList<String> errores = new ArrayList<>();
+            if (bindingResult.hasErrors()) {
+                bindingResult.getFieldErrors().stream().forEach(fieldError -> errores.add(fieldError.getDefaultMessage()));
+                return "crearEmpleado";
+            }
+            empleado.setPasswordEmpleado(empleado.getPasswordEmpleado().trim());
+            empleado.setPasswordConfirmEmpleado(empleado.getPasswordConfirmEmpleado().trim());
+            if (!empleado.getPasswordEmpleado().equals(empleado.getPasswordConfirmEmpleado()) || empleado.getPasswordEmpleado().equals("") && empleado.getPasswordConfirmEmpleado().equals("")) {
+                return "crearEmpleado";
+            }
+            if (empleado.getTipoEmpleado().getIdTipo() > ((List<TipoEmpleado>) session.getAttribute("tipoEmpleados")).size()) {
+                return "crearEmpleado";
+            }
+            empleado.setEstaActivo(true);
+            empleado = usuarioServicio.saveEmpleado(empleado);
             return "redirect:/intranet/administrador";
         }
-        if(idInt<0 || idInt.equals(null))
+        @Secured("ROLE_ADMINISTRADOR")
+        @PostMapping(value = "administrador/activarEmpleado", produces = "application/json")
+        public ResponseEntity<?> activarEmpleado (@RequestBody Integer id){
+            Map<String, Object> result = new HashMap<>();
+            usuarioServicio.activeEmpleado(id);
+            result.put("mensaje", "Empleado activado con exito");
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }
+        @Secured("ROLE_ADMINISTRADOR")
+        @PostMapping(value = "administrador/desactivarEmpleado", produces = "application/json")
+        public ResponseEntity<?> desactivarEmpleado (@RequestBody Integer id){
+            Map<String, Object> result = new HashMap<>();
+            usuarioServicio.desactiveEmpleado(id);
+            result.put("mensaje", "Empleado desactivado con exito");
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }
+
+
+        @Secured("ROLE_ADMINISTRADOR")
+        @GetMapping("administrador/editarEmpleado/{id}")
+        public String vistaEditarEmpleado (@PathVariable(value = "id", required = false) String id,
+                Model model,
+                HttpSession session,
+                HttpServletRequest httpRequest)
         {
+            Map<String, String> generos = new HashMap<>();
+            Integer idInt;
+            Empleado empleado;
+            try {
+                idInt = Integer.parseInt(id);
+            } catch (Exception e) {
+                return "redirect:/intranet/administrador";
+            }
+            if (idInt < 0 || idInt.equals(null)) {
+                return "redirect:/intranet/administrador";
+            }
+            empleado = usuarioServicio.findById(idInt);
+            if (empleado.getEstaActivo().equals(false)) {
+                return "redirect:/intranet/administrador";
+            }
+            generos.put("M", "Masculino");
+            generos.put("F", "Femenino");
+            session.setAttribute("idEmpleado", empleado.getIdEmpleado());
+            session.setAttribute("idPersona", empleado.getPersona().getIdPersona());
+            session.setAttribute("passwordEmpleado", empleado.getPasswordEmpleado());
+            session.setAttribute("tipoEmpleados", usuarioServicio.findAllTipoEmpleados());
+            model.addAttribute("empleado", empleado);
+            model.addAttribute("generos", generos);
+            return "editarEmpleado";
+        }
+        @Secured("ROLE_ADMINISTRADOR")
+        @PostMapping("administrador/editarEmpleado")
+        public String editarEmpleado (@Valid @ModelAttribute("empleado") Empleado empleado,
+                BindingResult bindingResult,
+                HttpSession session)
+        {
+            ArrayList<String> errores = new ArrayList<>();
+            if (bindingResult.hasErrors()) {
+                bindingResult.getFieldErrors().stream().forEach(fieldError -> errores.add(fieldError.getDefaultMessage()));
+                return "editarEmpleado";
+            }
+            empleado.getPersona().setIdPersona((Integer) session.getAttribute("idPersona"));
+            empleado.setIdEmpleado((Integer) session.getAttribute("idEmpleado"));
+            empleado.setPasswordEmpleado((empleado.getPasswordEmpleado().trim().equals("")) ? (String) session.getAttribute("passwordEmpleado") : empleado.getPasswordEmpleado().trim());
+            empleado.setPasswordConfirmEmpleado((empleado.getPasswordConfirmEmpleado().equals("")) ? (String) session.getAttribute("passwordEmpleado") : empleado.getPasswordConfirmEmpleado().trim());
+            if (!empleado.getPasswordEmpleado().equals(empleado.getPasswordConfirmEmpleado()) || empleado.getPasswordEmpleado().equals("") && empleado.getPasswordConfirmEmpleado().equals("")) {
+                return "editarEmpleado";
+            }
+            if (empleado.getTipoEmpleado().getIdTipo() > ((List<TipoEmpleado>) session.getAttribute("tipoEmpleados")).size()) {
+                return "editarEmpleado";
+            }
+            empleado.setEstaActivo(true);
+            empleado = usuarioServicio.saveEmpleado(empleado);
+            session.removeAttribute("idPersona");
+            session.removeAttribute("idEmpleado");
+            session.removeAttribute("passwordEmpleado");
+            session.removeAttribute("tipoEmpleados");
             return "redirect:/intranet/administrador";
         }
-        empleado = usuarioServicio.findById(idInt);
-        if(empleado.getEstaActivo().equals(false))
-        {
-            return "redirect:/intranet/administrador";
-        }
-        generos.put("M","Masculino");
-        generos.put("F","Femenino");
-        session.setAttribute("idEmpleado",empleado.getIdEmpleado());
-        session.setAttribute("idPersona",empleado.getPersona().getIdPersona());
-        session.setAttribute("passwordEmpleado",empleado.getPasswordEmpleado());
-        session.setAttribute("tipoEmpleados",usuarioServicio.findAllTipoEmpleados());
-        model.addAttribute("empleado",empleado);
-        model.addAttribute("generos",generos);
-        return "editarEmpleado";
-    }
-    @Secured("ROLE_ADMINISTRADOR")
-    @PostMapping("administrador/editarEmpleado")
-    public String editarEmpleado(@Valid @ModelAttribute("empleado") Empleado empleado,
-                                 BindingResult bindingResult,
-                                 HttpSession session)
-    {
-        ArrayList<String> errores = new ArrayList<>();
-        if(bindingResult.hasErrors())
-        {
-            bindingResult.getFieldErrors().stream().forEach(fieldError -> errores.add(fieldError.getDefaultMessage()));
-            return "editarEmpleado";
-        }
-        empleado.getPersona().setIdPersona((Integer) session.getAttribute("idPersona"));
-        empleado.setIdEmpleado((Integer) session.getAttribute("idEmpleado"));
-        empleado.setPasswordEmpleado((empleado.getPasswordEmpleado().trim().equals(""))?(String) session.getAttribute("passwordEmpleado"):empleado.getPasswordEmpleado().trim());
-        empleado.setPasswordConfirmEmpleado((empleado.getPasswordConfirmEmpleado().equals(""))?(String) session.getAttribute("passwordEmpleado"):empleado.getPasswordConfirmEmpleado().trim());
-        if(!empleado.getPasswordEmpleado().equals(empleado.getPasswordConfirmEmpleado()) || empleado.getPasswordEmpleado().equals("") && empleado.getPasswordConfirmEmpleado().equals("")) {
-            return "editarEmpleado";
-        }
-        if(empleado.getTipoEmpleado().getIdTipo()>((List<TipoEmpleado>)session.getAttribute("tipoEmpleados")).size())
-        {
-            return "editarEmpleado";
-        }
-        empleado.setEstaActivo(true);
-        empleado=usuarioServicio.saveEmpleado(empleado);
-        session.removeAttribute("idPersona");
-        session.removeAttribute("idEmpleado");
-        session.removeAttribute("passwordEmpleado");
-        session.removeAttribute("tipoEmpleados");
-        return "redirect:/intranet/administrador";
-    }
 
 
+        @Secured("ROLE_INVENTARIO")
+        @GetMapping({"inventario/{page}", "inventario", "inventario/"})
+        public String vistaInventario (Principal principal,
+                Model model,
+                @PathVariable(name = "page", required = false) String page,
+                HttpSession session,
+                HttpServletResponse response) throws UnsupportedEncodingException {
 
-    @Secured("ROLE_INVENTARIO")
-    @GetMapping({"inventario/{page}","inventario","inventario/"})
-    public String vistaInventario(Principal principal,
-                                  Model model,
-                                  @PathVariable(name = "page",required = false)String page,
-                                  HttpSession session,
-                                  HttpServletResponse response) throws UnsupportedEncodingException {
-
-        Integer pageInt;
-        Long totalProductos;
-        Empleado empleado;
-        ResponseEntity<RestResponsePagina<Producto>> productosJSON;
-        try {
-            pageInt = Integer.parseInt(page);
+            Integer pageInt;
+            Long totalProductos;
+            Empleado empleado;
+            ResponseEntity<RestResponsePagina<Producto>> productosJSON;
+            try {
+                pageInt = Integer.parseInt(page);
+            } catch (Exception e) {
+                return "redirect:/intranet/inventario/1";
+            }
+            pageInt = (pageInt == null) ? 1 : pageInt;
+            if (pageInt < 0) {
+                return "redirect:/intranet/inventario/1";
+            }
+            try {
+                productosJSON = apiServicio.traerProductos(pageInt);
+            } catch (Exception e) {
+                Cookie cookie = new Cookie("errorServidor", URLEncoder.encode("No se pudo establecer conexión oon el servidor", "UTF-8"));
+                cookie.setPath("/");
+                response.addCookie(cookie);
+                return "redirect:/logout";
+            }
+            if (pageInt > productosJSON.getBody().getTotalPages()) {
+                return "redirect:/intranet/inventario/1";
+            }
+            List<Producto> productos = productosJSON.getBody().getContent();
+            totalProductos = productosJSON.getBody().getTotalElements();
+            empleado = usuarioServicio.findById(Integer.parseInt(principal.getName()));
+            model.addAttribute("productos", productos);
+            model.addAttribute("empleado", empleado);
+            model.addAttribute("page", productosJSON.getBody().getPageable());
+            model.addAttribute("totalPaginas", productosJSON.getBody().getTotalPages());
+            session.setAttribute("totalProductos", totalProductos);
+            model.addAttribute("persona", ((Empleado) session.getAttribute("empleado")).getPersona());
+            return "inventario";
         }
-        catch (Exception e)
+
+        @Secured("ROLE_GERENTE")
+        @GetMapping("gerente")
+        public String vistaGerente (Model model, HttpSession session)
         {
-            return "redirect:/intranet/inventario/1";
+            model.addAttribute("persona", ((Empleado) session.getAttribute("empleado")).getPersona());
+            return "gerente";
         }
-        pageInt=(pageInt==null)?1:pageInt;
-        if(pageInt<0)
-        {
-            return "redirect:/intranet/inventario/1";
-        }
-        try {
-            productosJSON = apiServicio.traerProductos(pageInt);
-        }
-        catch (Exception e)
-        {
-            Cookie cookie = new Cookie("errorServidor", URLEncoder.encode("No se pudo establecer conexión oon el servidor","UTF-8"));
-            cookie.setPath("/");
-            response.addCookie(cookie);
-            return "redirect:/logout";
-        }
-        if(pageInt>productosJSON.getBody().getTotalPages())
-        {
-            return "redirect:/intranet/inventario/1";
-        }
-        List<Producto> productos = productosJSON.getBody().getContent();
-        totalProductos = productosJSON.getBody().getTotalElements();
-        empleado = usuarioServicio.findById(Integer.parseInt(principal.getName()));
-        model.addAttribute("productos",productos);
-        model.addAttribute("empleado",empleado);
-        model.addAttribute("page",productosJSON.getBody().getPageable());
-        model.addAttribute("totalPaginas",productosJSON.getBody().getTotalPages());
-        session.setAttribute("totalProductos",totalProductos);
-        model.addAttribute("persona",((Empleado)session.getAttribute("empleado")).getPersona());
-        return "inventario";
-    }
 
-    @Secured("ROLE_GERENTE")
-    @GetMapping("gerente")
-    public String vistaGerente(Model model,HttpSession session)
-    {
-        model.addAttribute("persona",((Empleado)session.getAttribute("empleado")).getPersona());
-        return "gerente";
-    }
+        @Secured("ROLE_GERENTE")
+        @GetMapping("gerente/informes")
+        public String vistaInformes (Model model)
+        {
+            Locale locale = new Locale("es", "ES");
+            List<Integer> añosBoletas = usuarioServicio.findAllDistinctBoletas();
+            Map<String, String> mesesBoletas = usuarioServicio.findAllMesesBoletas();
+            mesesBoletas = mesesBoletas.entrySet().stream().map(v -> {
+                Month month = Month.of(Integer.parseInt(v.getKey()));
+                v.setValue(month.getDisplayName(TextStyle.FULL, locale).substring(0, 1).toUpperCase().concat(month.getDisplayName(TextStyle.FULL, locale).substring(1)));
+                return v;
+            }).collect(Collectors.toMap(o -> o.getKey(), o -> o.getValue()));
+            model.addAttribute("añosBoletas", añosBoletas);
+            model.addAttribute("mesesBoletas", mesesBoletas);
+            return "informes";
+        }
 
-    @Secured("ROLE_GERENTE")
-    @GetMapping("gerente/informes")
-    public String vistaInformes(Model model)
-    {
-        Locale locale = new Locale("es","ES");
-        List<Integer> añosBoletas = usuarioServicio.findAllDistinctBoletas();
-        Map<String,String> mesesBoletas = usuarioServicio.findAllMesesBoletas();
-        mesesBoletas = mesesBoletas.entrySet().stream().map(v->{
-            Month month = Month.of(Integer.parseInt(v.getKey()));
-            v.setValue(month.getDisplayName(TextStyle.FULL,locale).substring(0,1).toUpperCase().concat(month.getDisplayName(TextStyle.FULL,locale).substring(1)));
-            return v;
-        }).collect(Collectors.toMap(o -> o.getKey(), o -> o.getValue()));
-        model.addAttribute("añosBoletas",añosBoletas);
-        model.addAttribute("mesesBoletas",mesesBoletas);
-        return "informes";
-    }
-
-    @Secured("ROLE_GERENTE")
-    @GetMapping(value = "gerente/informes/finanzas")
-    public String recargarInformeFinanzas()
-    {
-        return "redirect:/intranet/gerente/informes";
-    }
-    @Secured("ROLE_GERENTE")
-    @PostMapping(value = "gerente/informes/finanzas")
-    public String informeFinanzas(Model model,
-                                  @RequestParam(name = "cmbAñoBoleta")String cmbAñoBoleta,
-                                  @RequestParam(name = "cmbMesBoleta")String cmbMesBoleta) {
-        Integer año;
-        Integer mes;
-        String mesPalabra;
-        Locale locale = new Locale("es","ES");
-        Month month;
-        List<Boleta> boletas;
-        try {
-            año = Integer.parseInt(cmbAñoBoleta);
-            mes = Integer.parseInt(cmbMesBoleta);
-        } catch (Exception e)
+        @Secured("ROLE_GERENTE")
+        @GetMapping(value = "gerente/informes/finanzas")
+        public String recargarInformeFinanzas ()
         {
             return "redirect:/intranet/gerente/informes";
         }
-        month=Month.of(mes);
-        mesPalabra= month.getDisplayName(TextStyle.FULL,locale);
-        mesPalabra=mesPalabra.substring(0,1).toUpperCase().concat(mesPalabra.substring(1));
-        boletas = usuarioServicio.findAllByAnoAndByMes(año,mes);
+        @Secured("ROLE_GERENTE")
+        @PostMapping(value = "gerente/informes/finanzas")
+        public String informeFinanzas (Model model,
+                @RequestParam(name = "cmbAñoBoleta") String cmbAñoBoleta,
+                @RequestParam(name = "cmbMesBoleta") String cmbMesBoleta){
+            Integer año;
+            Integer mes;
+            String mesPalabra;
+            Locale locale = new Locale("es", "ES");
+            Month month;
+            List<Boleta> boletas;
+            try {
+                año = Integer.parseInt(cmbAñoBoleta);
+                mes = Integer.parseInt(cmbMesBoleta);
+            } catch (Exception e) {
+                return "redirect:/intranet/gerente/informes";
+            }
+            month = Month.of(mes);
+            mesPalabra = month.getDisplayName(TextStyle.FULL, locale);
+            mesPalabra = mesPalabra.substring(0, 1).toUpperCase().concat(mesPalabra.substring(1));
+            boletas = usuarioServicio.findAllByAnoAndByMes(año, mes);
 
-        if(boletas.isEmpty())
-        {
-            return "redirect:/intranet/gerente/informes";
+            if (boletas.isEmpty()) {
+                return "redirect:/intranet/gerente/informes";
+            }
+            model.addAttribute("mes", mesPalabra);
+            model.addAttribute("año", año);
+            model.addAttribute("boletas", boletas);
+            return "FinanzaVistaPDF";
         }
-        model.addAttribute("mes",mesPalabra);
-        model.addAttribute("año",año);
-        model.addAttribute("boletas",boletas);
-        return "FinanzaVistaPDF";
-    }
 
-    @Secured("ROLE_GERENTE")
-    @GetMapping(value = "gerente/informes/atencionBarberos")
-    public String informeFinanzas(Model model) {
-        List<String[]> barberos = usuarioServicio.barberoConMasAtenciones();
-        model.addAttribute("barberos",barberos);
-        return "BarberoAtencionPDF";
-    }
-
-
-    @Secured("ROLE_INVENTARIO")
-    @GetMapping("inventario/crearProducto")
-    public String vistaCrearProducto(Model model)
-    {
-        List<Marca> marcas = apiServicio.traerMarcas().getBody();
-        List<Categoria> categorias = apiServicio.traerCategorias().getBody();
-        Producto producto = new Producto();
-        model.addAttribute("marcas",marcas);
-        model.addAttribute("categorias",categorias);
-        model.addAttribute("producto",producto);
-        return "crearProducto";
-    }
-    @Secured("ROLE_INVENTARIO")
-    @PostMapping("inventario/crearProducto")
-    public String crearProducto(@Valid @ModelAttribute("producto") Producto producto,
-                                BindingResult result,
-                                @RequestParam(name = "file")MultipartFile foto) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        ArrayList<String> errores = new ArrayList<>();
-        String extension;
-        extension = foto.getContentType();
-        if (!EXTENSIONES.contains(extension) || foto.getSize()>MAXIMO_PESO_IMAGEN) {
-            return "redirect:/intranet/inventario/crearProducto";
+        @Secured("ROLE_GERENTE")
+        @GetMapping(value = "gerente/informes/atencionBarberos")
+        public String informeFinanzas (Model model){
+            List<String[]> barberos = usuarioServicio.barberoConMasAtenciones();
+            model.addAttribute("barberos", barberos);
+            return "BarberoAtencionPDF";
         }
-        if (result.hasErrors())
+
+
+        @Secured("ROLE_INVENTARIO")
+        @GetMapping("inventario/crearProducto")
+        public String vistaCrearProducto (Model model)
         {
-            errores.addAll(result.getFieldErrors().stream().map(e -> e.getDefaultMessage()).collect(Collectors.toList()));
+            List<Marca> marcas = apiServicio.traerMarcas().getBody();
+            List<Categoria> categorias = apiServicio.traerCategorias().getBody();
+            Producto producto = new Producto();
+            model.addAttribute("marcas", marcas);
+            model.addAttribute("categorias", categorias);
+            model.addAttribute("producto", producto);
             return "crearProducto";
         }
-        Object productoCreado = apiServicio.crearProducto(producto).getBody().get("producto");
-        producto = objectMapper.convertValue(productoCreado,Producto.class);
-        boolean respuesta = apiServicio.crearImagen(producto,foto);
-        return "redirect:/intranet/inventario/1";
-    }
-    @Secured("ROLE_INVENTARIO")
-    @GetMapping({"inventario/editarProducto/{id}","inventario/editarProducto","inventario/editarProducto/"})
-    public String vistaEditarProducto(Model model,
-                                      @PathVariable(name = "id", required = false) String idString,
-                                      HttpSession session)
-    {
-        Producto producto;
-        Integer idInt;
-        List<Marca> marcas;
-        List<Categoria> categorias;
-        Long totalProductos = (Long)session.getAttribute("totalProductos");
-        try {
-            idInt = Integer.parseInt(idString);
+        @Secured("ROLE_INVENTARIO")
+        @PostMapping("inventario/crearProducto")
+        public String crearProducto (@Valid @ModelAttribute("producto") Producto producto,
+                BindingResult result,
+                @RequestParam(name = "file") MultipartFile foto){
+            ObjectMapper objectMapper = new ObjectMapper();
+            ArrayList<String> errores = new ArrayList<>();
+            String extension;
+            extension = foto.getContentType();
+            if (!EXTENSIONES.contains(extension) || foto.getSize() > MAXIMO_PESO_IMAGEN) {
+                return "redirect:/intranet/inventario/crearProducto";
+            }
+            if (result.hasErrors()) {
+                errores.addAll(result.getFieldErrors().stream().map(e -> e.getDefaultMessage()).collect(Collectors.toList()));
+                return "crearProducto";
+            }
+            Object productoCreado = apiServicio.crearProducto(producto).getBody().get("producto");
+            producto = objectMapper.convertValue(productoCreado, Producto.class);
+            boolean respuesta = apiServicio.crearImagen(producto, foto);
+            return "redirect:/intranet/inventario/1";
         }
-        catch (Exception e)
+        @Secured("ROLE_INVENTARIO")
+        @GetMapping({"inventario/editarProducto/{id}", "inventario/editarProducto", "inventario/editarProducto/"})
+        public String vistaEditarProducto (Model model,
+                @PathVariable(name = "id", required = false) String idString,
+                HttpSession session)
         {
-            return "redirect:/intranet/inventario";
-        }
-        idInt=(idInt==null)?1:idInt;
-        if(idInt>totalProductos)
-        {
-            return "redirect:/intranet/inventario";
-        }
-        marcas = apiServicio.traerMarcas().getBody();
-        categorias = apiServicio.traerCategorias().getBody();
-        producto = apiServicio.traerProducto(idInt).getBody();
-        session.setAttribute("idProducto",idInt);
-        model.addAttribute("marcas",marcas);
-        model.addAttribute("categorias",categorias);
-        model.addAttribute("producto",producto);
-        return "editarProducto";
-    }
-
-    @Secured("ROLE_INVENTARIO")
-    @PostMapping("inventario/editarProducto")
-    public String editarProducto(@Valid @ModelAttribute("producto")Producto producto,
-                                 BindingResult result,
-                                 HttpSession session,
-                                 @RequestParam(name = "file",required = false)MultipartFile foto)
-    {
-        ObjectMapper objectMapper = new ObjectMapper();
-        ArrayList<String> errores = new ArrayList<>();
-        String extension = foto.getContentType();
-        if (!foto.isEmpty() && !EXTENSIONES.contains(extension) || !foto.isEmpty() && foto.getSize()>MAXIMO_PESO_IMAGEN )
-        {
-            return "redirect:/intranet/inventario/editarProducto/".concat(String.valueOf(producto.getId()));
-        }
-        if(result.hasErrors())
-        {
+            Producto producto;
+            Integer idInt;
+            List<Marca> marcas;
+            List<Categoria> categorias;
+            Long totalProductos = (Long) session.getAttribute("totalProductos");
+            try {
+                idInt = Integer.parseInt(idString);
+            } catch (Exception e) {
+                return "redirect:/intranet/inventario";
+            }
+            idInt = (idInt == null) ? 1 : idInt;
+            if (idInt > totalProductos) {
+                return "redirect:/intranet/inventario";
+            }
+            marcas = apiServicio.traerMarcas().getBody();
+            categorias = apiServicio.traerCategorias().getBody();
+            producto = apiServicio.traerProducto(idInt).getBody();
+            session.setAttribute("idProducto", idInt);
+            model.addAttribute("marcas", marcas);
+            model.addAttribute("categorias", categorias);
+            model.addAttribute("producto", producto);
             return "editarProducto";
         }
-        producto.setId(new Long((Integer)session.getAttribute("idProducto")));
-        ResponseEntity<Map<String,Object>> respuesta = apiServicio.editarProducto(producto,producto.getId());
-        Object productoEditado = respuesta.getBody().get("producto");
-        producto = objectMapper.convertValue(productoEditado,Producto.class);
-        if(!foto.isEmpty())
+
+        @Secured("ROLE_INVENTARIO")
+        @PostMapping("inventario/editarProducto")
+        public String editarProducto (@Valid @ModelAttribute("producto") Producto producto,
+                BindingResult result,
+                HttpSession session,
+                @RequestParam(name = "file", required = false) MultipartFile foto)
         {
-            Boolean estaCreado = apiServicio.crearImagen(producto,foto);
+            ObjectMapper objectMapper = new ObjectMapper();
+            ArrayList<String> errores = new ArrayList<>();
+            String extension = foto.getContentType();
+            if (!foto.isEmpty() && !EXTENSIONES.contains(extension) || !foto.isEmpty() && foto.getSize() > MAXIMO_PESO_IMAGEN) {
+                return "redirect:/intranet/inventario/editarProducto/".concat(String.valueOf(producto.getId()));
+            }
+            if (result.hasErrors()) {
+                return "editarProducto";
+            }
+            producto.setId(new Long((Integer) session.getAttribute("idProducto")));
+            ResponseEntity<Map<String, Object>> respuesta = apiServicio.editarProducto(producto, producto.getId());
+            Object productoEditado = respuesta.getBody().get("producto");
+            producto = objectMapper.convertValue(productoEditado, Producto.class);
+            if (!foto.isEmpty()) {
+                Boolean estaCreado = apiServicio.crearImagen(producto, foto);
+            }
+            session.removeAttribute("idProducto");
+            return "redirect:/intranet/inventario";
         }
-        session.removeAttribute("idProducto");
-        return "redirect:/intranet/inventario";
     }
 
-
-}
