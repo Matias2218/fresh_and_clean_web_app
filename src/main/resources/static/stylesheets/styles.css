@@ -24,12 +24,6 @@
 	position: relative;
 }
 
-.sc-main-intranet-perfiles2{
-	background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),url(../img/intranet-header.jpg) no-repeat 50% 50% !important;
-	background-size: cover !important;
-	position: relative;
-}
-
 
 .sc-main.segment{
 	min-height: 100vh;
@@ -40,23 +34,20 @@
 }
 
 .sc-main-intranet-perfiles.segment{
-	 min-height: 50vh;
+	 min-height: 40vh;
  }
 
 .sc-main-paginas.segment{
-	min-height: 35vh;
+	min-height: 67px;
 }
 
-.sc-main-intranet-perfiles2.segment{
-	min-height: 30vh;
-}
 
 .sc-header-content{
 	position:absolute;
 	top: 50%;
 	left:50%;
 	transform: translate(-50%, -50%);
-	min-width: 80%;
+	min-width: 100%;
 }
 
 #divblack{
@@ -122,4 +113,76 @@
 
 .h4margen{
 	margin-top: 2% !important;
+}
+
+.pad-footer{
+	padding-top: 20px !important;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+
+.dropdown .dropbtn {
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0; 
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  font:Open Sans;
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #e1e1e1 !important;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.titulo-index{
+	font-size: 50pt !important;
+	margin-bottom: 20px !important;
+}
+
+.titulos-perfiles{
+	font-size: 30pt !important;
+}
+
+.div-hora .div-informacion {
+	min-height: 530px !important;
+}
+
+.div-barbero{
+	min-heigth: 530px;
+}
+
+.sin-borde{
+	border-color:#ffffff !important;
+}
+.margenes-cartas{
+	margin-right: none !important;
 }
