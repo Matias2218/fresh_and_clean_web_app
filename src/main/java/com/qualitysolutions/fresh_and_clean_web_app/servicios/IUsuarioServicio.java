@@ -16,6 +16,7 @@ public interface IUsuarioServicio {
     PeticionHora findByIdPeticion(Integer id);
     Page<PeticionHora> findAllPeticionHoras(Pageable pageable,Integer idEmpleado);
     Page<PeticionHora> findAllPeticionHorasEspera(Pageable pageable,Integer idEmpleado);
+    Page<PeticionHora> findByPeticionHorasEspera(Pageable pageable,Integer idEmpleado,String horaAtencion);
     Boolean rechazarHora(Integer id);
     Boolean horaRelizada(Integer id);
     Boolean horaAceptada(Integer id);

@@ -51,8 +51,15 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Page<PeticionHora> findAllPeticionHorasEspera(Pageable pageable, Integer idEmpleado) {
         return peticionHoraDao.findAllFechaIgualMayorEspera(pageable,idEmpleado);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<PeticionHora> findByPeticionHorasEspera(Pageable pageable, Integer idEmpleado, String horaAtencion) {
+        return peticionHoraDao.findByFechaIgualMayorEspera(pageable,idEmpleado,horaAtencion);
     }
 
     @Override

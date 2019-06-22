@@ -1,7 +1,8 @@
 package com.qualitysolutions.fresh_and_clean_web_app.modelos;
 
+import org.hibernate.envers.Audited;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -9,6 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "PeticionHoras")
+@Audited
 public class PeticionHora implements Serializable
 {
     /**

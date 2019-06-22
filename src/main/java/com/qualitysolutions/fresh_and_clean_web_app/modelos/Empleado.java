@@ -1,6 +1,8 @@
 package com.qualitysolutions.fresh_and_clean_web_app.modelos;
 
 
+import org.hibernate.envers.Audited;
+
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -8,6 +10,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "Empleados")
+@Audited
 public class Empleado implements Serializable {
     /**
 	 * 

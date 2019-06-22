@@ -474,6 +474,7 @@ public class IntranetControlador {
         @GetMapping("gerente")
         public String vistaGerente (Model model, HttpSession session)
         {
+            model.addAttribute("boletas",usuarioServicio.findAllBoletas());
             model.addAttribute("persona", ((Empleado) session.getAttribute("empleado")).getPersona());
             return "gerente";
         }
@@ -539,6 +540,30 @@ public class IntranetControlador {
             model.addAttribute("barberos", barberos);
             return "BarberoAtencionPDF";
         }
+
+
+        @Secured("ROLE_GERENTE")
+        @GetMapping(value = "gerente/boleta/{id}/BoletaPDF")
+        public String informeBoleta (Model model,
+                                     @PathVariable(name = "id",required = false)String idString) {
+            int idInt = 0;
+            Boleta boletaPdf;
+            try {
+                idInt = Integer.parseInt(idString);
+            }
+            catch (Exception e)
+            {
+                return "redirect:/intranet/gerente";
+            }
+            int finalIdInt = idInt;
+            boletaPdf = usuarioServicio.findAllBoletas().stream().filter(boleta -> boleta.getIdBoleta()== finalIdInt).findFirst().orElse(null);
+            if(boletaPdf == null)
+            {
+                return "redirect:/intranet/gerente";
+            }
+            model.addAttribute("boleta", boletaPdf);
+            return "BoletaPDF";
+    }
 
 
         @Secured("ROLE_INVENTARIO")

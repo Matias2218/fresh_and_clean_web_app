@@ -156,7 +156,6 @@
                 <th rowspan="2" class="center aligned">Genero</th>
                 <th rowspan="2" class="center aligned">Servicios</th>
                 <th rowspan="2" class="center aligned">Acciones</th>
-
             </tr>
             </thead>
             <tbody>

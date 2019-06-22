@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,6 +20,7 @@
                 $('#divblack').removeClass('greysi fixed');
             }
         })
+
     </script>
 </head>
 <body>
@@ -51,6 +54,50 @@
         </div>
     </div>
 </div>
+<c:choose>
+    <c:when test="${fn:length(boletas)>0}">
+        <table class="ui single line table">
+            <thead>
+            <tr>
+                <th rowspan="2" class="center aligned">Nombre</th>
+                <th rowspan="2" class="center aligned">Email</th>
+                <th rowspan="2" class="center aligned">Telefono</th>
+                <th rowspan="2" class="center aligned">Genero</th>
+                <th rowspan="2" class="center aligned">Servicios</th>
+                <th rowspan="2" class="center aligned">Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${boletas}" var="boleta">
+                <tr>
+                    <td>${boleta.idPeticion.cliente.persona.nombre} ${boleta.idPeticion.cliente.persona.apellido}</td>
+                    <td>${boleta.idPeticion.cliente.emailCliente}</td>
+                    <td>${boleta.idPeticion.cliente.telefonoCliente}</td>
+                    <c:choose>
+                        <c:when test="${boleta.idPeticion.cliente.persona.genero eq 'F'.charAt(0)}">
+                            <td>Femenino</td>
+                        </c:when>
+                        <c:otherwise>
+                            <td>Masculino</td>
+                        </c:otherwise>
+                    </c:choose>
+                    <td>
+                        <c:forEach items="${boleta.idPeticion.servicios}" var="servicios">
+                            ${servicios.nombreServicio} $${servicios.precioServicio}<br>
+                        </c:forEach>
+                    </td>
+                    <td><a href="/intranet/gerente/boleta/${boleta.idBoleta}/BoletaPDF?format=pdf" target="_blank"><i class="file pdf icon"></i></a></td>
+                    </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </c:when>
+    <c:otherwise>
+        No existen boletas
+    </c:otherwise>
+</c:choose>
+
+
 <!-- END HEADER -->
 
 

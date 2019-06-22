@@ -1,5 +1,6 @@
 package com.qualitysolutions.fresh_and_clean_web_app.modelos;
 
+import org.hibernate.envers.Audited;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -10,6 +11,8 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "Personas")
+@Audited
+
 public class Persona implements Serializable {
     /**
 	 * 
