@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @EnableGlobalMethodSecurity(securedEnabled=true)
@@ -28,6 +29,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter
                 .successHandler(authenticationSuccessHandler())
                 .permitAll()
                 .and()
+                .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
+                .and()
                 .logout().permitAll();
     }
 
@@ -35,9 +38,16 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(usuarioServicio);
     }
+
     @Bean
     public static NoOpPasswordEncoder passwordEncoder() {
         return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
+    }
+
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler()
+    {
+        return new CustomAccessDeniedHandler();
     }
 
     @Bean

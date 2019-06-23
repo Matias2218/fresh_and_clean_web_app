@@ -28,6 +28,16 @@ public class Servicio implements Serializable
     @JoinColumn(name = "id_sucursal")
     private Sucursal sucursal;
 
+    public Servicio() {
+    }
+
+    public Servicio(String nombreServicio, String descripcionServicio, Integer precioServicio, Sucursal sucursal) {
+        this.nombreServicio = nombreServicio;
+        this.descripcionServicio = descripcionServicio;
+        this.precioServicio = precioServicio;
+        this.sucursal = sucursal;
+    }
+
     public Integer getIdServicio() {
         return idServicio;
     }

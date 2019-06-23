@@ -37,4 +37,15 @@ public class Sucursal implements Serializable
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "empresa_id")
     private Empresa empresa;
+
+    public Sucursal() {
+    }
+
+    public Sucursal(@NotEmpty String nombreSucursal, @NotEmpty String emailSucursal, @NotEmpty String telefonoSucursal, @NotEmpty String direccionSucusal, @NotNull Empresa empresa) {
+        this.nombreSucursal = nombreSucursal;
+        this.emailSucursal = emailSucursal;
+        this.telefonoSucursal = telefonoSucursal;
+        this.direccionSucusal = direccionSucusal;
+        this.empresa = empresa;
+    }
 }

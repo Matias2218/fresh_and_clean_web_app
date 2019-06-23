@@ -42,6 +42,7 @@ public class PeticionHora implements Serializable
     private List<Servicio> servicios;
     @Column(nullable = false)
     private String estado;
+
     public PeticionHora() {
     }
 

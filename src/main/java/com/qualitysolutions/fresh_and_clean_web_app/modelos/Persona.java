@@ -36,6 +36,17 @@ public class Persona implements Serializable {
     @NotNull
     private Character genero;
 
+
+    public Persona() {
+    }
+
+    public Persona(@NotEmpty String nombre, @NotEmpty String apellido, @NotNull LocalDate fechaNacimiento, @NotNull Character genero) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.fechaNacimiento = fechaNacimiento;
+        this.genero = genero;
+    }
+
     public Integer getIdPersona() {
         return idPersona;
     }

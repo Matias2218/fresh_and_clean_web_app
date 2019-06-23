@@ -21,6 +21,13 @@ public class TipoEmpleado implements Serializable {
     @Column(nullable = false,length = 140)
     private String descripcion;
 
+    public TipoEmpleado() {
+    }
+
+    public TipoEmpleado(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
     public Integer getIdTipo() {
         return idTipo;
     }

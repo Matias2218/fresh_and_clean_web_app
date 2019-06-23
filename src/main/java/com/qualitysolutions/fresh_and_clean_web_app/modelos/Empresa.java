@@ -36,4 +36,5 @@ public class Empresa implements Serializable
  @NotEmpty
  private String rubroEmpresa;
 
+
 }

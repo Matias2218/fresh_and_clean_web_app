@@ -58,6 +58,21 @@ public class Empleado implements Serializable {
     @Column(name = "esta_activo", nullable = false,columnDefinition = "TINYINT(1)")
     private Boolean estaActivo;
 
+    public Empleado() {
+    }
+
+    public Empleado(@NotBlank(message = "El username no puede estar vacio") @Size(min = 1, max = 60, message = "El nombre de usuario no puedo contener mas de 60 caracteres") String usernameEmpleado, @Size(max = 100, message = "La contraseña de usuario no puedo contener mas de 100 caracteres") String passwordEmpleado, @Size(max = 100, message = "La contraseña de usuario no puedo contener mas de 100 caracteres") String passwordConfirmEmpleado, @Email @NotBlank(message = "El email no púede estar vacio") @Size(min = 1, max = 60, message = "El email no puedo contener mas de 60 caracteres") String emailEmpleado, @NotBlank(message = "El telefono no puede estar vacio") @Size(min = 1, max = 14, message = "El telefono no puede contener mas de 14 caracteres") String telefonoEmpleado, @Min(value = 1, message = "El sueldo no puede ser menor que 1") Integer sueldoEmpleado, Integer bonoEmpleado, @Valid @NotNull Persona persona, @Valid @NotNull TipoEmpleado tipoEmpleado, Boolean estaActivo) {
+        this.usernameEmpleado = usernameEmpleado;
+        this.passwordEmpleado = passwordEmpleado;
+        this.passwordConfirmEmpleado = passwordConfirmEmpleado;
+        this.emailEmpleado = emailEmpleado;
+        this.telefonoEmpleado = telefonoEmpleado;
+        this.sueldoEmpleado = sueldoEmpleado;
+        this.bonoEmpleado = bonoEmpleado;
+        this.persona = persona;
+        this.tipoEmpleado = tipoEmpleado;
+        this.estaActivo = estaActivo;
+    }
 
     public static long getSerialVersionUID() {
         return serialVersionUID;

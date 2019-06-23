@@ -34,6 +34,11 @@ public class Cliente implements Serializable
     public Cliente() {
     }
 
+    public Cliente(@NotEmpty String emailCliente, @NotEmpty String telefonoCliente, @NotNull Persona persona) {
+        this.emailCliente = emailCliente;
+        this.telefonoCliente = telefonoCliente;
+        this.persona = persona;
+    }
 
     public Integer getIdCliente() {
         return idCliente;
