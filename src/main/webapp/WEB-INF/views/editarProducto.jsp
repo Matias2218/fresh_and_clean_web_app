@@ -11,7 +11,7 @@
 <script type="text/javascript" src="/js/funciones.js">
 	
 </script>
-
+<script src="\semantic\out\semantic.min.js"></script>
 <meta charset="UTF-8" />
 <title>Editar Producto</title>
 
@@ -23,6 +23,62 @@
 			$('#divblack').removeClass('greysi fixed');
 		}
 	})
+	
+	$(document).ready(function() { 	    
+		$('#formEditar')
+		    .form({
+		    	fields:{
+		       		nombre: {
+	                   identifier: 'nombre',
+	                   rules: [
+	                       {
+	                           type: 'empty',
+	                           prompt: 'Por favor ingrese el nombre'
+	                       }
+	                   ]},
+                   descripcion: {
+	                   identifier: 'descripcion',
+	                   rules: [
+	                       {
+	                           type: 'empty',
+	                           prompt: 'Por favor ingrese una descripción'
+	                       }
+	                   ]},
+                   'categoria.id': {
+	                   identifier: 'categoria.id',
+	                   rules: [
+	                       {
+	                           type: 'empty',
+	                           prompt: 'Seleccione categoria'
+	                       }
+	                   ]},
+                   'marca.id': {
+	                   identifier: 'marca.id',
+	                   rules: [
+	                       {
+	                           type: 'empty',
+	                           prompt: 'Seleccione marca'
+	                       }
+	                   ]},
+	                stock: {
+	                   identifier: 'stock',
+	                   rules: [
+	                	   {
+	                           type: 'empty',
+	                           prompt: 'Ingrese stock'
+	                       },
+	                       {
+	                           type: 'number',
+	                           prompt: 'Solo se permiten valores numericos'
+	                       }
+	                   ]}
+		       	},
+		     inline : true,
+		     on     : 'blur'})
+             	    
+   
+    });
+    
 </script>
 </head>
 <body>
@@ -50,7 +106,7 @@
 <!-- END HEADER -->
 
 
-<form:form method="post" action="/intranet/inventario/editarProducto" enctype="multipart/form-data" modelAttribute="producto" >
+<form:form method="post" id="formEditar" action="/intranet/inventario/editarProducto" enctype="multipart/form-data" modelAttribute="producto" >
 	<div class="column margen-arriba margen-abajo">
 		<h2 class="ui center aligned header"> Editar producto <div class="sub header">Aquí podrá editar campos del producto anteriormente seleccionado<br>Para guardar los cambios presione el botón “Editar”</div></h2>
 	</div>

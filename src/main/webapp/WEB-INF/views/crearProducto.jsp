@@ -9,8 +9,9 @@
             src="https://code.jquery.com/jquery-3.1.1.min.js"
             integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
             crossorigin="anonymous"></script>
-    <script type="text/javascript" src="/js/funciones.js">
-    </script>
+    <script type="text/javascript" src="/js/funciones.js"></script>
+    <script src="\semantic\out\semantic.min.js"></script>
+
     <script type="text/javascript">
         $(window).on('scroll', function() {
             if ($(window).scrollTop()) {
@@ -24,8 +25,74 @@
               	
         	        $("#btnCrear").prop("disabled", true).addClass("disabled");
          });
+        	    
+		$('#formCrear')
+		    .form({
+		    	fields:{
+		       		nombre: {
+	                   identifier: 'nombre',
+	                   rules: [
+	                       {
+	                           type: 'empty',
+	                           prompt: 'Por favor ingrese el nombre'
+	                       }
+	                   ]},
+                   descripcion: {
+	                   identifier: 'descripcion',
+	                   rules: [
+	                       {
+	                           type: 'empty',
+	                           prompt: 'Por favor ingrese una descripción'
+	                       }
+	                   ]},
+                   'categoria.id': {
+	                   identifier: 'categoria.id',
+	                   rules: [
+	                       {
+	                           type: 'empty',
+	                           prompt: 'Seleccione categoria'
+	                       }
+	                   ]},
+                   'marca.id': {
+	                   identifier: 'marca.id',
+	                   rules: [
+	                       {
+	                           type: 'empty',
+	                           prompt: 'Seleccione marca'
+	                       }
+	                   ]},
+                   file: {
+	                   identifier: 'file',
+	                   rules: [
+	                       {
+	                           type: 'empty',
+	                           prompt: 'Seleccione una foto'
+	                       }
+	                   ]},
+	                stock: {
+	                   identifier: 'stock',
+	                   rules: [
+	                	   {
+	                           type: 'empty',
+	                           prompt: 'Ingrese stock'
+	                       },
+	                       {
+	                           type: 'doesntContain[0]',
+	                           prompt: 'Debe ser mayor a 0'
+	                       },
+	                       {
+	                           type: 'number',
+	                           prompt: 'Solo se permiten valores numericos'
+	                       }
+	                   ]}
+		       	},
+		     inline : true,
+		     on     : 'blur'})
+             	    
    
     });
+        
+       
     </script>
     <meta charset="UTF-8"/>
     <title>Crear nuevo producto</title>
@@ -59,6 +126,7 @@
     <div class="column margen-arriba margen-abajo">
 		<h2 class="ui center aligned header">Crear producto<div class="sub header">Aquí podrá crear un nuevo producto dentro del inventario<br>Para guardar los cambios presione el botón “Crear”</div></h2>
 	</div>
+	
 	<div class="ui bor form two column stackable grid text container">
 	    <div class="column">
 	        <div class="ui segment sin-margenes"
@@ -77,7 +145,7 @@
 	                <div class="field">
 	                    <label>Categoría</label>
 	                    <form:select  path="categoria.id" size="1">
-	                        <form:option  value="0"  label="--Seleccione Categoría--" />
+	                        <form:option  value=""  label="--Seleccione Categoría--" />
 	                        <form:options items="${categorias}" itemValue="id" itemLabel="nombre"/>
 	                    </form:select>
 	                </div>
@@ -85,7 +153,7 @@
 	                <div class="field">
 	                    <label>Marca</label>
 	                    <form:select path="marca.id" size="1">
-	                        <form:option  value="0"  label="--Seleccione Marca--" />
+	                        <form:option  value=""  label="--Seleccione Marca--" />
 	                        <form:options items="${marcas}" itemValue="id" itemLabel="nombre"/>
 	                    </form:select>
 	                </div>
@@ -93,7 +161,7 @@
 	
 	            <div class="field">
 	                <form:label path="stock">Stock</form:label>
-	                    <form:input path="stock"/></td>
+	                    <form:input path="stock"/>
 	            </div>
 	        </div>
 	    </div>
