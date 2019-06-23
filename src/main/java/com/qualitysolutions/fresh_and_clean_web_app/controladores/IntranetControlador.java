@@ -175,6 +175,7 @@ public class IntranetControlador {
         }
         peticionHoraList.forEach(peticionHora -> fechasFormateadas.add(peticionHora.getHoraAtencion().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))));
         model.addAttribute("fechasFormateadas",fechasFormateadas);
+        model.addAttribute("localDateTimeFormat", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         model.addAttribute("peticionHoras",peticionHoraList);
         model.addAttribute("persona",((Empleado)session.getAttribute("empleado")).getPersona());
         return "barbero";
@@ -224,6 +225,7 @@ public class IntranetControlador {
         }
         peticionHoraList.forEach(peticionHora -> fechasFormateadas.add(peticionHora.getHoraAtencion().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))));
         model.addAttribute("fechasFormateadas",fechasFormateadas);
+        model.addAttribute("localDateTimeFormat", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         model.addAttribute("peticionHoras",peticionHoraList);
         model.addAttribute("persona",((Empleado)session.getAttribute("empleado")).getPersona());
         return "horaEspera";

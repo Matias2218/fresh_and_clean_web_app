@@ -24,6 +24,11 @@
 	position: relative;
 }
 
+.sc-main-intranet-perfiles2{
+	background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),url(../img/intranet-header.jpg) no-repeat 50% 50% !important;
+	background-size: cover !important;
+	position: relative;
+}
 
 .sc-main.segment{
 	min-height: 100vh;
@@ -37,6 +42,11 @@
 	 min-height: 40vh;
  }
 
+
+.sc-main-intranet-perfiles2.segment{
+	 min-height: 67px;
+ }
+ 
 .sc-main-paginas.segment{
 	min-height: 67px;
 }
@@ -120,47 +130,47 @@
 }
 
 .dropdown {
-  float: left;
-  overflow: hidden;
+	float: left;
+	overflow: hidden;
 }
 
 
 .dropdown .dropbtn {
-  font-size: 16px;
-  border: none;
-  outline: none;
-  color: white;
-  padding: 14px 16px;
-  background-color: inherit;
-  font-family: inherit;
-  margin: 0; 
+	font-size: 16px;
+	border: none;
+	outline: none;
+	color: white;
+	padding: 14px 16px;
+	background-color: inherit;
+	font-family: inherit;
+	margin: 0; 
 }
 
 .dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
+	display: none;
+	position: absolute;
+	background-color: #f9f9f9;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	z-index: 1;
 }
 
 .dropdown-content a {
-  font:Open Sans;
-  float: none;
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  text-align: left;
+	font:Open Sans;
+	float: none;
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+	text-align: left;
 }
 
 .dropdown-content a:hover {
-  background-color: #e1e1e1 !important;
+	background-color: #e1e1e1 !important;
 }
 
 .dropdown:hover .dropdown-content {
-  display: block;
+	display: block;
 }
 
 .titulo-index{
@@ -185,4 +195,67 @@
 }
 .margenes-cartas{
 	margin-right: none !important;
+}
+
+.izquierda{
+	float: left;
+}
+
+.derecha{
+	float:right;
+}
+
+.bottomleft {
+  position: absolute;
+  bottom: 10px;
+  left: 10%;
+  color:#fff;
+  font:Open Sans;
+}
+
+.bottomright {
+  position: absolute;
+  bottom: 10px;
+  right: 50px;
+}
+
+.perfiles{
+	margin-top: 0px !important;
+	color:#fff;
+	font:Open Sans;
+	margin-bottom:10px !important;
+}
+
+.margenes-abajo{
+	margin-bottom: 0px !important;
+}
+
+.margen-abajo{
+	margin-bottom: 15px !important;
+}
+
+.margen-abajo2{
+	margin-bottom: 7px !important;
+}
+
+.margen-arriba{
+	margin-top: 40px;
+}
+
+.sin-margenes{
+	padding-left:0px !important;
+	padding-right:0px !important;
+}
+
+.imagen-espacio{
+	min-width: 100% !important;
+}
+
+.sin-hover{
+	background-color: transparent !important;
+	
+}
+
+.alto-carta{
+	height: 430px !important;
 }

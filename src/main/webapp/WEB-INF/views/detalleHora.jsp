@@ -27,28 +27,32 @@
 </head>
 <body>
 	<!-- HEADER -->
-	<div classs="pusher">
-		<div class="ui vertical sc-main-paginas center aligned segment">
-			<div class="ui container">
-				<div id="divblack" class="following bar ">
-					<div class="ui large secondary inverted pointed fixed menu">
-						<a class="item" href="/"><img src="../img/logo-blanco.png" class="ui tiny centered image"></a>
-
-						<div class="right item">
-							<a class="item" href="#">Fresh & Clean</a> <a class="item"
-								href="/pedirHora">Pedir Hora</a> <a class="item" href="#">Servicios</a> <a
-								class="item" href="#">Peluqueros</a> <a class="item" href="#">Nosotros</a>
+<div class="pusher">
+    <div class="ui vertical sc-main-paginas center aligned segment">
+    	<!-- NAV -->
+        <div class="ui container">
+            <div id="divblack" class="following bar ">
+                <div class="ui large secondary inverted pointed fixed menu">
+                	<a class="item sin-hover" href="/"><img src="../img/logo-blanco.png" class="ui tiny image"> </a>
+                	
+                    <div class="right item">
+                        <a class="item" href="/pedirHora">Agendar Hora</a> 
+                        <div class="dropdown">
+                        <a class="item" href="#">Nosotros<i class="dropdown icon"></i></a>
+							<div class="dropdown-content">
+							   <a href="#">Servicios</a>
+							   <a href="#">Peluqueros</a>
+							   <a href="#">Preguntas Frecuentes</a>
+							</div>	  
 						</div>
+						<a class="item" href="#footer">Contáctanos</a> 
 					</div>
-				</div>
-			</div>
-			<div class="ui text sc-header-content container">
-				
-				
-			</div>
-		</div>
-	</div>
-	<!-- END HEADER -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END HEADER -->
 
 
 	<h4 class="ui center aligned icon header">
@@ -113,40 +117,39 @@
 
 
 	<div style="height: 50px;"></div>
-	<!-- FOOTER -->
-	<div class="ui inverted vertical footer segment">
-		<div class="ui center aligned container">
-			<div class="ui stackable inverted divided grid"
-				style="padding-top: 20px;">
-				<div class="eleven wide column">
-					<h4 class="ui inverted header">Fresh & Clean</h4>
-					<div class="ui inverted link list">
-						<a href="#" class="item">Barberia Fresh & Clean</a> <a href="#"
-							class="item">Servicios de barberia y belleza</a> <a href="#"
-							class="item">Teléfono: 225050050</a> <a href="#" class="item">freshandclean@gmail.cl</a>
-					</div>
-				</div>
-				<div class="five wide column">
-					<h4 class="ui inverted header">Redes Sociales</h4>
-					<div class="ui inverted link list">
-						<a href="#" class="item"><i class="facebook outline icon"></i>
-							Facebook</a> <a href="#" class="item"><i
-							class="twitter outline icon"></i> Twitter</a> <a href="#"
-							class="item"><i class="instagram outline icon"></i> Instagram</a>
-						<a href="#" class="item"><i class="pinterest outline icon"></i>
-							Pinterest</a>
-					</div>
-				</div>
-			</div>
-			<div class="ui inverted section divider"></div>
-			<img src="../img/logo-blanco.png" class="ui small centered image">
-			<div class="ui horizontal inverted small divided link list">
-				<a class="item" href="#">Fresh&Clean</a> <a class="item" href="#">Contactanos</a>
-				<a class="item" href="#">Nosotros</a> <a class="item" href="#">Privacy
-					Policy</a>
-			</div>
-		</div>
-	</div>
-	<!-- END FOOTER -->
+<!-- FOOTER -->
+<footer class="ui inverted vertical footer segment" id="footer">
+    <div class="ui center aligned container">
+        <div class="ui stackable inverted divided grid pad-footer">
+            <div class="eleven wide column">
+                <h4 class="ui inverted header">Fresh & Clean</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">Barbería Fresh & Clean</a> 
+                    <a href="#" class="item">Servicios de barbería y belleza</a> 
+                    <a href="#" class="item">Teléfono: 225050050</a> 
+                    <a href="#" class="item">freshandclean@gmail.cl</a>
+                </div>
+            </div>
+            <div class="five wide column">
+                <h4 class="ui inverted header">Redes Sociales</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item"><i class="facebook outline icon"></i>Facebook</a> 
+                    <a href="#" class="item"><i class="twitter outline icon"></i>Twitter</a> 
+                    <a href="#" class="item"><i class="instagram outline icon"></i>Instagram</a>
+                    <a href="#" class="item"><i class="pinterest outline icon"></i>Pinterest</a>
+                </div>
+            </div>
+        </div>
+        <div class="ui inverted section divider"></div>
+        <img src="../img/logo-blanco.png" class="ui small centered image">
+        <div class="ui horizontal inverted small divided link list">
+            <a class="item" href="#">Fresh&Clean</a> 
+            <a class="item" href="#">Contáctanos</a>
+            <a class="item" href="#">Nosotros</a> 
+            <a class="item" href="#">Privacy Policy</a>
+        </div>
+    </div>
+</footer>
+<!-- END FOOTER -->
 </body>
 </html>

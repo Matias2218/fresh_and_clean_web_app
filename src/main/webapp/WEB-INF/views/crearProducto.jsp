@@ -19,92 +19,91 @@
                 $('#divblack').removeClass('greysi fixed');
             }
         })
+         $(document).ready(function() {
+        	    $("#formCrear").submit(function( event ) {
+              	
+        	        $("#btnCrear").prop("disabled", true).addClass("disabled");
+         });
+   
+    });
     </script>
     <meta charset="UTF-8"/>
-    <title>Creacion de producto</title>
+    <title>Crear nuevo producto</title>
 </head>
 <body>
 <!-- HEADER -->
-<div classs="pusher">
-    <div
-            class="ui vertical sc-main-intranet-perfiles center aligned segment">
-        <div class="ui container">
-            <div id="divblack" class="following bar ">
-                <div class="ui large secondary inverted pointed fixed menu">
-                    <a class="toc item"><i class="sidebar icon"></i></a>
-
-                    <div class="right item">
-                        <a class="item" href="/intranet/inventario/">Perfil inventario</a> <a type="button"
-                                                                      onclick="location.href='/intranet/inventario/crearProducto'"
-                                                                      class="item">Crear Producto</a> <a class="item" href="#">Servicios</a>
-                        <a class="item" href="#">Nosotros</a>
-                        <button type="button" onclick="location.href='/logout'"
-                                class="ui inverted olive button">Cerrar Sesion</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="ui text sc-header-content container">
-            <h1 class="ui inverted header" style="font-size: 170%;">Creacion de Producto</h1>
-            <p class="ui inverted header" style="padding-bottom: 10px;">Ingrese los datos en el formulario para ingresar nuevos productos</p>
-        </div>
-    </div>
+<div class="pusher card">
+	<div class="ui vertical sc-main-intranet-perfiles2 center aligned segment">
+		<div class="ui container">
+			<div id="divblack" class="following bar">
+				<div class="ui large secondary inverted pointed fixed menu">
+					<a class="item sin-hover" href="/intranet/inventario"><img src="/img/logo-blanco.png" class="ui tiny image"> </a>
+					<div class="right item">
+						<a class="item" href="/intranet/inventario">Perfil</a> 
+						<a class="item" href="/intranet/inventario">Ver Productos</a> 
+						<a href="/intranet/inventario/crearProducto" class="item">Crear Producto</a>
+						<button type="button" onclick="location.href='/logout'" class="ui inverted olive button">Cerrar Sesion</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="bottomleft">
+					<p class="ui grey inverted left aligned header perfiles">Perfil inventario</p>
+				</div>
+	</div>
 </div>
 <!-- END HEADER -->
 
-<div style="height: 50px;"></div>
+<form:form method="post" id="formCrear" action="/intranet/inventario/crearProducto" enctype="multipart/form-data" modelAttribute="producto">
 
-<form:form method="post" action="/intranet/inventario/crearProducto" enctype="multipart/form-data" modelAttribute="producto">
-
-    <div class="column">
-        <div class="ui horizontal section divider">Editar</div>
-    </div>
-
-<div class="ui bor form two column stackable grid container">
-    <div class="column">
-        <div class="ui segment"
-             style="border: 1px solid transparent; box-shadow: none;">
-            <div class="field">
-                <form:label path="nombre">Nombre</form:label>
-                <form:input path="nombre"/>
-            </div>
-
-            <div class="field">
-                <form:label path="descripcion">Descrpcion</form:label>
-                <form:textarea path="descripcion"></form:textarea>
-            </div>
-
-            <div class="two fields">
-                <div class="field">
-                    <label>Categoria</label>
-                    <form:select  path="categoria.id" size="1">
-                        <form:option  value="0"  label="--Seleccione Categoria--" />
-                        <form:options items="${categorias}" itemValue="id" itemLabel="nombre"/>
-                    </form:select>
-                </div>
-
-                <div class="field">
-                    <label>Marca</label>
-                    <form:select path="marca.id" size="1">
-                        <form:option  value="0"  label="--Seleccione Marca--" />
-                        <form:options items="${marcas}" itemValue="id" itemLabel="nombre"/>
-                    </form:select>
-                </div>
-            </div>
-
-            <div class="field">
-                <form:label path="stock">Stock</form:label>
-                    <form:input path="stock"/></td>
-            </div>
-        </div>
-    </div>
+    <div class="column margen-arriba margen-abajo">
+		<h2 class="ui center aligned header">Crear producto<div class="sub header">Aquí podrá crear un nuevo producto dentro del inventario<br>Para guardar los cambios presione el botón “Crear”</div></h2>
+	</div>
+	<div class="ui bor form two column stackable grid text container">
+	    <div class="column">
+	        <div class="ui segment sin-margenes"
+	             style="border: 1px solid transparent; box-shadow: none;">
+	            <div class="field">
+	                <form:label path="nombre">Nombre</form:label>
+	                <form:input path="nombre"/>
+	            </div>
+	
+	            <div class="field">
+	                <form:label path="descripcion">Descripción</form:label>
+	                <form:textarea path="descripcion"></form:textarea>
+	            </div>
+	
+	            <div class="two fields">
+	                <div class="field">
+	                    <label>Categoría</label>
+	                    <form:select  path="categoria.id" size="1">
+	                        <form:option  value="0"  label="--Seleccione Categoría--" />
+	                        <form:options items="${categorias}" itemValue="id" itemLabel="nombre"/>
+	                    </form:select>
+	                </div>
+	
+	                <div class="field">
+	                    <label>Marca</label>
+	                    <form:select path="marca.id" size="1">
+	                        <form:option  value="0"  label="--Seleccione Marca--" />
+	                        <form:options items="${marcas}" itemValue="id" itemLabel="nombre"/>
+	                    </form:select>
+	                </div>
+	            </div>
+	
+	            <div class="field">
+	                <form:label path="stock">Stock</form:label>
+	                    <form:input path="stock"/></td>
+	            </div>
+	        </div>
+	    </div>
 
     <div class="column">
-        <div class="ui segment"
+        <div class="ui segment sin-margenes"
              style="border: 1px solid transparent; box-shadow: none;">
             <div class="field">
                 <label>Foto</label>
-                <img id="imagenSalida" name="imagenSalida" src=""  class="ui medium bordered rounded image">
+                <img id="imagenSalida" name="imagenSalida" src=""  class="ui medium bordered rounded image imagen-espacio">
                 <div>
                     <label for="foto" class="ui icon button" style="margin-top:10px;"> <i
                             class="file icon"></i> Seleccionar Archivo
@@ -119,47 +118,45 @@
 </div>
     <div class="column">
         <div class="ui horizontal section divider">
-            <input type="submit" class="ui olive button centered" value="Crear" style="margin-top:10px;"/>
+            <input type="submit" id="btnCrear" class="ui olive button centered" value="Crear" style="margin-top:10px;"/>
         </div>
     </div>
 </form:form>
 
-<div style="height: 50px;"></div>
+<div style="height: 25px;"></div>
 <!-- FOOTER -->
-<div class="ui inverted vertical footer segment">
+<footer class="ui inverted vertical footer segment" id="footer">
     <div class="ui center aligned container">
-        <div class="ui stackable inverted divided grid"
-             style="padding-top: 20px;">
+        <div class="ui stackable inverted divided grid pad-footer">
             <div class="eleven wide column">
                 <h4 class="ui inverted header">Fresh & Clean</h4>
                 <div class="ui inverted link list">
-                    <a href="#" class="item">Barberia Fresh & Clean</a> <a href="#"
-                                                                           class="item">Servicios de barberia y belleza</a> <a href="#"
-                                                                                                                               class="item">Teléfono: 225050050</a> <a href="#" class="item">freshandclean@gmail.cl</a>
+                    <a href="#" class="item">Barbería Fresh & Clean</a> 
+                    <a href="#" class="item">Servicios de barbería y belleza</a> 
+                    <a href="#" class="item">Teléfono: 225050050</a> 
+                    <a href="#" class="item">freshandclean@gmail.cl</a>
                 </div>
             </div>
             <div class="five wide column">
                 <h4 class="ui inverted header">Redes Sociales</h4>
                 <div class="ui inverted link list">
-                    <a href="#" class="item"><i class="facebook outline icon"></i>
-                        Facebook</a> <a href="#" class="item"><i
-                        class="twitter outline icon"></i> Twitter</a> <a href="#"
-                                                                         class="item"><i class="instagram outline icon"></i> Instagram</a>
-                    <a href="#" class="item"><i class="pinterest outline icon"></i>
-                        Pinterest</a>
+                    <a href="#" class="item"><i class="facebook outline icon"></i>Facebook</a> 
+                    <a href="#" class="item"><i class="twitter outline icon"></i>Twitter</a> 
+                    <a href="#" class="item"><i class="instagram outline icon"></i>Instagram</a>
+                    <a href="#" class="item"><i class="pinterest outline icon"></i>Pinterest</a>
                 </div>
             </div>
         </div>
         <div class="ui inverted section divider"></div>
-        <img src="/img/logo-blanco.png" class="ui centered image"
-             style="height: 50px;">
+        <img src="/img/logo-blanco.png" class="ui small centered image">
         <div class="ui horizontal inverted small divided link list">
-            <a class="item" href="#">Fresh&Clean</a> <a class="item" href="#">Contactanos</a>
-            <a class="item" href="#">Nosotros</a> <a class="item" href="#">Privacy
-            Policy</a>
+            <a class="item" href="#">Fresh&Clean</a> 
+            <a class="item" href="#">Contáctanos</a>
+            <a class="item" href="#">Nosotros</a> 
+            <a class="item" href="#">Privacy Policy</a>
         </div>
     </div>
-</div>
+</footer>
 <!-- END FOOTER -->
 </body>
 </html>

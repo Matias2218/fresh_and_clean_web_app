@@ -117,9 +117,10 @@
         <div class="ui container">
             <div id="divblack" class="following bar ">
                 <div class="ui large secondary inverted pointed fixed menu">
+                	<a class="item sin-hover" href="/"><img src="../img/logo-blanco.png" class="ui tiny image"> </a>
+                	
                     <div class="right item">
-                        <a class="item" href="/">Fresh & Clean</a> 
-                        <a class="item" href="/pedirHora">Pedir Hora</a> 
+                        <a class="item" href="/pedirHora">Agendar Hora</a> 
                         <div class="dropdown">
                         <a class="item" href="#">Nosotros<i class="dropdown icon"></i></a>
 							<div class="dropdown-content">
@@ -128,7 +129,7 @@
 							   <a href="#">Preguntas Frecuentes</a>
 							</div>	  
 						</div>
-						<a class="item" href="#footer">Contactanos</a> 
+						<a class="item" href="#footer">Contáctanos</a> 
 					</div>
                 </div>
             </div>
@@ -394,7 +395,7 @@
         <img src="../img/logo-blanco.png" class="ui small centered image">
         <div class="ui horizontal inverted small divided link list">
             <a class="item" href="#">Fresh&Clean</a> 
-            <a class="item" href="#">Contactanos</a>
+            <a class="item" href="#">Contáctanos</a>
             <a class="item" href="#">Nosotros</a> 
             <a class="item" href="#">Privacy Policy</a>
         </div>

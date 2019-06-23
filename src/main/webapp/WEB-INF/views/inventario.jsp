@@ -11,7 +11,7 @@
 <script src="\semantic\out\semantic.min.js"></script>
 <meta charset="UTF-8" />
 <link rel="stylesheet" href="\stylesheets\styles.css">
-<title>Bienvenido Inventario</title>
+<title>Bienvenido ${persona.nombre}</title>
 <script type="text/javascript">
 	$(window).on('scroll', function() {
 		if ($(window).scrollTop()) {
@@ -24,41 +24,43 @@
 </head>
 <body>
 	<!-- HEADER -->
-	<div classs="pusher">
-		<div class="ui vertical sc-main-intranet-perfiles center aligned segment">
+	<div class="pusher card">
+		<div
+			class="ui vertical sc-main-intranet-perfiles center aligned segment">
 			<div class="ui container">
 				<div id="divblack" class="following bar">
 					<div class="ui large secondary inverted pointed fixed menu">
+						<a class="item sin-hover" href="/intranet/inventario"><img src="/img/logo-blanco.png" class="ui tiny image"> </a>
 						<div class="right item">
-							<a class="item" href="/intranet/inventario">Perfil</a>
-							<a class="item" href="/intranet/inventario">Ver Productos</a>
-							<a href="/intranet/inventario/crearProducto" class="item">Crear Producto</a> 
+							<a class="item" href="/intranet/inventario">Perfil</a> <a
+								class="item" href="/intranet/inventario">Ver Productos</a> <a
+								href="/intranet/inventario/crearProducto" class="item">Crear
+								Producto</a>
 							<button type="button" onclick="location.href='/logout'"
 								class="ui inverted olive button">Cerrar Sesion</button>
 						</div>
 					</div>
 				</div>
 			</div>
-			
-			<div class="ui text sc-header-content container">
-				<h1 class="ui inverted header titulos-perfiles">${persona.nombre}</h1>
-				<p class="ui inverted header">Bienvenido
-					al perfil de Inventario</p>
-			</div>
+
+
+				<div class="bottomleft">
+					<h1 class="titulos-perfiles margenes-abajo">${persona.nombre} ${persona.apellido}</h1>
+					<p class="ui grey inverted left aligned header perfiles">Bienvenido al perfil de Inventario</p>
+				</div>
 		</div>
 	</div>
 	<!-- END HEADER -->
-	<div style="height: 50px;"></div>
-
-
-
+	
+	
+	<div style="height: 30px;"></div>
 	<div class="ui container">
 				<div class="ui horizontal section divider">Productos en Inventario</div>
 				<div class="ui three column centered grid">
 				<c:forEach begin="0" var="i" end="${fn:length(productos)-1}">
 						<div class="column">
 							<div class="ui special centered cards">
-								<div class="card" style="height: 430px;">
+								<div class="card alto-carta">
 									<div class="blurring dimmable image">
 										<div class="ui dimmer">
 											<div class="content">

@@ -25,34 +25,36 @@
 </head>
 <body>
 <!-- HEADER -->
-<div classs="pusher">
-    <div class="ui vertical sc-main-intranet-perfiles center aligned segment">
-        <div class="ui container">
-            <div id="divblack" class="following bar ">
-                <div class="ui large secondary inverted pointed fixed menu">
-                    <a class="toc item"><i class="sidebar icon"></i></a>
-                    <div class="right item">
-                        <a class="item" href="/intranet/administrador">Perfil Administrador</a>
-                        <a type="button" onclick="location.href='/intranet/administrador/crearEmpleado'" class="item">Crear Empleado</a>
-                        <a class="item" href="#">Servicios</a>
-                        <a class="item" href="#">Nosotros</a>
-                        <button type="button" onclick="location.href='/logout'" class="ui inverted olive button">Cerrar Sesion</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="ui text sc-header-content container">
-            <h1 class="ui inverted header" style="font-size: 170%;">Crear Empleado</h1>
-            <p class="ui inverted header" style="padding-bottom: 10px;">Llene el formulario para crear un nuevo empleado en el sistema</p>
-        </div>
-    </div>
-</div>
-<!-- END HEADER -->
-<h3 class="ui center aligned header">Crear Empleado</h3>
+	<div class="pusher card">
+		<div
+			class="ui vertical sc-main-intranet-perfiles2 center aligned segment">
+			<div class="ui container">
+				<div id="divblack" class="following bar">
+					<div class="ui large secondary inverted pointed fixed menu">
+						<a class="item sin-hover" href="/intranet/administrador"><img src="/img/logo-blanco.png" class="ui tiny image"> </a>
+						<div class="right item">
+							<a class="item" href="/intranet/administrador">Perfil</a> 
+							<a href="/intranet/administrador/crearEmpleado" class="item">Crear perfil</a>
+							<button type="button" onclick="location.href='/logout'" class="ui inverted olive button">Cerrar Sesion</button>
+						</div>
+					</div>
+				</div>
+			</div>
 
+
+				<div class="bottomleft">
+					<p class="ui grey inverted left aligned header perfiles">Perfil Administrador</p>
+				</div>
+		</div>
+	</div>
+	<!-- END HEADER -->
+
+<div class="column margen-arriba margen-abajo">
+		<h2 class="ui center aligned header"> Crear empleado <div class="sub header">Aquí podrá crear un nuevo empleado dentro del sistema<br>Para guardar los cambios presione el botón “Crear”</div></h2>
+	</div>
 <div class="margenes-tabla">
     <form:form method="post" action="/intranet/administrador/crearEmpleado" modelAttribute="empleado" class="ui form">
-        <div class="field">
+        <div class="ui text container">
 
             <form:label path="persona.nombre">Nombre</form:label>
             <div class="two fields">
@@ -120,51 +122,51 @@
                                   itemLabel="descripcion" />
                 </form:select>
             </div>
-        </div>
-        <div class="column">
+        <div class="field">
             <div class="ui horizontal section divider">
                 <input type="submit" class="ui olive button centered" value="Crear" style="margin-top:10px;"/>
             </div>
         </div>
+        </div>
+        
     </form:form>
 </div>
 
 <div style="height: 50px;"></div>
+	
 <!-- FOOTER -->
-<div class="ui inverted vertical footer segment">
+<footer class="ui inverted vertical footer segment" id="footer">
     <div class="ui center aligned container">
-        <div class="ui stackable inverted divided grid"
-             style="padding-top: 20px;">
+        <div class="ui stackable inverted divided grid pad-footer">
             <div class="eleven wide column">
                 <h4 class="ui inverted header">Fresh & Clean</h4>
                 <div class="ui inverted link list">
-                    <a href="#" class="item">Barberia Fresh & Clean</a> <a href="#"
-                                                                           class="item">Servicios de barberia y belleza</a> <a href="#"
-                                                                                                                               class="item">Teléfono: 225050050</a> <a href="#" class="item">freshandclean@gmail.cl</a>
+                    <a href="#" class="item">Barbería Fresh & Clean</a> 
+                    <a href="#" class="item">Servicios de barbería y belleza</a> 
+                    <a href="#" class="item">Teléfono: 225050050</a> 
+                    <a href="#" class="item">freshandclean@gmail.cl</a>
                 </div>
             </div>
             <div class="five wide column">
                 <h4 class="ui inverted header">Redes Sociales</h4>
                 <div class="ui inverted link list">
-                    <a href="#" class="item"><i class="facebook outline icon"></i>
-                        Facebook</a> <a href="#" class="item"><i
-                        class="twitter outline icon"></i> Twitter</a> <a href="#"
-                                                                         class="item"><i class="instagram outline icon"></i> Instagram</a>
-                    <a href="#" class="item"><i class="pinterest outline icon"></i>
-                        Pinterest</a>
+                    <a href="#" class="item"><i class="facebook outline icon"></i>Facebook</a> 
+                    <a href="#" class="item"><i class="twitter outline icon"></i>Twitter</a> 
+                    <a href="#" class="item"><i class="instagram outline icon"></i>Instagram</a>
+                    <a href="#" class="item"><i class="pinterest outline icon"></i>Pinterest</a>
                 </div>
             </div>
         </div>
         <div class="ui inverted section divider"></div>
-        <img src="/img/logo-blanco.png" class="ui centered image"
-             style="height: 50px;">
+        <img src="/img/logo-blanco.png" class="ui small centered image">
         <div class="ui horizontal inverted small divided link list">
-            <a class="item" href="#">Fresh&Clean</a> <a class="item" href="#">Contactanos</a>
-            <a class="item" href="#">Nosotros</a> <a class="item" href="#">Privacy
-            Policy</a>
+            <a class="item" href="#">Fresh&Clean</a> 
+            <a class="item" href="#">Contactanos</a>
+            <a class="item" href="#">Nosotros</a> 
+            <a class="item" href="#">Privacy Policy</a>
         </div>
     </div>
-</div>
+</footer>
 <!-- END FOOTER -->
 </body>
 </html>
