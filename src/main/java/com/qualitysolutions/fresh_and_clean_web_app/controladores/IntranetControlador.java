@@ -35,6 +35,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 
 import javax.mail.MessagingException;
@@ -369,9 +370,9 @@ public class IntranetControlador {
         @Secured("ROLE_ADMINISTRADOR")
         @PostMapping("administrador/crearEmpleado")
         public String crearEmpleado (@Valid @ModelAttribute("empleado") Empleado empleado,
-                BindingResult bindingResult, HttpSession session)
+                                     BindingResult bindingResult, HttpSession session, RedirectAttributes redirectAttributes)
         {
-
+            String mensaje = null;
             ArrayList<String> errores = new ArrayList<>();
             if (bindingResult.hasErrors()) {
                 bindingResult.getFieldErrors().stream().forEach(fieldError -> errores.add(fieldError.getDefaultMessage()));
@@ -386,7 +387,9 @@ public class IntranetControlador {
                 return "crearEmpleado";
             }
             empleado.setEstaActivo(true);
-            empleado = usuarioServicio.saveEmpleado(empleado);
+            usuarioServicio.saveEmpleado(empleado);
+            mensaje = "Empleado creado con éxito";
+            redirectAttributes.addFlashAttribute("mensaje",mensaje);
             return "redirect:/intranet/administrador";
         }
         @Secured("ROLE_ADMINISTRADOR")
@@ -442,10 +445,12 @@ public class IntranetControlador {
         @Secured("ROLE_ADMINISTRADOR")
         @PostMapping("administrador/editarEmpleado")
         public String editarEmpleado (@Valid @ModelAttribute("empleado") Empleado empleado,
-                BindingResult bindingResult,
-                HttpSession session)
+                                      BindingResult bindingResult,
+                                      HttpSession session,
+                                      RedirectAttributes redirectAttributes)
         {
             ArrayList<String> errores = new ArrayList<>();
+            String mensaje = null;
             if (bindingResult.hasErrors()) {
                 bindingResult.getFieldErrors().stream().forEach(fieldError -> errores.add(fieldError.getDefaultMessage()));
                 return "editarEmpleado";
@@ -461,7 +466,9 @@ public class IntranetControlador {
                 return "editarEmpleado";
             }
             empleado.setEstaActivo(true);
-            empleado = usuarioServicio.saveEmpleado(empleado);
+            usuarioServicio.saveEmpleado(empleado);
+            mensaje = "Empleado editado con éxito";
+            redirectAttributes.addFlashAttribute("mensaje",mensaje);
             session.removeAttribute("idPersona");
             session.removeAttribute("idEmpleado");
             session.removeAttribute("passwordEmpleado");

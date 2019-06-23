@@ -47,7 +47,6 @@
                 </div>
             </div>
         </div>
-        
         <!-- IMG TEXT -->
         <div class="ui text sc-header-content container">
         <p class="ui inverted header">Bienvenido a</p>

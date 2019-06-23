@@ -17,7 +17,8 @@
             } else {
                 $('#divblack').removeClass('greysi fixed');
             }
-        })
+        });
+
 
         $('.special.cards .image').dimmer({
             on: 'hover'
@@ -54,6 +55,7 @@
                 $('#divDatosHora :input').attr('disabled', false);
                 $('#divDatosCliente :input').attr('disabled', false);
             });
+
 
             $('#dateHoraAtencion').attr('min',today());
             $('#dateHoraAtencion').attr('max',DiasMaximo());
@@ -139,7 +141,7 @@
 <!-- END HEADER -->
 
 <h3 class="ui center aligned header">Agende su hora</h3>
-<form:form class="ui three column doubling grid container" method="Post" action="/generarHora" modelAttribute="cliente">
+<form:form class="ui three column doubling grid container" method="Post" action="/generarHora" modelAttribute="cliente" >
     <!-- DATOS PERSONALES -->
     <div class="column" id="divDatosCliente">
         <div class="ui segment">
@@ -149,7 +151,7 @@
                     <form:label path="persona.nombre">Nombre</form:label>
                     <div class="two fields">
                         <div class="field">
-                            <form:input path="persona.nombre" placeholder="Nombre"></form:input>
+                            <form:input path="persona.nombre" name="nombre" placeholder="Nombre"></form:input>
                         </div>
                         <div class="field">
                             <form:input path="persona.apellido" placeholder="Apellido"></form:input>

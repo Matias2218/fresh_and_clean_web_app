@@ -9,8 +9,9 @@
             src="https://code.jquery.com/jquery-3.1.1.min.js"
             integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
             crossorigin="anonymous"></script>
-    <script type="text/javascript" src="/js/funcionesEditarEmpleado.js">
-    </script>
+    <script type="text/javascript" src="/js/funcionesEditarEmpleado.js"></script>
+    <script src="\semantic\out\semantic.min.js"></script>
+
     <meta charset="UTF-8"/>
     <title>Crear Empleado</title>
     <script type="text/javascript">
@@ -20,7 +21,148 @@
             } else {
                 $('#divblack').removeClass('greysi fixed');
             }
-        })
+        });
+
+
+
+        $(document).ready(function () {
+            $('.ui.form')
+                .form({
+                    fields: {
+                        'persona.nombre': {
+                            identifier: 'persona.nombre',
+                            rules: [
+                                {
+                                    type: 'empty',
+                                    prompt: 'Por favor ingrese un nombre'
+                                }
+                            ]
+                        },
+                        'persona.apellido': {
+                            identifier: 'persona.apellido',
+                            rules: [
+                                {
+                                    type: 'empty',
+                                    prompt: 'Por favor ingrese un apellido'
+                                }
+                            ]
+                        },
+                        'tipoEmpleado.idTipo': {
+                            identifier: 'tipoEmpleado.idTipo',
+                            rules: [
+                                {
+                                    type   : 'empty',
+                                    prompt : 'Por favor ingrese un tipo de empleado'
+                                }
+                            ]
+                        },
+                        'persona.genero': {
+                            identifier: 'persona.genero',
+                            rules: [
+                                {
+                                    type   : 'empty',
+                                    prompt : 'Por favor ingrese un sexo'
+                                }
+                            ]
+                        },
+                        'persona.fechaNacimiento': {
+                            identifier: 'persona.fechaNacimiento',
+                            rules: [
+                                {
+                                    type   : 'empty',
+                                    prompt : 'Por favor ingrese una fecha de nacimiento'
+                                }
+                            ]
+                        },
+                        passwordEmpleado: {
+                            identifier: 'passwordEmpleado',
+                            rules: [
+                                {
+                                    type   : 'empty',
+                                    prompt : 'Por favor ingrese una contraseña'
+                                }
+                            ]
+                        },
+                        passwordConfirmEmpleado: {
+                            identifier: 'passwordConfirmEmpleado',
+                            rules: [
+                                {
+                                    type   : 'empty',
+                                    prompt : 'Por favor ingrese una confirmación contraseña'
+                                },
+                                {
+                                    type   : 'match[passwordEmpleado]',
+                                    prompt : 'Las contraseñas no coinciden'
+                                }
+                            ]
+                        },
+                        emailEmpleado: {
+                            identifier: 'emailEmpleado',
+                            rules: [
+                                {
+                                    type   : 'empty',
+                                    prompt : 'Por favor ingrese un correo electrónico'
+                                },
+                                {
+                                    type   : 'regExp[^(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$]',
+                                    prompt : 'Por favor ingrese un correo electrónico valido'
+                                }
+                            ]
+                        },
+                        telefonoEmpleado: {
+                            identifier: 'telefonoEmpleado',
+                            rules: [
+                                {
+                                    type   : 'empty',
+                                    prompt : 'Por favor ingrese un numero de telefono'
+                                },
+                                {
+                                    type   : 'minLength[9]',
+                                    prompt : 'Por favor ingrese numero de telefono valido'
+                                },
+                                {
+                                    type   : 'number',
+                                    prompt : 'Por favor ingrese numero de telefono valido'
+                                }
+                            ]
+                        },
+                        sueldoEmpleado: {
+                            identifier: 'sueldoEmpleado',
+                            rules: [
+                                {
+                                    type   : 'empty',
+                                    prompt : 'Por favor ingrese un sueldo'
+                                },
+                                {
+                                    type   : 'maxLength[8]',
+                                    prompt : 'Por favor ingrese un sueldo valido'
+                                }
+                                ,
+                                {
+                                    type   : 'number',
+                                    prompt : 'Por favor ingrese un sueldo valido'
+                                }
+                            ]
+                        },
+                        usernameEmpleado: {
+                            identifier: 'usernameEmpleado',
+                            rules: [
+                                {
+                                    type: 'empty',
+                                    prompt: 'Por favor ingrese su nombre de usuario'
+                                }
+                            ]
+                        }
+                    },
+                    inline : true,
+                    on     : 'blur'
+                });
+
+        });
+
+
+
+
     </script>
 </head>
 <body>
@@ -53,15 +195,16 @@
 		<h2 class="ui center aligned header"> Crear empleado <div class="sub header">Aquí podrá crear un nuevo empleado dentro del sistema<br>Para guardar los cambios presione el botón “Crear”</div></h2>
 	</div>
 <div class="margenes-tabla">
-    <form:form method="post" action="/intranet/administrador/crearEmpleado" modelAttribute="empleado" class="ui form">
+    <form:form method="post" action="/intranet/administrador/crearEmpleado" modelAttribute="empleado"  class="ui form">
         <div class="ui text container">
 
-            <form:label path="persona.nombre">Nombre</form:label>
             <div class="two fields">
                 <div class="field">
+                    <form:label path="persona.nombre">Nombre</form:label>
                     <form:input path="persona.nombre" placeholder="Nombre"/>
                 </div>
                 <div class="field">
+                    <form:label path="persona.apellido">Apellido</form:label>
                     <form:input path="persona.apellido" placeholder="Apellido"/>
                 </div>
             </div>
@@ -71,7 +214,7 @@
                 <div class="field">
                     <form:label path="persona.genero">Género</form:label>
                     <form:select path="persona.genero">
-                        <form:option value="NONE">Seleccione su sexo</form:option>
+                        <form:option value="">Seleccione su sexo</form:option>
                         <form:options items="${generos}"></form:options>
                     </form:select>
                 </div>
@@ -113,11 +256,11 @@
                         <form:input path="sueldoEmpleado"/>
                     </div>
                 </div>
-            <div>
-                <label>Tipo de empleado</label>
+            <div class="field">
+                <form:label path="tipoEmpleado.idTipo">Tipo de empleado</form:label>
                 <form:select path="tipoEmpleado.idTipo" size="1"
                              class="ui fluid dropdown">
-                    <form:option value="0" label="--Seleccione Categoria--" />
+                    <form:option value="" label="--Seleccione Categoria--" />
                     <form:options items="${tipoEmpleados}" itemValue="idTipo"
                                   itemLabel="descripcion" />
                 </form:select>
@@ -128,7 +271,6 @@
             </div>
         </div>
         </div>
-        
     </form:form>
 </div>
 

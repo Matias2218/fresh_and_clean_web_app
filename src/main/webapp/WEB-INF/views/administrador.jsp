@@ -22,6 +22,17 @@
     </script>
     <script>
         $(document).ready(function() {
+
+            $('.message .close')
+                .on('click', function() {
+                    $(this)
+                        .closest('.message')
+                        .transition('fade')
+                    ;
+                })
+            ;
+
+
             $('button[name=btnEliminar]').click(function() {
                 $("div[class='ui dimmer modals page transition hidden']").remove();
                 var datos = $(this).attr('value').split(".");
@@ -132,6 +143,14 @@
 	</div>
 	<!-- END HEADER -->
 
+<c:if test="${mensaje != null}">
+    <div class="ui success message">
+        <i class="close icon"></i>
+        <div class="header">
+            ${mensaje}
+        </div>
+    </div>
+</c:if>
 <div class="column margen-arriba margen-abajo">
 		<h2 class="ui center aligned header">Empleados<div class="sub header">En la siguiente tabla se podrán visualizar todos los empleados<br>También puede desactivar a estos y editar sus perfiles</div></h2>
 	</div>
