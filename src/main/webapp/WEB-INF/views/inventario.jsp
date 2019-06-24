@@ -33,6 +33,7 @@
 	});
 
 </script>
+	<link rel="shortcut icon" type="image/png" href="/img/fyclogo.png"/>
 </head>
 <body>
 	<!-- HEADER -->

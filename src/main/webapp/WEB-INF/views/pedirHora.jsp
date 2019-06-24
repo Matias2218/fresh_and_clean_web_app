@@ -216,6 +216,7 @@
         });
     </script>
     <title>Solicitar hora</title>
+    <link rel="shortcut icon" type="image/png" href="/img/fyclogo.png"/>
 </head>
 <body>
 <!-- HEADER -->

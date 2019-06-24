@@ -115,6 +115,7 @@
     </script>
     <meta charset="UTF-8"/>
     <title>Perfil administrador</title>
+    <link rel="shortcut icon" type="image/png" href="/img/fyclogo.png"/>
 </head>
 <body id="body">
 <!-- HEADER -->
