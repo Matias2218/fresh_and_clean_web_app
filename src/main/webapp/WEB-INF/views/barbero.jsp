@@ -215,6 +215,7 @@
     </c:when>
     <c:otherwise>
         <div>No hay horas disponibles</div>
+        <div style="height: 150px"></div>
     </c:otherwise>
 </c:choose>
 </div>

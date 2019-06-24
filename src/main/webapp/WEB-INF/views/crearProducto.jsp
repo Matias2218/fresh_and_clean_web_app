@@ -21,75 +21,85 @@
             }
         })
          $(document).ready(function() {
-        	    $("#formCrear").submit(function( event ) {
-              	
-        	        $("#btnCrear").prop("disabled", true).addClass("disabled");
-         });
-        	    
+
 		$('#formCrear')
 		    .form({
-		    	fields:{
-		       		nombre: {
-	                   identifier: 'nombre',
-	                   rules: [
-	                       {
-	                           type: 'empty',
-	                           prompt: 'Por favor ingrese el nombre'
-	                       }
-	                   ]},
-                   descripcion: {
-	                   identifier: 'descripcion',
-	                   rules: [
-	                       {
-	                           type: 'empty',
-	                           prompt: 'Por favor ingrese una descripción'
-	                       }
-	                   ]},
-                   'categoria.id': {
-	                   identifier: 'categoria.id',
-	                   rules: [
-	                       {
-	                           type: 'empty',
-	                           prompt: 'Seleccione categoria'
-	                       }
-	                   ]},
-                   'marca.id': {
-	                   identifier: 'marca.id',
-	                   rules: [
-	                       {
-	                           type: 'empty',
-	                           prompt: 'Seleccione marca'
-	                       }
-	                   ]},
-                   file: {
-	                   identifier: 'file',
-	                   rules: [
-	                       {
-	                           type: 'empty',
-	                           prompt: 'Seleccione una foto'
-	                       }
-	                   ]},
-	                stock: {
-	                   identifier: 'stock',
-	                   rules: [
-	                	   {
-	                           type: 'empty',
-	                           prompt: 'Ingrese stock'
-	                       },
-	                       {
-	                           type: 'doesntContain[0]',
-	                           prompt: 'Debe ser mayor a 0'
-	                       },
-	                       {
-	                           type: 'number',
-	                           prompt: 'Solo se permiten valores numericos'
-	                       }
-	                   ]}
-		       	},
-		     inline : true,
-		     on     : 'blur'})
-             	    
-   
+                fields: {
+                    nombre: {
+                        identifier: 'nombre',
+                        rules: [
+                            {
+                                type: 'empty',
+                                prompt: 'Por favor ingrese el nombre'
+                            }
+                        ]
+                    },
+                    descripcion: {
+                        identifier: 'descripcion',
+                        rules: [
+                            {
+                                type: 'empty',
+                                prompt: 'Por favor ingrese una descripción'
+                            }
+                        ]
+                    },
+                    'categoria.id': {
+                        identifier: 'categoria.id',
+                        rules: [
+                            {
+                                type: 'empty',
+                                prompt: 'Seleccione categoria'
+                            }
+                        ]
+                    },
+                    'marca.id': {
+                        identifier: 'marca.id',
+                        rules: [
+                            {
+                                type: 'empty',
+                                prompt: 'Seleccione marca'
+                            }
+                        ]
+                    },
+                    file: {
+                        identifier: 'file',
+                        rules: [
+                            {
+                                type: 'empty',
+                                prompt: 'Seleccione una foto'
+                            }
+                        ]
+                    },
+                    stock: {
+                        identifier: 'stock',
+                        rules: [
+                            {
+                                type: 'empty',
+                                prompt: 'Ingrese stock'
+                            },
+                            {
+                                type: 'not[0]',
+                                prompt: 'Debe ser mayor a 0'
+                            },
+                            {
+                                type: 'number',
+                                prompt: 'Solo se permiten valores numericos'
+                            }
+                        ]
+                    }
+                },
+
+                inline: true,
+                on: 'blur',
+
+                onSuccess: function () {
+                    $("#btnCrear").prop("disabled", true).addClass("disabled");
+                    return true;
+                },
+                onFailure: function () {
+                    return false;
+                }
+            });
     });
         
        

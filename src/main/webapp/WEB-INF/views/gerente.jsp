@@ -96,7 +96,8 @@
                             ${servicios.nombreServicio} $${servicios.precioServicio}<br>
                         </c:forEach>
                     </td>
-                    <td><a href="/intranet/gerente/boleta/${boleta.idBoleta}/BoletaPDF?format=pdf" target="_blank"><i class="file pdf icon"></i></a></td>
+                    <td>
+                        <a href="/intranet/gerente/boleta/${boleta.idBoleta}/BoletaPDF?format=pdf" target="_blank"><i class="file pdf icon"></i>Descargar PDF</a></td>
                     </tr>
             </c:forEach>
             </tbody>

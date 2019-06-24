@@ -20,6 +20,18 @@
 			$('#divblack').removeClass('greysi fixed');
 		}
 	})
+
+	$(document).ready(function () {
+		$('.message .close')
+				.on('click', function() {
+					$(this)
+							.closest('.message')
+							.transition('fade')
+					;
+				})
+		;
+	});
+
 </script>
 </head>
 <body>
@@ -51,8 +63,15 @@
 		</div>
 	</div>
 	<!-- END HEADER -->
-	
-	
+
+	<c:if test="${mensaje != null}">
+		<div class="ui success message">
+			<i class="close icon"></i>
+			<div class="header">
+					${mensaje}
+			</div>
+		</div>
+	</c:if>
 	<div style="height: 30px;"></div>
 	<div class="ui container">
 				<div class="ui horizontal section divider">Productos en Inventario</div>

@@ -73,8 +73,17 @@
 	                       }
 	                   ]}
 		       	},
-		     inline : true,
-		     on     : 'blur'})
+				inline: true,
+				on: 'blur',
+
+				onSuccess: function () {
+					$("#btnEditar").prop("disabled", true).addClass("disabled");
+					return true;
+				},
+				onFailure: function () {
+					return false;
+				}
+			});
              	    
    
     });
@@ -183,7 +192,7 @@
 	</div>
 		<div class="column">
 			<div class="ui horizontal section divider">
-				<input type="submit" class="ui olive button centered" value="Editar" style="margin-top:10px;"/>
+				<input type="submit" id="btnEditar" class="ui olive button centered" value="Editar" style="margin-top:10px;"/>
 			</div>
 		</div>
 	</form:form>

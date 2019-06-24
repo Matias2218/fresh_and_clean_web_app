@@ -632,8 +632,10 @@ public class IntranetControlador {
         @Secured("ROLE_INVENTARIO")
         @PostMapping("inventario/crearProducto")
         public String crearProducto (@Valid @ModelAttribute("producto") Producto producto,
-                BindingResult result,
-                @RequestParam(name = "file") MultipartFile foto){
+                                     BindingResult result,
+                                     @RequestParam(name = "file") MultipartFile foto,
+                                     RedirectAttributes redirectAttributes){
+            String mensaje = null;
             ObjectMapper objectMapper = new ObjectMapper();
             ArrayList<String> errores = new ArrayList<>();
             String extension;
@@ -645,9 +647,11 @@ public class IntranetControlador {
                 errores.addAll(result.getFieldErrors().stream().map(e -> e.getDefaultMessage()).collect(Collectors.toList()));
                 return "crearProducto";
             }
+            mensaje = "Producto creado con éxito";
             Object productoCreado = apiServicio.crearProducto(producto).getBody().get("producto");
             producto = objectMapper.convertValue(productoCreado, Producto.class);
             boolean respuesta = apiServicio.crearImagen(producto, foto);
+            redirectAttributes.addFlashAttribute("mensaje",mensaje);
             return "redirect:/intranet/inventario/1";
         }
         @Secured("ROLE_INVENTARIO")
@@ -685,8 +689,10 @@ public class IntranetControlador {
         public String editarProducto (@Valid @ModelAttribute("producto") Producto producto,
                 BindingResult result,
                 HttpSession session,
-                @RequestParam(name = "file", required = false) MultipartFile foto)
+                @RequestParam(name = "file", required = false) MultipartFile foto,
+                                      RedirectAttributes redirectAttributes)
         {
+            String mensaje= null;
             ObjectMapper objectMapper = new ObjectMapper();
             ArrayList<String> errores = new ArrayList<>();
             String extension = foto.getContentType();
@@ -696,6 +702,7 @@ public class IntranetControlador {
             if (result.hasErrors()) {
                 return "editarProducto";
             }
+            mensaje= "Producto editado con éxito";
             producto.setId(new Long((Integer) session.getAttribute("idProducto")));
             ResponseEntity<Map<String, Object>> respuesta = apiServicio.editarProducto(producto, producto.getId());
             Object productoEditado = respuesta.getBody().get("producto");
@@ -703,8 +710,9 @@ public class IntranetControlador {
             if (!foto.isEmpty()) {
                 Boolean estaCreado = apiServicio.crearImagen(producto, foto);
             }
+            redirectAttributes.addFlashAttribute("mensaje",mensaje);
             session.removeAttribute("idProducto");
-            return "redirect:/intranet/inventario";
+            return "redirect:/intranet/inventario/1";
         }
     }
 
